@@ -3,57 +3,56 @@ package Analizers;
 
 import java_cup.runtime.Symbol;
 import Analizers.sym;
+import java.util.ArrayList;
 
 /* SECTION 2: config */
 %%
 %class Lexer
+%type java_cup.runtime.Symbol
+%full
+%cup
 %unicode
 %line
 %column
-%cup
 %public
 
 %{
-    public void addError(String lexema, int line, int column){
+    private ArrayList<ErrorLP> errors = new ArrayList<>();
 
+    public void viewToken(Symbol cur_token){
+        System.out.println("Simbolo detectado " + sym.terminalNames[cur_token.sym]);
+        System.out.println(String.format("En la posicion: %d, %d", cur_token.left, cur_token.right));
+    }
+
+    public void addError(String lexema, int line, int column){
+        errors.add(new ErrorLP(line, column, lexema, 0, "El símbolo no se reconoce"));
+        System.out.println("Error -> "+lexema+" L:"+line+" C:"+column);
+    }
+
+    public ArrayList<ErrorLP> getErrors(){
+        return errors;
     }
 %}
-
 //Comments
-COM1 = \/\/((.)|a-zA-ZÀ-ÿ\u00f1\u00d1)+
-COM2 = \/\*((.)|a-zA-ZÀ-ÿ\u00f1\u00d1|\n)+\*\/
-
+COM = (\/\/((.)|a-zA-ZÀ-ÿ\u00f1\u00d1)+)
+COMM = (\/\*([^\*]|[\r\n]|(\*+([^\*\/]|[\r\n])))*\*+\/)
 //Visibility of classes
-VC = public | private | protected
-
+VC = (public | private | protected)
 //Variable types
-T_VAR = int | boolean | String | char | double
-
+T_VAR = (int | boolean | String | char | double)
 //Variable entrys
-STR = \"((.)|a-zA-ZÀ-ÿ\u00f1\u00d1)+\"
-INTEGER = [0-9]+
-DECIMAL = \d+(\.\d+)?
-BOOLEAN = true | false
+STR = (\"((.)|a-zA-ZÀ-ÿ\u00f1\u00d1)+\")
+INTEGER = ([0-9]+)
+DECIMAL = (\d+(\.\d+)?)
+BOOLEAN = (true | false)
 CHAR = [a-zA-ZÀ-ÿ\u00f1\u00d1]
-ID = [a-zA-ZÀ-ÿ\u00f1\u00d1|\d|_|]+
-W = [\s\t\r\f\n]+
-
+ID = ([a-zA-ZÀ-ÿ\u00f1\u00d1|\d|_|]+)
+WHITE = ([\s\t\r]+)
 //Others with expression
-OTHER = (\|\||\|)
-
+OTHER = ([\|\||\|])
 %%
 
 /* SECTION 3: lexical rules */
-//Declarateds
-{VC}           {return new Symbol(sym.VISIBILITY, yyline+1, yycolumn+1, yytext());}
-{T_VAR}        {return new Symbol(sym.TYPE_VARIABLE, yyline+1, yycolumn+1, yytext());}
-{STR}          {return new Symbol(sym.STRING, yyline+1, yycolumn+1, yytext());}
-{INTEGER}      {return new Symbol(sym.INTEGER, yyline+1, yycolumn+1, yytext());}
-{DECIMAL}      {return new Symbol(sym.DECIMAL, yyline+1, yycolumn+1, yytext());}
-{BOOLEAN}      {return new Symbol(sym.BOOLEAN, yyline+1, yycolumn+1, yytext());}
-{CHAR}         {return new Symbol(sym.CHAR, yyline+1, yycolumn+1, yytext());}
-{ID}           {return new Symbol(sym.ID, yyline+1, yycolumn+1, yytext());}
-
 //Symbols of agrupation
 ("{")          {return new Symbol(sym.O_BRACE, yyline+1, yycolumn+1, yytext());}
 ("}")          {return new Symbol(sym.C_BRACE, yyline+1, yycolumn+1, yytext());}
@@ -65,12 +64,14 @@ OTHER = (\|\||\|)
 (":")          {return new Symbol(sym.COLONS, yyline+1, yycolumn+1, yytext());}
 (",")          {return new Symbol(sym.COMMA, yyline+1, yycolumn+1, yytext());}
 (".")          {return new Symbol(sym.DOT, yyline+1, yycolumn+1, yytext());}
+("'")          {return new Symbol(sym.APOS, yyline+1, yycolumn+1, yytext());}
 
 //Arithmetic operators and logicals
 ("+")          {return new Symbol(sym.SUM, yyline+1, yycolumn+1, yytext());}
 ("-")          {return new Symbol(sym.REST, yyline+1, yycolumn+1, yytext());}
 ("*")          {return new Symbol(sym.MULTIPLY, yyline+1, yycolumn+1, yytext());}
 ("/")          {return new Symbol(sym.DIV, yyline+1, yycolumn+1, yytext());}
+("=")         {return new Symbol(sym.EQUAL, yyline+1, yycolumn+1, yytext());}
 ("==")         {return new Symbol(sym.D_EQUAL, yyline+1, yycolumn+1, yytext());}
 ("%")          {return new Symbol(sym.MOD, yyline+1, yycolumn+1, yytext());}
 ("!=")         {return new Symbol(sym.DIFFERENCE, yyline+1, yycolumn+1, yytext());}
@@ -79,7 +80,6 @@ OTHER = (\|\||\|)
 ("<")          {return new Symbol(sym.SMALLER, yyline+1, yycolumn+1, yytext());}
 ("<=")         {return new Symbol(sym.S_EQUAL, yyline+1, yycolumn+1, yytext());}
 ("&" | "&&")   {return new Symbol(sym.AND, yyline+1, yycolumn+1, yytext());}
-(OTHER)        {return new Symbol(sym.OR, yyline+1, yycolumn+1, yytext());}
 ("++")         {return new Symbol(sym.INCREMENT, yyline+1, yycolumn+1, yytext());}
 ("--")         {return new Symbol(sym.DECREMENT, yyline+1, yycolumn+1, yytext());}
 ("+=")         {return new Symbol(sym.C_SUM, yyline+1, yycolumn+1, yytext());}
@@ -109,9 +109,20 @@ OTHER = (\|\||\|)
 (class)        {return new Symbol(sym.CLASS, yyline+1, yycolumn+1, yytext());}
 (package)      {return new Symbol(sym.PACKAGE, yyline+1, yycolumn+1, yytext());}
 (new)          {return new Symbol(sym.NEW, yyline+1, yycolumn+1, yytext());}
-(@Override)    {return new Symbol(sym.OVERRIDE, yyline+1, yycolumn+1, yytext());}
+//(@Override)    {return new Symbol(sym.OVERRIDE, yyline+1, yycolumn+1, yytext());}
 
-{W}              {}
-{COM1}           {}
-{COM2}           {}
-[^]             {addError(yytext(), yyline+1, yycolumn+1);}
+//Declarateds
+{VC}           {return new Symbol(sym.VISIBILITY, yyline+1, yycolumn+1, yytext());}
+{OTHER}        {return new Symbol(sym.OR, yyline+1, yycolumn+1, yytext());}
+{T_VAR}        {return new Symbol(sym.TYPE_VARIABLE, yyline+1, yycolumn+1, yytext());}
+{STR}          {return new Symbol(sym.STRING, yyline+1, yycolumn+1, yytext());}
+{INTEGER}      {return new Symbol(sym.INTEGER, yyline+1, yycolumn+1, yytext());}
+{DECIMAL}      {return new Symbol(sym.DECIMAL, yyline+1, yycolumn+1, yytext());}
+{BOOLEAN}      {return new Symbol(sym.BOOLEAN, yyline+1, yycolumn+1, yytext());}
+{CHAR}         {return new Symbol(sym.CHAR, yyline+1, yycolumn+1, yytext());}
+{ID}           {return new Symbol(sym.ID, yyline+1, yycolumn+1, yytext());}
+{COM}          {/*Ignore*/}
+{COMM}         {/*Ignore*/}
+{WHITE}        {/*Ignore*/}
+
+[^]            {addError(yytext(), yyline+1, yycolumn+1);}

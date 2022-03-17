@@ -6,7 +6,7 @@ import java_cup.runtime.*;
 parser code {:
 
         public Sintactic(Lexer lexer){
-                super(lexer);
+             super(lexer);
         }
 
         public void viewToken(Symbol cur_token){
@@ -33,10 +33,10 @@ terminal Integer INT;
 terminal Double DECIMAL;
 terminal VISIBILITY, TYPE_VARIABLE, STRING, INTEGER, BOOLEAN, CHAR, ID, 
          O_BRACE, C_BRACE, O_SBRACKET, C_SBRACKET, O_PARENT, C_PARENT, 
-         SEMICOLON, COLONS, COMMA, DOT, SUM, REST, MULTIPLY, DIV, D_EQUAL,
-         MOD, DIFFERENCE, HIGHER, H_EQUAL, SMALLER, S_EQUAL, AND, OR, 
-         INCREMENT, DECREMENT, C_SUM, C_REST, C_MULTIPLY, C_DIV, IF, 
-         ELSE, FOR, WHILE, DO, SWITCH, CASE, BREAK, RETURN, IMPORT,
+         SEMICOLON, COLONS, COMMA, DOT, SUM, REST, MULTIPLY, DIV, EQUAL, 
+         D_EQUAL, APOS, MOD, DIFFERENCE, HIGHER, H_EQUAL, SMALLER, S_EQUAL,
+         AND, OR, INCREMENT, DECREMENT, C_SUM, C_REST, C_MULTIPLY, C_DIV,
+         IF, ELSE, FOR, WHILE, DO, SWITCH, CASE, BREAK, RETURN, IMPORT,
          OBJECT, FINAL, STATIC, VOID, CLASS, PACKAGE, NEW, OVERRIDE;
 
 /* Non terminals */

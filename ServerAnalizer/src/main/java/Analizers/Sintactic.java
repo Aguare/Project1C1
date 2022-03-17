@@ -40,9 +40,9 @@ public class Sintactic extends java_cup.runtime.lr_parser {
   /** Parse-action table. */
   protected static final short[][] _action_table = 
     unpackFromStrings(new String[] {
-    "\000\020\000\004\071\006\001\002\000\004\002\022\001" +
-    "\002\000\006\006\010\070\011\001\002\000\004\014\007" +
-    "\001\002\000\006\006\uffff\070\uffff\001\002\000\004\070" +
+    "\000\020\000\004\073\006\001\002\000\004\002\022\001" +
+    "\002\000\006\006\010\072\011\001\002\000\004\014\007" +
+    "\001\002\000\006\006\uffff\072\uffff\001\002\000\004\072" +
     "\016\001\002\000\004\014\013\001\002\000\004\002\000" +
     "\001\002\000\004\015\014\001\002\000\004\016\015\001" +
     "\002\000\004\002\ufffd\001\002\000\004\014\017\001\002" +
@@ -101,7 +101,7 @@ public class Sintactic extends java_cup.runtime.lr_parser {
 
 
         public Sintactic(Lexer lexer){
-                super(lexer);
+             super(lexer);
         }
 
         public void viewToken(Symbol cur_token){
