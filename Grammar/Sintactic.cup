@@ -29,44 +29,91 @@ parser code {:
 :};
 
 /* Terminals (tokens returned by the scanner). */
-terminal Integer INT;
+terminal Integer INTEGER;
 terminal Double DECIMAL;
-terminal VISIBILITY, TYPE_VARIABLE, STRING, INTEGER, BOOLEAN, CHAR, ID, 
+/*terminal VISIBILITY, TYPE_VARIABLE, STRING, BOOLEAN, CHAR, ID, 
          O_BRACE, C_BRACE, O_SBRACKET, C_SBRACKET, O_PARENT, C_PARENT, 
          SEMICOLON, COLONS, COMMA, DOT, SUM, REST, MULTIPLY, DIV, EQUAL, 
          D_EQUAL, APOS, MOD, DIFFERENCE, HIGHER, H_EQUAL, SMALLER, S_EQUAL,
          AND, OR, INCREMENT, DECREMENT, C_SUM, C_REST, C_MULTIPLY, C_DIV,
          IF, ELSE, FOR, WHILE, DO, SWITCH, CASE, BREAK, RETURN, IMPORT,
-         OBJECT, FINAL, STATIC, VOID, CLASS, PACKAGE, NEW, OVERRIDE;
+         OBJECT, FINAL, STATIC, VOID, CLASS, PACKAGE, NEW, DEFAULT;*/
+
+terminal VISIBILITY, TYPE_VARIABLE, STRING, BOOLEAN, CHAR, ID, 
+         O_BRACE, C_BRACE, O_PARENT, C_PARENT, 
+         SEMICOLON, COLONS, COMMA, DOT, SUM, REST, MULTIPLY, DIV, EQUAL, 
+         D_EQUAL, MOD, DIFFERENCE, HIGHER, H_EQUAL, SMALLER, S_EQUAL,
+         AND, OR, INCREMENT, DECREMENT, C_SUM, C_REST, C_MULTIPLY, C_DIV,
+         IF, ELSE, FOR, WHILE, DO, SWITCH, CASE, BREAK, RETURN, IMPORT,
+         OBJECT, FINAL, STATIC, VOID, CLASS, PACKAGE, NEW, DEFAULT;         
 
 /* Non terminals */
-non terminal initial, package_estructure, class_estructure, function_estructure,
-             declarated_variable_estructure, asign_values, types_values, arithmetics_operations,
-             increment_operators, logical_operations, number_values, number_operations,
-             variable_values, logical_comparation, types_values_without, inc_dec_estructure,
-             for_increment_in, if_else_estructure, if_estructure, while_estructure,
-             do_while_estructure, switch_estructure;
-
+non terminal initial, package_estructure, import_estructure, import_id_estructure, class_estructure,
+             class_internal_estructure, declarated_variable_class_estructure, properties_variables,
+             function_estructure, function_args_estructure, for_estructure, while_estructure, 
+             do_while_estructure, switch_estructure, case_estructure, return_estructure, types_values_other,
+             create_obj_estructure, new_estructure, args_estructure, if_estructure, if_else_estructure,
+             declarated_variable_estructure, variable_values, number_operations, for_increment_in,
+             inc_dec_estructure, logical_comparation, asign_values, types_values, types_values_switch,
+             types_values_without, arithmetics_operations, increment_operators, logical_operations;
 
 /* The Precedence rules*/
 precedence left SUM, REST;
 precedence left MULTIPLY, DIV;
 
+
 start with initial;
 
 /* The grammar rules */
-initial::= package_estructure class_estructure;
+initial::= package_estructure import_estructure class_estructure;
 
 package_estructure::= PACKAGE ID;
 
-class_estructure::= VISIBILITY CLASS ID O_BRACE /*internal estructure*/ C_BRACE
-                  | CLASS ID O_BRACE /*internal estructure*/ C_BRACE
+import_estructure::= IMPORT import_id_estructure SEMICOLON
+                   | IMPORT import_id_estructure SEMICOLON import_estructure
+                   ;
+
+import_id_estructure::= ID
+                      | ID DOT MULTIPLY
+                      | ID import_id_estructure
+                      ;
+
+
+class_estructure::= VISIBILITY CLASS ID O_BRACE class_internal_estructure C_BRACE
+                  | CLASS ID O_BRACE class_internal_estructure C_BRACE
                   ;
 
-function_estructure::= VISIBILITY VOID ID O_PARENT C_PARENT O_BRACE /*internal estructure*/ C_BRACE                     /*function without args, static,  and return variable*/
-                     | VISIBILITY STATIC VOID ID O_PARENT C_PARENT O_BRACE /*internal estructure*/ C_BRACE              /*function without args, and return variable*/
-                     | VISIBILITY STATIC TYPE_VARIABLE ID O_PARENT C_PARENT O_BRACE /*internal estructure*/ C_BRACE     /*function without args*/
+class_internal_estructure::= declarated_variable_class_estructure class_internal_estructure
+                           | function_estructure class_internal_estructure
+                           ;
+
+declarated_variable_class_estructure::= properties_variables TYPE_VARIABLE ID EQUAL variable_values SEMICOLON
+                                      | TYPE_VARIABLE ID EQUAL variable_values SEMICOLON
+                                      | ID asign_values variable_values SEMICOLON
+                                      ;
+
+properties_variables::= VISIBILITY STATIC FINAL
+                      | VISIBILITY FINAL STATIC
+                      | FINAL STATIC
+                      | STATIC FINAL
+                      | STATIC
+                      | FINAL
+                      ;
+
+function_estructure::= VISIBILITY VOID ID O_PARENT C_PARENT O_BRACE /*internal estructure*/ C_BRACE
+                     | VISIBILITY TYPE_VARIABLE ID O_PARENT C_PARENT O_BRACE /*internal estructure*/ C_BRACE              
+                     | VISIBILITY STATIC VOID ID O_PARENT C_PARENT O_BRACE /*internal estructure*/ C_BRACE              
+                     | VISIBILITY STATIC TYPE_VARIABLE ID O_PARENT C_PARENT O_BRACE /*internal estructure*/ C_BRACE
+                     | VISIBILITY VOID ID O_PARENT function_args_estructure C_PARENT O_BRACE /*internal estructure*/ C_BRACE
+                     | VISIBILITY TYPE_VARIABLE ID O_PARENT function_args_estructure C_PARENT O_BRACE /*internal estructure*/ C_BRACE              
+                     | VISIBILITY STATIC VOID ID O_PARENT function_args_estructure C_PARENT O_BRACE /*internal estructure*/ C_BRACE              
+                     | VISIBILITY STATIC TYPE_VARIABLE ID O_PARENT function_args_estructure C_PARENT O_BRACE /*internal estructure*/ C_BRACE    
                      ;
+
+/*parameters for declarated functions*/
+function_args_estructure::= TYPE_VARIABLE ID
+                          | TYPE_VARIABLE ID COMMA function_args_estructure
+                          ;
 
 /*All declarations for loops*/
 for_estructure::= FOR O_PARENT declarated_variable_estructure SEMICOLON logical_comparation SEMICOLON for_increment_in C_PARENT O_BRACE /*internal estructure*/ C_BRACE;
@@ -79,7 +126,34 @@ do_while_estructure::= DO O_BRACE /*internal estructure*/ C_BRACE WHILE O_PARENT
                      | DO O_BRACE /*internal estructure*/ C_BRACE WHILE O_PARENT BOOLEAN C_PARENT SEMICOLON
                      ;
 
-switch_estructure::= ;
+switch_estructure::= SWITCH O_PARENT types_values_switch C_PARENT O_BRACE C_BRACE;
+
+case_estructure::= CASE types_values_switch COLONS /*internal estructure*/ BREAK SEMICOLON
+                 | CASE types_values_switch COLONS /*internal estructure*/ return_estructure
+                 | DEFAULT COLONS /*internal estructure*/ BREAK SEMICOLON
+                 | DEFAULT COLONS /*internal estructure*/ return_estructure
+                 ;
+
+/*Return declaration*/
+return_estructure::= RETURN ID SEMICOLON
+                   | RETURN types_values SEMICOLON
+                   | RETURN new_estructure SEMICOLON
+                   ;
+
+/*Create new obj declaration*/
+create_obj_estructure::= OBJECT ID EQUAL NEW OBJECT O_PARENT args_estructure C_PARENT SEMICOLON
+                       | ID ID EQUAL NEW ID O_PARENT args_estructure C_PARENT SEMICOLON
+                       ;
+
+new_estructure::= NEW OBJECT O_PARENT args_estructure C_PARENT
+                | NEW ID O_PARENT args_estructure C_PARENT
+                ;
+
+/*internal arguments for call functions*/
+args_estructure::= new_estructure
+                 | types_values
+                 | args_estructure COMMA args_estructure
+                 ;                                   
 
 /*All declarations for if*/
 if_estructure::= IF O_PARENT logical_comparation C_PARENT O_BRACE /*internal estructure*/ C_BRACE
@@ -91,18 +165,18 @@ if_else_estructure::= if_estructure ELSE if_estructure
                     ;
 
 /*All declarations for intern structure*/
-declarated_variable_estructure::= VISIBILITY TYPE_VARIABLE ID EQUAL variable_values SEMICOLON
-                                | TYPE_VARIABLE ID EQUAL variable_values SEMICOLON
+declarated_variable_estructure::= TYPE_VARIABLE ID EQUAL variable_values SEMICOLON
                                 | ID asign_values variable_values SEMICOLON
-                                ;                               
+                                ;                           
 
-variable_values::= types_values
+variable_values::= types_values_other
                  | number_operations
                  | ID
                  | variable_values SUM variable_values
                  ;
 
-number_operations::= number_values
+number_operations::= INTEGER
+                   | DECIMAL
                    | O_PARENT number_operations C_PARENT
                    | number_operations arithmetics_operations number_operations
                    ;
@@ -128,27 +202,32 @@ asign_values::= C_SUM           // +=
 
 types_values::= STRING
               | DECIMAL
-              | INT
+              | INTEGER
               | CHAR
               | BOOLEAN
               ;
 
+types_values_other::= STRING
+                    | CHAR
+                    | BOOLEAN
+                    ;
+
+types_values_switch::= STRING
+                     | INTEGER
+                     | CHAR
+                     ;
+
 types_values_without::= DECIMAL
-                      | INT
+                      | INTEGER
                       | CHAR
                       | BOOLEAN
                       | ID
                       ;                   
 
-number_values::= INT
-               | DECIMAL
-               ;
-
 arithmetics_operations::= SUM           // +
                         | REST          // -
                         | DIV           // /
                         | MULTIPLY      // *
-                        |
                         ;
 
 increment_operators::= INCREMENT //++
@@ -163,7 +242,7 @@ logical_operations::= D_EQUAL           // ==
                     | SMALLER           // <
                     | S_EQUAL           // <=
                     | AND               // &&, &
-                    | OR                
+                    | OR        
                     ;
 
                     

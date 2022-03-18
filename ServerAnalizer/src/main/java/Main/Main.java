@@ -12,6 +12,8 @@ import java.io.Reader;
  * @author aguare
  */
 public class Main {
+    
+    int a = 5;
 
     public static void main(String[] args) {
         try {
@@ -29,7 +31,7 @@ public class Main {
         }
     }
 
-    public static int hola() {
+    public int hola() {
         String a = "asdf'j' " + 'd';
         a += "aas" + (2 + 5) + true;
         int b = 5;
@@ -41,11 +43,11 @@ public class Main {
         do {
             
         } while (c);
-        switch (4) {
-            case 4:
-                
-                break;
+        switch ("ASDF") {
             default:
+                break;
+            case "ASDF":
+                
                 break;
         }
         return 0;

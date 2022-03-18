@@ -95,6 +95,7 @@ OTHER = ([\|\||\|])
 (do)           {return new Symbol(sym.DO, yyline+1, yycolumn+1, yytext());}
 (switch)       {return new Symbol(sym.SWITCH, yyline+1, yycolumn+1, yytext());}
 (case)         {return new Symbol(sym.CASE, yyline+1, yycolumn+1, yytext());}
+(default)      {return new Symbol(sym.DEFAULT, yyline+1, yycolumn+1, yytext());}
 
 //Sentences of out
 (break)        {return new Symbol(sym.BREAK, yyline+1, yycolumn+1, yytext());}

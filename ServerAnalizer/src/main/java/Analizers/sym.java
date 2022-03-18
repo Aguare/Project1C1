@@ -8,82 +8,75 @@ package Analizers;
 /** CUP generated class containing symbol constants. */
 public class sym {
   /* terminals */
-  public static final int C_DIV = 41;
-  public static final int INCREMENT = 36;
-  public static final int CHAR = 9;
+  public static final int C_DIV = 37;
+  public static final int INCREMENT = 32;
+  public static final int CHAR = 8;
   public static final int VISIBILITY = 4;
-  public static final int CASE = 48;
-  public static final int INTEGER = 7;
-  public static final int SMALLER = 32;
-  public static final int INT = 2;
-  public static final int FOR = 44;
-  public static final int DECREMENT = 37;
-  public static final int O_PARENT = 15;
-  public static final int C_REST = 39;
-  public static final int STATIC = 54;
-  public static final int C_PARENT = 16;
-  public static final int SEMICOLON = 17;
-  public static final int AND = 34;
+  public static final int CASE = 44;
+  public static final int INTEGER = 2;
+  public static final int SMALLER = 28;
+  public static final int FOR = 40;
+  public static final int O_PARENT = 12;
+  public static final int DECREMENT = 33;
+  public static final int C_REST = 35;
+  public static final int STATIC = 50;
+  public static final int C_PARENT = 13;
+  public static final int SEMICOLON = 14;
+  public static final int AND = 30;
   public static final int TYPE_VARIABLE = 5;
-  public static final int OBJECT = 52;
-  public static final int OR = 35;
-  public static final int COMMA = 19;
-  public static final int CLASS = 56;
-  public static final int DIV = 24;
-  public static final int MULTIPLY = 23;
-  public static final int IF = 42;
-  public static final int DOT = 20;
-  public static final int ID = 10;
-  public static final int O_SBRACKET = 13;
+  public static final int OBJECT = 48;
+  public static final int OR = 31;
+  public static final int COMMA = 16;
+  public static final int CLASS = 52;
+  public static final int DIV = 21;
+  public static final int MULTIPLY = 20;
+  public static final int IF = 38;
+  public static final int DOT = 17;
+  public static final int ID = 9;
   public static final int EOF = 0;
-  public static final int BOOLEAN = 8;
+  public static final int BOOLEAN = 7;
   public static final int DECIMAL = 3;
-  public static final int RETURN = 50;
-  public static final int C_SUM = 38;
-  public static final int EQUAL = 25;
-  public static final int NEW = 58;
+  public static final int RETURN = 46;
+  public static final int C_SUM = 34;
+  public static final int EQUAL = 22;
+  public static final int NEW = 54;
   public static final int error = 1;
-  public static final int HIGHER = 30;
-  public static final int MOD = 28;
-  public static final int BREAK = 49;
-  public static final int VOID = 55;
-  public static final int SWITCH = 47;
-  public static final int IMPORT = 51;
-  public static final int COLONS = 18;
-  public static final int C_BRACE = 12;
-  public static final int O_BRACE = 11;
-  public static final int REST = 22;
-  public static final int ELSE = 43;
-  public static final int D_EQUAL = 26;
-  public static final int H_EQUAL = 31;
-  public static final int S_EQUAL = 33;
-  public static final int PACKAGE = 57;
-  public static final int DIFFERENCE = 29;
-  public static final int FINAL = 53;
-  public static final int WHILE = 45;
-  public static final int APOS = 27;
-  public static final int C_MULTIPLY = 40;
-  public static final int SUM = 21;
-  public static final int OVERRIDE = 59;
+  public static final int HIGHER = 26;
+  public static final int MOD = 24;
+  public static final int BREAK = 45;
+  public static final int VOID = 51;
+  public static final int SWITCH = 43;
+  public static final int IMPORT = 47;
+  public static final int COLONS = 15;
+  public static final int C_BRACE = 11;
+  public static final int O_BRACE = 10;
+  public static final int REST = 19;
+  public static final int ELSE = 39;
+  public static final int D_EQUAL = 23;
+  public static final int H_EQUAL = 27;
+  public static final int S_EQUAL = 29;
+  public static final int PACKAGE = 53;
+  public static final int DIFFERENCE = 25;
+  public static final int FINAL = 49;
+  public static final int WHILE = 41;
+  public static final int DEFAULT = 55;
+  public static final int C_MULTIPLY = 36;
+  public static final int SUM = 18;
   public static final int STRING = 6;
-  public static final int DO = 46;
-  public static final int C_SBRACKET = 14;
+  public static final int DO = 42;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
-  "INT",
+  "INTEGER",
   "DECIMAL",
   "VISIBILITY",
   "TYPE_VARIABLE",
   "STRING",
-  "INTEGER",
   "BOOLEAN",
   "CHAR",
   "ID",
   "O_BRACE",
   "C_BRACE",
-  "O_SBRACKET",
-  "C_SBRACKET",
   "O_PARENT",
   "C_PARENT",
   "SEMICOLON",
@@ -96,7 +89,6 @@ public class sym {
   "DIV",
   "EQUAL",
   "D_EQUAL",
-  "APOS",
   "MOD",
   "DIFFERENCE",
   "HIGHER",
@@ -128,7 +120,7 @@ public class sym {
   "CLASS",
   "PACKAGE",
   "NEW",
-  "OVERRIDE"
+  "DEFAULT"
   };
 }
 

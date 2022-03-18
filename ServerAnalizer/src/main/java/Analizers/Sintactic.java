@@ -31,27 +31,40 @@ public class Sintactic extends java_cup.runtime.lr_parser {
   /** Production table. */
   protected static final short _production_table[][] = 
     unpackFromStrings(new String[] {
-    "\000\102\000\002\002\004\000\002\002\004\000\002\003" +
-    "\004\000\002\004\007\000\002\004\006\000\002\005\011" +
-    "\000\002\005\012\000\002\005\012\000\002\025\010\000" +
-    "\002\025\010\000\002\026\012\000\002\026\012\000\002" +
-    "\024\010\000\002\024\010\000\002\023\005\000\002\023" +
-    "\006\000\002\006\010\000\002\006\007\000\002\006\006" +
-    "\000\002\016\003\000\002\016\003\000\002\016\003\000" +
-    "\002\016\005\000\002\015\003\000\002\015\005\000\002" +
-    "\015\005\000\002\022\004\000\002\022\005\000\002\021" +
-    "\005\000\002\017\005\000\002\017\005\000\002\017\005" +
-    "\000\002\017\005\000\002\007\003\000\002\007\003\000" +
-    "\002\007\003\000\002\007\003\000\002\007\003\000\002" +
-    "\010\003\000\002\010\003\000\002\010\003\000\002\010" +
-    "\003\000\002\010\003\000\002\020\003\000\002\020\003" +
-    "\000\002\020\003\000\002\020\003\000\002\020\003\000" +
-    "\002\014\003\000\002\014\003\000\002\011\003\000\002" +
-    "\011\003\000\002\011\003\000\002\011\003\000\002\011" +
-    "\002\000\002\012\003\000\002\012\003\000\002\013\003" +
-    "\000\002\013\003\000\002\013\003\000\002\013\003\000" +
-    "\002\013\003\000\002\013\003\000\002\013\003\000\002" +
-    "\013\003\000\002\013\003" });
+    "\000\154\000\002\002\004\000\002\002\005\000\002\003" +
+    "\004\000\002\004\005\000\002\004\006\000\002\005\003" +
+    "\000\002\005\005\000\002\005\004\000\002\006\010\000" +
+    "\002\006\007\000\002\007\004\000\002\007\004\000\002" +
+    "\010\010\000\002\010\007\000\002\010\006\000\002\011" +
+    "\005\000\002\011\005\000\002\011\004\000\002\011\004" +
+    "\000\002\011\003\000\002\011\003\000\002\012\011\000" +
+    "\002\012\011\000\002\012\012\000\002\012\012\000\002" +
+    "\012\012\000\002\012\012\000\002\012\013\000\002\012" +
+    "\013\000\002\013\004\000\002\013\006\000\002\014\014" +
+    "\000\002\015\010\000\002\015\010\000\002\016\012\000" +
+    "\002\016\012\000\002\017\010\000\002\020\007\000\002" +
+    "\020\006\000\002\020\006\000\002\020\005\000\002\021" +
+    "\005\000\002\021\005\000\002\021\005\000\002\023\013" +
+    "\000\002\023\013\000\002\024\007\000\002\024\007\000" +
+    "\002\025\003\000\002\025\003\000\002\025\005\000\002" +
+    "\026\010\000\002\026\010\000\002\027\005\000\002\027" +
+    "\006\000\002\030\007\000\002\030\006\000\002\031\003" +
+    "\000\002\031\003\000\002\031\003\000\002\031\005\000" +
+    "\002\032\003\000\002\032\003\000\002\032\005\000\002" +
+    "\032\005\000\002\033\004\000\002\033\005\000\002\034" +
+    "\005\000\002\035\005\000\002\035\005\000\002\035\005" +
+    "\000\002\035\005\000\002\036\003\000\002\036\003\000" +
+    "\002\036\003\000\002\036\003\000\002\036\003\000\002" +
+    "\037\003\000\002\037\003\000\002\037\003\000\002\037" +
+    "\003\000\002\037\003\000\002\022\003\000\002\022\003" +
+    "\000\002\022\003\000\002\040\003\000\002\040\003\000" +
+    "\002\040\003\000\002\041\003\000\002\041\003\000\002" +
+    "\041\003\000\002\041\003\000\002\041\003\000\002\042" +
+    "\003\000\002\042\003\000\002\042\003\000\002\042\003" +
+    "\000\002\043\003\000\002\043\003\000\002\044\003\000" +
+    "\002\044\003\000\002\044\003\000\002\044\003\000\002" +
+    "\044\003\000\002\044\003\000\002\044\003\000\002\044" +
+    "\003\000\002\044\003" });
 
   /** Access to production table. */
   public short[][] production_table() {return _production_table;}
@@ -59,14 +72,92 @@ public class Sintactic extends java_cup.runtime.lr_parser {
   /** Parse-action table. */
   protected static final short[][] _action_table = 
     unpackFromStrings(new String[] {
-    "\000\020\000\004\073\006\001\002\000\004\002\022\001" +
-    "\002\000\006\006\010\072\011\001\002\000\004\014\007" +
-    "\001\002\000\006\006\uffff\072\uffff\001\002\000\004\072" +
-    "\016\001\002\000\004\014\013\001\002\000\004\002\000" +
-    "\001\002\000\004\015\014\001\002\000\004\016\015\001" +
-    "\002\000\004\002\ufffd\001\002\000\004\014\017\001\002" +
-    "\000\004\015\020\001\002\000\004\016\021\001\002\000" +
-    "\004\002\ufffe\001\002\000\004\002\001\001\002" });
+    "\000\173\000\004\067\006\001\002\000\004\002\175\001" +
+    "\002\000\004\061\010\001\002\000\004\013\007\001\002" +
+    "\000\004\061\uffff\001\002\000\004\013\166\001\002\000" +
+    "\006\006\012\066\013\001\002\000\004\066\161\001\002" +
+    "\000\004\013\015\001\002\000\004\002\000\001\002\000" +
+    "\004\014\016\001\002\000\014\006\023\007\017\013\025" +
+    "\063\026\064\020\001\002\000\004\013\155\001\002\000" +
+    "\006\007\uffee\063\154\001\002\000\004\007\147\001\002" +
+    "\000\004\015\146\001\002\000\012\007\066\063\070\064" +
+    "\067\065\071\001\002\000\014\006\023\007\017\013\025" +
+    "\063\026\064\020\001\002\000\014\030\034\044\036\045" +
+    "\035\046\037\047\032\001\002\000\006\007\uffed\064\031" +
+    "\001\002\000\014\006\023\007\017\013\025\063\026\064" +
+    "\020\001\002\000\004\015\ufff7\001\002\000\004\007\ufff0" +
+    "\001\002\000\020\004\uffb6\005\uffb6\010\uffb6\011\uffb6\012" +
+    "\uffb6\013\uffb6\016\uffb6\001\002\000\020\004\043\005\041" +
+    "\010\046\011\044\012\051\013\050\016\040\001\002\000" +
+    "\020\004\uffb5\005\uffb5\010\uffb5\011\uffb5\012\uffb5\013\uffb5" +
+    "\016\uffb5\001\002\000\020\004\uffb8\005\uffb8\010\uffb8\011" +
+    "\uffb8\012\uffb8\013\uffb8\016\uffb8\001\002\000\020\004\uffb9" +
+    "\005\uffb9\010\uffb9\011\uffb9\012\uffb9\013\uffb9\016\uffb9\001" +
+    "\002\000\020\004\uffb7\005\uffb7\010\uffb7\011\uffb7\012\uffb7" +
+    "\013\uffb7\016\uffb7\001\002\000\010\004\043\005\041\016" +
+    "\040\001\002\000\016\017\uffc3\020\uffc3\024\uffc3\025\uffc3" +
+    "\026\uffc3\027\uffc3\001\002\000\006\020\uffc8\024\uffc8\001" +
+    "\002\000\016\017\uffc4\020\uffc4\024\uffc4\025\uffc4\026\uffc4" +
+    "\027\uffc4\001\002\000\006\020\uffad\024\uffad\001\002\000" +
+    "\006\020\060\024\061\001\002\000\006\020\uffaf\024\uffaf" +
+    "\001\002\000\014\020\uffc7\024\052\025\056\026\055\027" +
+    "\053\001\002\000\006\020\uffc6\024\uffc6\001\002\000\006" +
+    "\020\uffae\024\uffae\001\002\000\010\004\uffa4\005\uffa4\016" +
+    "\uffa4\001\002\000\010\004\uffa2\005\uffa2\016\uffa2\001\002" +
+    "\000\010\004\043\005\041\016\040\001\002\000\010\004" +
+    "\uffa1\005\uffa1\016\uffa1\001\002\000\010\004\uffa3\005\uffa3" +
+    "\016\uffa3\001\002\000\016\017\uffc1\020\uffc1\024\052\025" +
+    "\056\026\055\027\053\001\002\000\014\006\ufff3\007\ufff3" +
+    "\013\ufff3\063\ufff3\064\ufff3\001\002\000\020\004\043\005" +
+    "\041\010\046\011\044\012\051\013\050\016\040\001\002" +
+    "\000\006\020\uffc5\024\uffc5\001\002\000\014\017\064\024" +
+    "\052\025\056\026\055\027\053\001\002\000\016\017\uffc2" +
+    "\020\uffc2\024\uffc2\025\uffc2\026\uffc2\027\uffc2\001\002\000" +
+    "\004\015\ufff6\001\002\000\004\013\135\001\002\000\010" +
+    "\007\110\063\111\065\112\001\002\000\004\064\107\001" +
+    "\002\000\004\013\072\001\002\000\004\016\073\001\002" +
+    "\000\006\007\074\017\076\001\002\000\004\013\104\001" +
+    "\002\000\004\017\101\001\002\000\004\014\077\001\002" +
+    "\000\004\015\100\001\002\000\014\006\uffec\007\uffec\013" +
+    "\uffec\063\uffec\064\uffec\001\002\000\004\014\102\001\002" +
+    "\000\004\015\103\001\002\000\014\006\uffe8\007\uffe8\013" +
+    "\uffe8\063\uffe8\064\uffe8\001\002\000\006\017\uffe4\022\105" +
+    "\001\002\000\004\007\074\001\002\000\004\017\uffe3\001" +
+    "\002\000\004\007\ufff1\001\002\000\004\013\124\001\002" +
+    "\000\004\007\ufff2\001\002\000\004\013\113\001\002\000" +
+    "\004\016\114\001\002\000\006\007\074\017\116\001\002" +
+    "\000\004\017\121\001\002\000\004\014\117\001\002\000" +
+    "\004\015\120\001\002\000\014\006\uffea\007\uffea\013\uffea" +
+    "\063\uffea\064\uffea\001\002\000\004\014\122\001\002\000" +
+    "\004\015\123\001\002\000\014\006\uffe6\007\uffe6\013\uffe6" +
+    "\063\uffe6\064\uffe6\001\002\000\004\016\125\001\002\000" +
+    "\006\007\074\017\127\001\002\000\004\017\132\001\002" +
+    "\000\004\014\130\001\002\000\004\015\131\001\002\000" +
+    "\014\006\uffe9\007\uffe9\013\uffe9\063\uffe9\064\uffe9\001\002" +
+    "\000\004\014\133\001\002\000\004\015\134\001\002\000" +
+    "\014\006\uffe5\007\uffe5\013\uffe5\063\uffe5\064\uffe5\001\002" +
+    "\000\004\016\136\001\002\000\006\007\074\017\140\001" +
+    "\002\000\004\017\143\001\002\000\004\014\141\001\002" +
+    "\000\004\015\142\001\002\000\014\006\uffeb\007\uffeb\013" +
+    "\uffeb\063\uffeb\064\uffeb\001\002\000\004\014\144\001\002" +
+    "\000\004\015\145\001\002\000\014\006\uffe7\007\uffe7\013" +
+    "\uffe7\063\uffe7\064\uffe7\001\002\000\004\002\ufff8\001\002" +
+    "\000\004\013\150\001\002\000\004\030\151\001\002\000" +
+    "\020\004\043\005\041\010\046\011\044\012\051\013\050" +
+    "\016\040\001\002\000\006\020\153\024\061\001\002\000" +
+    "\014\006\ufff5\007\ufff5\013\ufff5\063\ufff5\064\ufff5\001\002" +
+    "\000\004\007\uffef\001\002\000\004\030\156\001\002\000" +
+    "\020\004\043\005\041\010\046\011\044\012\051\013\050" +
+    "\016\040\001\002\000\006\020\160\024\061\001\002\000" +
+    "\014\006\ufff4\007\ufff4\013\ufff4\063\ufff4\064\ufff4\001\002" +
+    "\000\004\013\162\001\002\000\004\014\163\001\002\000" +
+    "\014\006\023\007\017\013\025\063\026\064\020\001\002" +
+    "\000\004\015\165\001\002\000\004\002\ufff9\001\002\000" +
+    "\010\013\166\020\ufffc\023\173\001\002\000\004\020\170" +
+    "\001\002\000\010\006\ufffe\061\010\066\ufffe\001\002\000" +
+    "\006\006\ufffd\066\ufffd\001\002\000\004\020\ufffa\001\002" +
+    "\000\004\026\174\001\002\000\004\020\ufffb\001\002\000" +
+    "\004\002\001\001\002" });
 
   /** Access to parse-action table. */
   public short[][] action_table() {return _action_table;}
@@ -74,12 +165,52 @@ public class Sintactic extends java_cup.runtime.lr_parser {
   /** <code>reduce_goto</code> table. */
   protected static final short[][] _reduce_table = 
     unpackFromStrings(new String[] {
-    "\000\020\000\006\002\003\003\004\001\001\000\002\001" +
-    "\001\000\004\004\011\001\001\000\002\001\001\000\002" +
+    "\000\173\000\006\002\003\003\004\001\001\000\002\001" +
+    "\001\000\004\004\010\001\001\000\002\001\001\000\002" +
+    "\001\001\000\004\005\166\001\001\000\004\006\013\001" +
+    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
+    "\000\002\001\001\000\012\007\021\010\026\011\020\012" +
+    "\023\001\001\000\002\001\001\000\002\001\001\000\002" +
+    "\001\001\000\002\001\001\000\002\001\001\000\012\007" +
+    "\064\010\026\011\020\012\023\001\001\000\004\036\032" +
+    "\001\001\000\002\001\001\000\012\007\027\010\026\011" +
+    "\020\012\023\001\001\000\002\001\001\000\002\001\001" +
+    "\000\002\001\001\000\010\022\041\031\044\032\046\001" +
+    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
+    "\000\002\001\001\000\004\032\062\001\001\000\002\001" +
+    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
+    "\000\002\001\001\000\002\001\001\000\004\042\053\001" +
+    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
+    "\000\002\001\001\000\004\032\056\001\001\000\002\001" +
+    "\001\000\002\001\001\000\004\042\053\001\001\000\002" +
+    "\001\001\000\010\022\041\031\061\032\046\001\001\000" +
+    "\002\001\001\000\004\042\053\001\001\000\002\001\001" +
+    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
+    "\002\001\001\000\002\001\001\000\002\001\001\000\004" +
+    "\013\074\001\001\000\002\001\001\000\002\001\001\000" +
+    "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
+    "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
+    "\001\000\004\013\105\001\001\000\002\001\001\000\002" +
+    "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
+    "\001\000\002\001\001\000\004\013\114\001\001\000\002" +
     "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
     "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
+    "\000\002\001\001\000\004\013\125\001\001\000\002\001" +
+    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
     "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
-    "\002\001\001\000\002\001\001" });
+    "\002\001\001\000\004\013\136\001\001\000\002\001\001" +
+    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
+    "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
+    "\001\001\000\002\001\001\000\002\001\001\000\010\022" +
+    "\041\031\151\032\046\001\001\000\002\001\001\000\002" +
+    "\001\001\000\002\001\001\000\002\001\001\000\010\022" +
+    "\041\031\156\032\046\001\001\000\002\001\001\000\002" +
+    "\001\001\000\002\001\001\000\002\001\001\000\012\007" +
+    "\163\010\026\011\020\012\023\001\001\000\002\001\001" +
+    "\000\002\001\001\000\004\005\171\001\001\000\002\001" +
+    "\001\000\004\004\170\001\001\000\002\001\001\000\002" +
+    "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
+    "\001" });
 
   /** Access to <code>reduce_goto</code> table. */
   public short[][] reduce_table() {return _reduce_table;}
@@ -181,11 +312,11 @@ class CUP$Sintactic$actions {
           return CUP$Sintactic$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 1: // initial ::= package_estructure class_estructure 
+          case 1: // initial ::= package_estructure import_estructure class_estructure 
             {
               Object RESULT =null;
 
-              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("initial",0, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-1)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("initial",0, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-2)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
             }
           return CUP$Sintactic$result;
 
@@ -199,569 +330,947 @@ class CUP$Sintactic$actions {
           return CUP$Sintactic$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 3: // class_estructure ::= VISIBILITY CLASS ID O_BRACE C_BRACE 
+          case 3: // import_estructure ::= IMPORT import_id_estructure SEMICOLON 
             {
               Object RESULT =null;
 
-              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("class_estructure",2, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-4)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("import_estructure",2, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-2)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
             }
           return CUP$Sintactic$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 4: // class_estructure ::= CLASS ID O_BRACE C_BRACE 
+          case 4: // import_estructure ::= IMPORT import_id_estructure SEMICOLON import_estructure 
             {
               Object RESULT =null;
 
-              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("class_estructure",2, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-3)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("import_estructure",2, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-3)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
             }
           return CUP$Sintactic$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 5: // function_estructure ::= VISIBILITY VOID ID O_PARENT C_PARENT O_BRACE C_BRACE 
+          case 5: // import_id_estructure ::= ID 
             {
               Object RESULT =null;
 
-              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("function_estructure",3, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-6)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("import_id_estructure",3, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
             }
           return CUP$Sintactic$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 6: // function_estructure ::= VISIBILITY STATIC VOID ID O_PARENT C_PARENT O_BRACE C_BRACE 
+          case 6: // import_id_estructure ::= ID DOT MULTIPLY 
             {
               Object RESULT =null;
 
-              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("function_estructure",3, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-7)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("import_id_estructure",3, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-2)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
             }
           return CUP$Sintactic$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 7: // function_estructure ::= VISIBILITY STATIC TYPE_VARIABLE ID O_PARENT C_PARENT O_BRACE C_BRACE 
+          case 7: // import_id_estructure ::= ID import_id_estructure 
             {
               Object RESULT =null;
 
-              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("function_estructure",3, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-7)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("import_id_estructure",3, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-1)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
             }
           return CUP$Sintactic$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 8: // while_estructure ::= WHILE O_PARENT logical_comparation C_PARENT O_BRACE C_BRACE 
+          case 8: // class_estructure ::= VISIBILITY CLASS ID O_BRACE class_internal_estructure C_BRACE 
             {
               Object RESULT =null;
 
-              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("while_estructure",19, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-5)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("class_estructure",4, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-5)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
             }
           return CUP$Sintactic$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 9: // while_estructure ::= WHILE O_PARENT BOOLEAN C_PARENT O_BRACE C_BRACE 
+          case 9: // class_estructure ::= CLASS ID O_BRACE class_internal_estructure C_BRACE 
             {
               Object RESULT =null;
 
-              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("while_estructure",19, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-5)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("class_estructure",4, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-4)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
             }
           return CUP$Sintactic$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 10: // do_while_estructure ::= DO O_BRACE C_BRACE WHILE O_PARENT logical_comparation C_PARENT SEMICOLON 
+          case 10: // class_internal_estructure ::= declarated_variable_class_estructure class_internal_estructure 
             {
               Object RESULT =null;
 
-              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("do_while_estructure",20, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-7)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("class_internal_estructure",5, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-1)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
             }
           return CUP$Sintactic$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 11: // do_while_estructure ::= DO O_BRACE C_BRACE WHILE O_PARENT BOOLEAN C_PARENT SEMICOLON 
+          case 11: // class_internal_estructure ::= function_estructure class_internal_estructure 
             {
               Object RESULT =null;
 
-              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("do_while_estructure",20, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-7)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("class_internal_estructure",5, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-1)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
             }
           return CUP$Sintactic$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 12: // if_estructure ::= IF O_PARENT logical_comparation C_PARENT O_BRACE C_BRACE 
+          case 12: // declarated_variable_class_estructure ::= properties_variables TYPE_VARIABLE ID EQUAL variable_values SEMICOLON 
             {
               Object RESULT =null;
 
-              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("if_estructure",18, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-5)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("declarated_variable_class_estructure",6, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-5)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
             }
           return CUP$Sintactic$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 13: // if_estructure ::= IF O_PARENT BOOLEAN C_PARENT O_BRACE C_BRACE 
+          case 13: // declarated_variable_class_estructure ::= TYPE_VARIABLE ID EQUAL variable_values SEMICOLON 
             {
               Object RESULT =null;
 
-              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("if_estructure",18, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-5)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("declarated_variable_class_estructure",6, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-4)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
             }
           return CUP$Sintactic$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 14: // if_else_estructure ::= if_estructure ELSE if_estructure 
+          case 14: // declarated_variable_class_estructure ::= ID asign_values variable_values SEMICOLON 
             {
               Object RESULT =null;
 
-              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("if_else_estructure",17, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-2)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("declarated_variable_class_estructure",6, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-3)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
             }
           return CUP$Sintactic$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 15: // if_else_estructure ::= if_estructure ELSE O_BRACE C_BRACE 
+          case 15: // properties_variables ::= VISIBILITY STATIC FINAL 
             {
               Object RESULT =null;
 
-              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("if_else_estructure",17, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-3)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("properties_variables",7, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-2)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
             }
           return CUP$Sintactic$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 16: // declarated_variable_estructure ::= VISIBILITY TYPE_VARIABLE ID EQUAL variable_values SEMICOLON 
+          case 16: // properties_variables ::= VISIBILITY FINAL STATIC 
             {
               Object RESULT =null;
 
-              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("declarated_variable_estructure",4, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-5)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("properties_variables",7, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-2)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
             }
           return CUP$Sintactic$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 17: // declarated_variable_estructure ::= TYPE_VARIABLE ID EQUAL variable_values SEMICOLON 
+          case 17: // properties_variables ::= FINAL STATIC 
             {
               Object RESULT =null;
 
-              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("declarated_variable_estructure",4, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-4)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("properties_variables",7, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-1)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
             }
           return CUP$Sintactic$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 18: // declarated_variable_estructure ::= ID asign_values variable_values SEMICOLON 
+          case 18: // properties_variables ::= STATIC FINAL 
             {
               Object RESULT =null;
 
-              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("declarated_variable_estructure",4, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-3)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("properties_variables",7, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-1)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
             }
           return CUP$Sintactic$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 19: // variable_values ::= types_values 
+          case 19: // properties_variables ::= STATIC 
             {
               Object RESULT =null;
 
-              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("variable_values",12, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("properties_variables",7, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
             }
           return CUP$Sintactic$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 20: // variable_values ::= number_operations 
+          case 20: // properties_variables ::= FINAL 
             {
               Object RESULT =null;
 
-              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("variable_values",12, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("properties_variables",7, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
             }
           return CUP$Sintactic$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 21: // variable_values ::= ID 
+          case 21: // function_estructure ::= VISIBILITY VOID ID O_PARENT C_PARENT O_BRACE C_BRACE 
             {
               Object RESULT =null;
 
-              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("variable_values",12, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("function_estructure",8, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-6)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
             }
           return CUP$Sintactic$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 22: // variable_values ::= variable_values SUM variable_values 
+          case 22: // function_estructure ::= VISIBILITY TYPE_VARIABLE ID O_PARENT C_PARENT O_BRACE C_BRACE 
             {
               Object RESULT =null;
 
-              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("variable_values",12, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-2)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("function_estructure",8, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-6)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
             }
           return CUP$Sintactic$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 23: // number_operations ::= number_values 
+          case 23: // function_estructure ::= VISIBILITY STATIC VOID ID O_PARENT C_PARENT O_BRACE C_BRACE 
             {
               Object RESULT =null;
 
-              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("number_operations",11, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("function_estructure",8, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-7)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
             }
           return CUP$Sintactic$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 24: // number_operations ::= O_PARENT number_operations C_PARENT 
+          case 24: // function_estructure ::= VISIBILITY STATIC TYPE_VARIABLE ID O_PARENT C_PARENT O_BRACE C_BRACE 
             {
               Object RESULT =null;
 
-              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("number_operations",11, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-2)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("function_estructure",8, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-7)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
             }
           return CUP$Sintactic$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 25: // number_operations ::= number_operations arithmetics_operations number_operations 
+          case 25: // function_estructure ::= VISIBILITY VOID ID O_PARENT function_args_estructure C_PARENT O_BRACE C_BRACE 
             {
               Object RESULT =null;
 
-              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("number_operations",11, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-2)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("function_estructure",8, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-7)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
             }
           return CUP$Sintactic$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 26: // for_increment_in ::= ID increment_operators 
+          case 26: // function_estructure ::= VISIBILITY TYPE_VARIABLE ID O_PARENT function_args_estructure C_PARENT O_BRACE C_BRACE 
             {
               Object RESULT =null;
 
-              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("for_increment_in",16, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-1)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("function_estructure",8, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-7)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
             }
           return CUP$Sintactic$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 27: // for_increment_in ::= ID asign_values variable_values 
+          case 27: // function_estructure ::= VISIBILITY STATIC VOID ID O_PARENT function_args_estructure C_PARENT O_BRACE C_BRACE 
             {
               Object RESULT =null;
 
-              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("for_increment_in",16, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-2)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("function_estructure",8, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-8)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
             }
           return CUP$Sintactic$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 28: // inc_dec_estructure ::= ID increment_operators SEMICOLON 
+          case 28: // function_estructure ::= VISIBILITY STATIC TYPE_VARIABLE ID O_PARENT function_args_estructure C_PARENT O_BRACE C_BRACE 
             {
               Object RESULT =null;
 
-              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("inc_dec_estructure",15, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-2)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("function_estructure",8, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-8)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
             }
           return CUP$Sintactic$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 29: // logical_comparation ::= number_operations logical_operations number_operations 
+          case 29: // function_args_estructure ::= TYPE_VARIABLE ID 
             {
               Object RESULT =null;
 
-              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("logical_comparation",13, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-2)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("function_args_estructure",9, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-1)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
             }
           return CUP$Sintactic$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 30: // logical_comparation ::= types_values_without logical_operations types_values_without 
+          case 30: // function_args_estructure ::= TYPE_VARIABLE ID COMMA function_args_estructure 
             {
               Object RESULT =null;
 
-              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("logical_comparation",13, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-2)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("function_args_estructure",9, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-3)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
             }
           return CUP$Sintactic$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 31: // logical_comparation ::= logical_comparation logical_operations logical_comparation 
+          case 31: // for_estructure ::= FOR O_PARENT declarated_variable_estructure SEMICOLON logical_comparation SEMICOLON for_increment_in C_PARENT O_BRACE C_BRACE 
             {
               Object RESULT =null;
 
-              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("logical_comparation",13, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-2)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("for_estructure",10, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-9)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
             }
           return CUP$Sintactic$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 32: // logical_comparation ::= O_PARENT logical_comparation C_PARENT 
+          case 32: // while_estructure ::= WHILE O_PARENT logical_comparation C_PARENT O_BRACE C_BRACE 
             {
               Object RESULT =null;
 
-              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("logical_comparation",13, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-2)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("while_estructure",11, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-5)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
             }
           return CUP$Sintactic$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 33: // asign_values ::= C_SUM 
+          case 33: // while_estructure ::= WHILE O_PARENT BOOLEAN C_PARENT O_BRACE C_BRACE 
             {
               Object RESULT =null;
 
-              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("asign_values",5, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("while_estructure",11, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-5)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
             }
           return CUP$Sintactic$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 34: // asign_values ::= C_REST 
+          case 34: // do_while_estructure ::= DO O_BRACE C_BRACE WHILE O_PARENT logical_comparation C_PARENT SEMICOLON 
             {
               Object RESULT =null;
 
-              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("asign_values",5, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("do_while_estructure",12, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-7)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
             }
           return CUP$Sintactic$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 35: // asign_values ::= C_MULTIPLY 
+          case 35: // do_while_estructure ::= DO O_BRACE C_BRACE WHILE O_PARENT BOOLEAN C_PARENT SEMICOLON 
             {
               Object RESULT =null;
 
-              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("asign_values",5, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("do_while_estructure",12, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-7)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
             }
           return CUP$Sintactic$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 36: // asign_values ::= C_DIV 
+          case 36: // switch_estructure ::= SWITCH O_PARENT types_values_switch C_PARENT O_BRACE C_BRACE 
             {
               Object RESULT =null;
 
-              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("asign_values",5, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("switch_estructure",13, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-5)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
             }
           return CUP$Sintactic$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 37: // asign_values ::= EQUAL 
+          case 37: // case_estructure ::= CASE types_values_switch COLONS BREAK SEMICOLON 
             {
               Object RESULT =null;
 
-              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("asign_values",5, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("case_estructure",14, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-4)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
             }
           return CUP$Sintactic$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 38: // types_values ::= STRING 
+          case 38: // case_estructure ::= CASE types_values_switch COLONS return_estructure 
             {
               Object RESULT =null;
 
-              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("types_values",6, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("case_estructure",14, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-3)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
             }
           return CUP$Sintactic$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 39: // types_values ::= DECIMAL 
+          case 39: // case_estructure ::= DEFAULT COLONS BREAK SEMICOLON 
             {
               Object RESULT =null;
 
-              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("types_values",6, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("case_estructure",14, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-3)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
             }
           return CUP$Sintactic$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 40: // types_values ::= INT 
+          case 40: // case_estructure ::= DEFAULT COLONS return_estructure 
             {
               Object RESULT =null;
 
-              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("types_values",6, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("case_estructure",14, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-2)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
             }
           return CUP$Sintactic$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 41: // types_values ::= CHAR 
+          case 41: // return_estructure ::= RETURN ID SEMICOLON 
             {
               Object RESULT =null;
 
-              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("types_values",6, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("return_estructure",15, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-2)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
             }
           return CUP$Sintactic$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 42: // types_values ::= BOOLEAN 
+          case 42: // return_estructure ::= RETURN types_values SEMICOLON 
             {
               Object RESULT =null;
 
-              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("types_values",6, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("return_estructure",15, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-2)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
             }
           return CUP$Sintactic$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 43: // types_values_without ::= DECIMAL 
+          case 43: // return_estructure ::= RETURN new_estructure SEMICOLON 
             {
               Object RESULT =null;
 
-              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("types_values_without",14, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("return_estructure",15, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-2)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
             }
           return CUP$Sintactic$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 44: // types_values_without ::= INT 
+          case 44: // create_obj_estructure ::= OBJECT ID EQUAL NEW OBJECT O_PARENT args_estructure C_PARENT SEMICOLON 
             {
               Object RESULT =null;
 
-              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("types_values_without",14, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("create_obj_estructure",17, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-8)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
             }
           return CUP$Sintactic$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 45: // types_values_without ::= CHAR 
+          case 45: // create_obj_estructure ::= ID ID EQUAL NEW ID O_PARENT args_estructure C_PARENT SEMICOLON 
             {
               Object RESULT =null;
 
-              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("types_values_without",14, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("create_obj_estructure",17, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-8)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
             }
           return CUP$Sintactic$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 46: // types_values_without ::= BOOLEAN 
+          case 46: // new_estructure ::= NEW OBJECT O_PARENT args_estructure C_PARENT 
             {
               Object RESULT =null;
 
-              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("types_values_without",14, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("new_estructure",18, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-4)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
             }
           return CUP$Sintactic$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 47: // types_values_without ::= ID 
+          case 47: // new_estructure ::= NEW ID O_PARENT args_estructure C_PARENT 
             {
               Object RESULT =null;
 
-              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("types_values_without",14, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("new_estructure",18, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-4)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
             }
           return CUP$Sintactic$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 48: // number_values ::= INT 
+          case 48: // args_estructure ::= new_estructure 
             {
               Object RESULT =null;
 
-              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("number_values",10, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("args_estructure",19, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
             }
           return CUP$Sintactic$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 49: // number_values ::= DECIMAL 
+          case 49: // args_estructure ::= types_values 
             {
               Object RESULT =null;
 
-              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("number_values",10, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("args_estructure",19, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
             }
           return CUP$Sintactic$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 50: // arithmetics_operations ::= SUM 
+          case 50: // args_estructure ::= args_estructure COMMA args_estructure 
             {
               Object RESULT =null;
 
-              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("arithmetics_operations",7, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("args_estructure",19, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-2)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
             }
           return CUP$Sintactic$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 51: // arithmetics_operations ::= REST 
+          case 51: // if_estructure ::= IF O_PARENT logical_comparation C_PARENT O_BRACE C_BRACE 
             {
               Object RESULT =null;
 
-              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("arithmetics_operations",7, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("if_estructure",20, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-5)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
             }
           return CUP$Sintactic$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 52: // arithmetics_operations ::= DIV 
+          case 52: // if_estructure ::= IF O_PARENT BOOLEAN C_PARENT O_BRACE C_BRACE 
             {
               Object RESULT =null;
 
-              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("arithmetics_operations",7, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("if_estructure",20, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-5)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
             }
           return CUP$Sintactic$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 53: // arithmetics_operations ::= MULTIPLY 
+          case 53: // if_else_estructure ::= if_estructure ELSE if_estructure 
             {
               Object RESULT =null;
 
-              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("arithmetics_operations",7, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("if_else_estructure",21, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-2)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
             }
           return CUP$Sintactic$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 54: // arithmetics_operations ::= 
+          case 54: // if_else_estructure ::= if_estructure ELSE O_BRACE C_BRACE 
             {
               Object RESULT =null;
 
-              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("arithmetics_operations",7, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("if_else_estructure",21, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-3)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
             }
           return CUP$Sintactic$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 55: // increment_operators ::= INCREMENT 
+          case 55: // declarated_variable_estructure ::= TYPE_VARIABLE ID EQUAL variable_values SEMICOLON 
             {
               Object RESULT =null;
 
-              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("increment_operators",8, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("declarated_variable_estructure",22, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-4)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
             }
           return CUP$Sintactic$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 56: // increment_operators ::= DECREMENT 
+          case 56: // declarated_variable_estructure ::= ID asign_values variable_values SEMICOLON 
             {
               Object RESULT =null;
 
-              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("increment_operators",8, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("declarated_variable_estructure",22, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-3)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
             }
           return CUP$Sintactic$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 57: // logical_operations ::= D_EQUAL 
+          case 57: // variable_values ::= types_values_other 
             {
               Object RESULT =null;
 
-              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("logical_operations",9, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("variable_values",23, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
             }
           return CUP$Sintactic$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 58: // logical_operations ::= MOD 
+          case 58: // variable_values ::= number_operations 
             {
               Object RESULT =null;
 
-              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("logical_operations",9, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("variable_values",23, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
             }
           return CUP$Sintactic$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 59: // logical_operations ::= DIFFERENCE 
+          case 59: // variable_values ::= ID 
             {
               Object RESULT =null;
 
-              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("logical_operations",9, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("variable_values",23, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
             }
           return CUP$Sintactic$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 60: // logical_operations ::= HIGHER 
+          case 60: // variable_values ::= variable_values SUM variable_values 
             {
               Object RESULT =null;
 
-              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("logical_operations",9, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("variable_values",23, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-2)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
             }
           return CUP$Sintactic$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 61: // logical_operations ::= H_EQUAL 
+          case 61: // number_operations ::= INTEGER 
             {
               Object RESULT =null;
 
-              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("logical_operations",9, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("number_operations",24, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
             }
           return CUP$Sintactic$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 62: // logical_operations ::= SMALLER 
+          case 62: // number_operations ::= DECIMAL 
             {
               Object RESULT =null;
 
-              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("logical_operations",9, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("number_operations",24, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
             }
           return CUP$Sintactic$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 63: // logical_operations ::= S_EQUAL 
+          case 63: // number_operations ::= O_PARENT number_operations C_PARENT 
             {
               Object RESULT =null;
 
-              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("logical_operations",9, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("number_operations",24, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-2)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
             }
           return CUP$Sintactic$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 64: // logical_operations ::= AND 
+          case 64: // number_operations ::= number_operations arithmetics_operations number_operations 
             {
               Object RESULT =null;
 
-              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("logical_operations",9, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("number_operations",24, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-2)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
             }
           return CUP$Sintactic$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 65: // logical_operations ::= OR 
+          case 65: // for_increment_in ::= ID increment_operators 
             {
               Object RESULT =null;
 
-              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("logical_operations",9, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("for_increment_in",25, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-1)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+            }
+          return CUP$Sintactic$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 66: // for_increment_in ::= ID asign_values variable_values 
+            {
+              Object RESULT =null;
+
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("for_increment_in",25, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-2)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+            }
+          return CUP$Sintactic$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 67: // inc_dec_estructure ::= ID increment_operators SEMICOLON 
+            {
+              Object RESULT =null;
+
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("inc_dec_estructure",26, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-2)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+            }
+          return CUP$Sintactic$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 68: // logical_comparation ::= number_operations logical_operations number_operations 
+            {
+              Object RESULT =null;
+
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("logical_comparation",27, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-2)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+            }
+          return CUP$Sintactic$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 69: // logical_comparation ::= types_values_without logical_operations types_values_without 
+            {
+              Object RESULT =null;
+
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("logical_comparation",27, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-2)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+            }
+          return CUP$Sintactic$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 70: // logical_comparation ::= logical_comparation logical_operations logical_comparation 
+            {
+              Object RESULT =null;
+
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("logical_comparation",27, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-2)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+            }
+          return CUP$Sintactic$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 71: // logical_comparation ::= O_PARENT logical_comparation C_PARENT 
+            {
+              Object RESULT =null;
+
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("logical_comparation",27, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-2)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+            }
+          return CUP$Sintactic$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 72: // asign_values ::= C_SUM 
+            {
+              Object RESULT =null;
+
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("asign_values",28, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+            }
+          return CUP$Sintactic$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 73: // asign_values ::= C_REST 
+            {
+              Object RESULT =null;
+
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("asign_values",28, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+            }
+          return CUP$Sintactic$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 74: // asign_values ::= C_MULTIPLY 
+            {
+              Object RESULT =null;
+
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("asign_values",28, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+            }
+          return CUP$Sintactic$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 75: // asign_values ::= C_DIV 
+            {
+              Object RESULT =null;
+
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("asign_values",28, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+            }
+          return CUP$Sintactic$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 76: // asign_values ::= EQUAL 
+            {
+              Object RESULT =null;
+
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("asign_values",28, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+            }
+          return CUP$Sintactic$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 77: // types_values ::= STRING 
+            {
+              Object RESULT =null;
+
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("types_values",29, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+            }
+          return CUP$Sintactic$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 78: // types_values ::= DECIMAL 
+            {
+              Object RESULT =null;
+
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("types_values",29, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+            }
+          return CUP$Sintactic$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 79: // types_values ::= INTEGER 
+            {
+              Object RESULT =null;
+
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("types_values",29, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+            }
+          return CUP$Sintactic$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 80: // types_values ::= CHAR 
+            {
+              Object RESULT =null;
+
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("types_values",29, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+            }
+          return CUP$Sintactic$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 81: // types_values ::= BOOLEAN 
+            {
+              Object RESULT =null;
+
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("types_values",29, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+            }
+          return CUP$Sintactic$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 82: // types_values_other ::= STRING 
+            {
+              Object RESULT =null;
+
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("types_values_other",16, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+            }
+          return CUP$Sintactic$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 83: // types_values_other ::= CHAR 
+            {
+              Object RESULT =null;
+
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("types_values_other",16, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+            }
+          return CUP$Sintactic$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 84: // types_values_other ::= BOOLEAN 
+            {
+              Object RESULT =null;
+
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("types_values_other",16, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+            }
+          return CUP$Sintactic$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 85: // types_values_switch ::= STRING 
+            {
+              Object RESULT =null;
+
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("types_values_switch",30, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+            }
+          return CUP$Sintactic$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 86: // types_values_switch ::= INTEGER 
+            {
+              Object RESULT =null;
+
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("types_values_switch",30, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+            }
+          return CUP$Sintactic$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 87: // types_values_switch ::= CHAR 
+            {
+              Object RESULT =null;
+
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("types_values_switch",30, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+            }
+          return CUP$Sintactic$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 88: // types_values_without ::= DECIMAL 
+            {
+              Object RESULT =null;
+
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("types_values_without",31, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+            }
+          return CUP$Sintactic$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 89: // types_values_without ::= INTEGER 
+            {
+              Object RESULT =null;
+
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("types_values_without",31, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+            }
+          return CUP$Sintactic$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 90: // types_values_without ::= CHAR 
+            {
+              Object RESULT =null;
+
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("types_values_without",31, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+            }
+          return CUP$Sintactic$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 91: // types_values_without ::= BOOLEAN 
+            {
+              Object RESULT =null;
+
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("types_values_without",31, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+            }
+          return CUP$Sintactic$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 92: // types_values_without ::= ID 
+            {
+              Object RESULT =null;
+
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("types_values_without",31, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+            }
+          return CUP$Sintactic$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 93: // arithmetics_operations ::= SUM 
+            {
+              Object RESULT =null;
+
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("arithmetics_operations",32, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+            }
+          return CUP$Sintactic$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 94: // arithmetics_operations ::= REST 
+            {
+              Object RESULT =null;
+
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("arithmetics_operations",32, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+            }
+          return CUP$Sintactic$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 95: // arithmetics_operations ::= DIV 
+            {
+              Object RESULT =null;
+
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("arithmetics_operations",32, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+            }
+          return CUP$Sintactic$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 96: // arithmetics_operations ::= MULTIPLY 
+            {
+              Object RESULT =null;
+
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("arithmetics_operations",32, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+            }
+          return CUP$Sintactic$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 97: // increment_operators ::= INCREMENT 
+            {
+              Object RESULT =null;
+
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("increment_operators",33, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+            }
+          return CUP$Sintactic$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 98: // increment_operators ::= DECREMENT 
+            {
+              Object RESULT =null;
+
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("increment_operators",33, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+            }
+          return CUP$Sintactic$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 99: // logical_operations ::= D_EQUAL 
+            {
+              Object RESULT =null;
+
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("logical_operations",34, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+            }
+          return CUP$Sintactic$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 100: // logical_operations ::= MOD 
+            {
+              Object RESULT =null;
+
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("logical_operations",34, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+            }
+          return CUP$Sintactic$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 101: // logical_operations ::= DIFFERENCE 
+            {
+              Object RESULT =null;
+
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("logical_operations",34, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+            }
+          return CUP$Sintactic$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 102: // logical_operations ::= HIGHER 
+            {
+              Object RESULT =null;
+
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("logical_operations",34, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+            }
+          return CUP$Sintactic$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 103: // logical_operations ::= H_EQUAL 
+            {
+              Object RESULT =null;
+
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("logical_operations",34, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+            }
+          return CUP$Sintactic$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 104: // logical_operations ::= SMALLER 
+            {
+              Object RESULT =null;
+
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("logical_operations",34, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+            }
+          return CUP$Sintactic$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 105: // logical_operations ::= S_EQUAL 
+            {
+              Object RESULT =null;
+
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("logical_operations",34, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+            }
+          return CUP$Sintactic$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 106: // logical_operations ::= AND 
+            {
+              Object RESULT =null;
+
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("logical_operations",34, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
+            }
+          return CUP$Sintactic$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 107: // logical_operations ::= OR 
+            {
+              Object RESULT =null;
+
+              CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("logical_operations",34, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
             }
           return CUP$Sintactic$result;
 
