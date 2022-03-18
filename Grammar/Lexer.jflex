@@ -45,7 +45,7 @@ STR = (\"((.)|a-zA-ZÀ-ÿ\u00f1\u00d1)+\")
 INTEGER = ([0-9]+)
 DECIMAL = (\d+(\.\d+)?)
 BOOLEAN = (true | false)
-CHAR = [a-zA-ZÀ-ÿ\u00f1\u00d1]
+CHAR = (\'[a-zA-ZÀ-ÿ\u00f1\u00d1]\')
 ID = ([a-zA-ZÀ-ÿ\u00f1\u00d1|\d|_|]+)
 WHITE = ([\s\t\r]+)
 //Others with expression

@@ -22,9 +22,32 @@ public class Main {
             //File file = new File("/home/aguare/Documents/Github/Project1C1/ServerAnalizer/src/main/java/Analizers/sym.java");
             Reader reader = new FileReader(file);
             Lexer lexer = new Lexer(reader);
+            //lexer.yylex();
+            //lexer.showTokens();
         } catch (IOException e) {
             System.out.println("Error en la lectura del archivo");
         }
+    }
 
+    public static int hola() {
+        String a = "asdf'j' " + 'd';
+        a += "aas" + (2 + 5) + true;
+        int b = 5;
+        boolean c = false;
+        char ac = 'a';
+        if (c) {
+
+        }
+        do {
+            
+        } while (c);
+        switch (4) {
+            case 4:
+                
+                break;
+            default:
+                break;
+        }
+        return 0;
     }
 }

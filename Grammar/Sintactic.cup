@@ -40,7 +40,12 @@ terminal VISIBILITY, TYPE_VARIABLE, STRING, INTEGER, BOOLEAN, CHAR, ID,
          OBJECT, FINAL, STATIC, VOID, CLASS, PACKAGE, NEW, OVERRIDE;
 
 /* Non terminals */
-non terminal initial, package_estructure, class_estructure;
+non terminal initial, package_estructure, class_estructure, function_estructure,
+             declarated_variable_estructure, asign_values, types_values, arithmetics_operations,
+             increment_operators, logical_operations, number_values, number_operations,
+             variable_values, logical_comparation, types_values_without, inc_dec_estructure,
+             for_increment_in, if_else_estructure, if_estructure, while_estructure,
+             do_while_estructure, switch_estructure;
 
 
 /* The Precedence rules*/
@@ -54,7 +59,111 @@ initial::= package_estructure class_estructure;
 
 package_estructure::= PACKAGE ID;
 
-class_estructure::= VISIBILITY CLASS ID O_BRACE C_BRACE
-                  | CLASS ID O_BRACE C_BRACE
+class_estructure::= VISIBILITY CLASS ID O_BRACE /*internal estructure*/ C_BRACE
+                  | CLASS ID O_BRACE /*internal estructure*/ C_BRACE
                   ;
 
+function_estructure::= VISIBILITY VOID ID O_PARENT C_PARENT O_BRACE /*internal estructure*/ C_BRACE                     /*function without args, static,  and return variable*/
+                     | VISIBILITY STATIC VOID ID O_PARENT C_PARENT O_BRACE /*internal estructure*/ C_BRACE              /*function without args, and return variable*/
+                     | VISIBILITY STATIC TYPE_VARIABLE ID O_PARENT C_PARENT O_BRACE /*internal estructure*/ C_BRACE     /*function without args*/
+                     ;
+
+/*All declarations for loops*/
+for_estructure::= FOR O_PARENT declarated_variable_estructure SEMICOLON logical_comparation SEMICOLON for_increment_in C_PARENT O_BRACE /*internal estructure*/ C_BRACE;
+
+while_estructure::= WHILE O_PARENT logical_comparation C_PARENT O_BRACE /*internal estructure*/ C_BRACE
+                  | WHILE O_PARENT BOOLEAN C_PARENT O_BRACE /*internal estructure*/ C_BRACE
+                  ;
+
+do_while_estructure::= DO O_BRACE /*internal estructure*/ C_BRACE WHILE O_PARENT logical_comparation C_PARENT SEMICOLON
+                     | DO O_BRACE /*internal estructure*/ C_BRACE WHILE O_PARENT BOOLEAN C_PARENT SEMICOLON
+                     ;
+
+switch_estructure::= ;
+
+/*All declarations for if*/
+if_estructure::= IF O_PARENT logical_comparation C_PARENT O_BRACE /*internal estructure*/ C_BRACE
+               | IF O_PARENT BOOLEAN C_PARENT O_BRACE /*internal estructure*/ C_BRACE
+               ;
+
+if_else_estructure::= if_estructure ELSE if_estructure
+                    | if_estructure ELSE O_BRACE /*internal estructure*/ C_BRACE
+                    ;
+
+/*All declarations for intern structure*/
+declarated_variable_estructure::= VISIBILITY TYPE_VARIABLE ID EQUAL variable_values SEMICOLON
+                                | TYPE_VARIABLE ID EQUAL variable_values SEMICOLON
+                                | ID asign_values variable_values SEMICOLON
+                                ;                               
+
+variable_values::= types_values
+                 | number_operations
+                 | ID
+                 | variable_values SUM variable_values
+                 ;
+
+number_operations::= number_values
+                   | O_PARENT number_operations C_PARENT
+                   | number_operations arithmetics_operations number_operations
+                   ;
+
+for_increment_in::= ID increment_operators
+                  | ID asign_values variable_values
+                  ;
+
+inc_dec_estructure::= ID increment_operators SEMICOLON;
+
+logical_comparation::= number_operations logical_operations number_operations
+                     | types_values_without logical_operations types_values_without
+                     | logical_comparation logical_operations logical_comparation
+                     | O_PARENT logical_comparation C_PARENT
+                     ; 
+
+asign_values::= C_SUM           // +=
+              | C_REST          // -=
+              | C_MULTIPLY      // *=
+              | C_DIV           // /=
+              | EQUAL           // =
+              ;
+
+types_values::= STRING
+              | DECIMAL
+              | INT
+              | CHAR
+              | BOOLEAN
+              ;
+
+types_values_without::= DECIMAL
+                      | INT
+                      | CHAR
+                      | BOOLEAN
+                      | ID
+                      ;                   
+
+number_values::= INT
+               | DECIMAL
+               ;
+
+arithmetics_operations::= SUM           // +
+                        | REST          // -
+                        | DIV           // /
+                        | MULTIPLY      // *
+                        |
+                        ;
+
+increment_operators::= INCREMENT //++
+                     | DECREMENT //--
+                     ;
+
+logical_operations::= D_EQUAL           // ==
+                    | MOD               // %
+                    | DIFFERENCE        // !=
+                    | HIGHER            // >
+                    | H_EQUAL           // >=
+                    | SMALLER           // <
+                    | S_EQUAL           // <=
+                    | AND               // &&, &
+                    | OR                
+                    ;
+
+                    

@@ -49,7 +49,7 @@ STR = (\"((.)|a-zA-ZÀ-ÿ\u00f1\u00d1)+\")
 INTEGER = ([0-9]+)
 DECIMAL = (\d+(\.\d+)?)
 BOOLEAN = (true | false)
-CHAR = ([a-zA-ZÀ-ÿ\u00f1\u00d1])
+CHAR = (\'[a-zA-ZÀ-ÿ\u00f1\u00d1]\')
 ID = ([a-zA-ZÀ-ÿ\u00f1\u00d1|\d|_|]+)
 WHITE = ([\s\t\r]+)
 //Others with expression
@@ -125,8 +125,8 @@ OTHER = ([\|\||\|])
 {BOOLEAN}      {addToken(sym.BOOLEAN, yyline+1, yycolumn+1, yytext());}
 {CHAR}         {addToken(sym.CHAR, yyline+1, yycolumn+1, yytext());}
 {ID}           {addToken(sym.ID, yyline+1, yycolumn+1, yytext());}
-{COM}          {addToken(sym.COMMENT_1, yyline+1, yycolumn+1, yytext());}
-{COMM}         {addToken(sym.COMMENT_2, yyline+1, yycolumn+1, yytext());}
+{COM}          {/*Ignore*/}
+{COMM}         {/*Ignore*/}
 {WHITE}        {/*Ignore*/}
 
 [^]            {addError(yytext(), yyline+1, yycolumn+1);}
