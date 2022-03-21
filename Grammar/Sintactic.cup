@@ -2,8 +2,11 @@
 package Analizers;
 
 import java_cup.runtime.*;
+import java.util.ArrayList;
 
 parser code {:
+
+        private ArrayList<ErrorLP> errors = new ArrayList<>();
 
         public Sintactic(Lexer lexer){
              super(lexer);
@@ -16,14 +19,40 @@ parser code {:
 
         public void syntax_error(Symbol cur_token) {
                 if (cur_token.sym != sym.EOF){
-                        //addError(cur_token);
+                        addError(cur_token);
                 }else{
                         System.out.println("Fin Lectura");
                 }
+                printStack();
         }
     
         public void unrecovered_syntax_error(Symbol cur_token) {
-                //addError(cur_token);
+                addError(cur_token);
+        }
+
+        public void addError(Symbol token) {
+                try {
+                        errors.add(new ErrorLP(token.left, token.right, token.value.toString(), 1, "Pendiente"));
+                } catch (Exception e) {
+                }
+                printStack();
+        }
+
+        public void printStack() {
+                System.out.println("------------STACK--------------");
+                for (Object object : stack) {
+                        if (object != null) {
+                                Symbol s = (Symbol) object;
+                                if (s.value != null) {
+                                System.out.println("L: " + s.left + " C:" + s.right + " Contenido: " + s.value);
+                                }
+                        }
+                }
+                System.out.println("________________________________");
+        }
+
+        public ArrayList<ErrorLP> getErrors(){
+                return errors;
         }
     
 :};
@@ -32,20 +61,20 @@ parser code {:
 terminal Integer INTEGER;
 terminal Double DECIMAL;
 /*terminal VISIBILITY, TYPE_VARIABLE, STRING, BOOLEAN, CHAR, ID, 
-         O_BRACE, C_BRACE, O_SBRACKET, C_SBRACKET, O_PARENT, C_PARENT, 
+         O_BRACE, C_BRACE,O_PARENT, C_PARENT, 
          SEMICOLON, COLONS, COMMA, DOT, SUM, REST, MULTIPLY, DIV, EQUAL, 
-         D_EQUAL, APOS, MOD, DIFFERENCE, HIGHER, H_EQUAL, SMALLER, S_EQUAL,
+         D_EQUAL, MOD, DIFFERENCE, HIGHER, H_EQUAL, SMALLER, S_EQUAL,
          AND, OR, INCREMENT, DECREMENT, C_SUM, C_REST, C_MULTIPLY, C_DIV,
          IF, ELSE, FOR, WHILE, DO, SWITCH, CASE, BREAK, RETURN, IMPORT,
          OBJECT, FINAL, STATIC, VOID, CLASS, PACKAGE, NEW, DEFAULT;*/
 
 terminal VISIBILITY, TYPE_VARIABLE, STRING, BOOLEAN, CHAR, ID, 
-         O_BRACE, C_BRACE, O_PARENT, C_PARENT, 
+         O_BRACE, C_BRACE, O_SBRACKET, C_SBRACKET, O_PARENT, C_PARENT, 
          SEMICOLON, COLONS, COMMA, DOT, SUM, REST, MULTIPLY, DIV, EQUAL, 
-         D_EQUAL, MOD, DIFFERENCE, HIGHER, H_EQUAL, SMALLER, S_EQUAL,
+         D_EQUAL, APOS, MOD, DIFFERENCE, HIGHER, H_EQUAL, SMALLER, S_EQUAL,
          AND, OR, INCREMENT, DECREMENT, C_SUM, C_REST, C_MULTIPLY, C_DIV,
          IF, ELSE, FOR, WHILE, DO, SWITCH, CASE, BREAK, RETURN, IMPORT,
-         OBJECT, FINAL, STATIC, VOID, CLASS, PACKAGE, NEW, DEFAULT;         
+         OBJECT, FINAL, STATIC, VOID, CLASS, PACKAGE, NEW, DEFAULT;       
 
 /* Non terminals */
 non terminal initial, package_estructure, import_estructure, import_id_estructure, class_estructure,
@@ -55,19 +84,23 @@ non terminal initial, package_estructure, import_estructure, import_id_estructur
              create_obj_estructure, new_estructure, args_estructure, if_estructure, if_else_estructure,
              declarated_variable_estructure, variable_values, number_operations, for_increment_in,
              inc_dec_estructure, logical_comparation, asign_values, types_values, types_values_switch,
-             types_values_without, arithmetics_operations, increment_operators, logical_operations;
+             types_values_without, arithmetics_operations, increment_operators, logical_operations,
+             all_estructures, internal_estructures, internal_return, internal_while, call_function_estructure,
+             internal_switch, properties_function, internal_function, declarated_several_variables;
 
 /* The Precedence rules*/
-precedence left SUM, REST;
+precedence left SUM, REST, RETURN;
 precedence left MULTIPLY, DIV;
-
 
 start with initial;
 
 /* The grammar rules */
-initial::= package_estructure import_estructure class_estructure;
+initial::= package_estructure import_estructure class_estructure
+         | import_estructure class_estructure
+         | class_estructure
+         ;
 
-package_estructure::= PACKAGE ID;
+package_estructure::= PACKAGE ID SEMICOLON;
 
 import_estructure::= IMPORT import_id_estructure SEMICOLON
                    | IMPORT import_id_estructure SEMICOLON import_estructure
@@ -78,19 +111,26 @@ import_id_estructure::= ID
                       | ID import_id_estructure
                       ;
 
-
 class_estructure::= VISIBILITY CLASS ID O_BRACE class_internal_estructure C_BRACE
                   | CLASS ID O_BRACE class_internal_estructure C_BRACE
                   ;
 
 class_internal_estructure::= declarated_variable_class_estructure class_internal_estructure
                            | function_estructure class_internal_estructure
+                           |
                            ;
 
-declarated_variable_class_estructure::= properties_variables TYPE_VARIABLE ID EQUAL variable_values SEMICOLON
-                                      | TYPE_VARIABLE ID EQUAL variable_values SEMICOLON
+declarated_variable_class_estructure::= properties_variables TYPE_VARIABLE declarated_several_variables SEMICOLON
+                                      | VISIBILITY TYPE_VARIABLE declarated_several_variables SEMICOLON
+                                      | TYPE_VARIABLE declarated_several_variables SEMICOLON
                                       | ID asign_values variable_values SEMICOLON
                                       ;
+
+declarated_several_variables::= ID 
+                              | ID EQUAL variable_values
+                              | ID COMMA declarated_several_variables
+                              | ID EQUAL variable_values COMMA declarated_several_variables
+                              ;
 
 properties_variables::= VISIBILITY STATIC FINAL
                       | VISIBILITY FINAL STATIC
@@ -100,15 +140,41 @@ properties_variables::= VISIBILITY STATIC FINAL
                       | FINAL
                       ;
 
-function_estructure::= VISIBILITY VOID ID O_PARENT C_PARENT O_BRACE /*internal estructure*/ C_BRACE
-                     | VISIBILITY TYPE_VARIABLE ID O_PARENT C_PARENT O_BRACE /*internal estructure*/ C_BRACE              
-                     | VISIBILITY STATIC VOID ID O_PARENT C_PARENT O_BRACE /*internal estructure*/ C_BRACE              
-                     | VISIBILITY STATIC TYPE_VARIABLE ID O_PARENT C_PARENT O_BRACE /*internal estructure*/ C_BRACE
-                     | VISIBILITY VOID ID O_PARENT function_args_estructure C_PARENT O_BRACE /*internal estructure*/ C_BRACE
-                     | VISIBILITY TYPE_VARIABLE ID O_PARENT function_args_estructure C_PARENT O_BRACE /*internal estructure*/ C_BRACE              
-                     | VISIBILITY STATIC VOID ID O_PARENT function_args_estructure C_PARENT O_BRACE /*internal estructure*/ C_BRACE              
-                     | VISIBILITY STATIC TYPE_VARIABLE ID O_PARENT function_args_estructure C_PARENT O_BRACE /*internal estructure*/ C_BRACE    
+function_estructure::= properties_function ID O_PARENT internal_function C_BRACE
+                     | VISIBILITY TYPE_VARIABLE ID O_PARENT internal_function C_BRACE
+                     | TYPE_VARIABLE ID O_PARENT internal_function C_BRACE
                      ;
+
+internal_function::= C_PARENT O_BRACE
+                   | function_args_estructure C_PARENT O_BRACE
+                   | C_PARENT O_BRACE internal_estructures
+                   | function_args_estructure C_PARENT O_BRACE internal_estructures
+                   |
+                   ; 
+
+properties_function::= VISIBILITY VOID 
+                     | VISIBILITY STATIC VOID
+                     | VISIBILITY STATIC TYPE_VARIABLE
+                     ;
+
+/*All estructures for internal estructure*/
+internal_estructures::= all_estructures
+                      | all_estructures internal_estructures
+                      | error all_estructures
+                      ;
+
+all_estructures::= declarated_variable_estructure
+                 | for_estructure
+                 | while_estructure
+                 | do_while_estructure
+                 | switch_estructure
+                 | case_estructure
+                 | if_estructure
+                 | if_else_estructure
+                 | inc_dec_estructure
+                 | return_estructure
+                 | call_function_estructure
+                 ;
 
 /*parameters for declarated functions*/
 function_args_estructure::= TYPE_VARIABLE ID
@@ -116,33 +182,59 @@ function_args_estructure::= TYPE_VARIABLE ID
                           ;
 
 /*All declarations for loops*/
-for_estructure::= FOR O_PARENT declarated_variable_estructure SEMICOLON logical_comparation SEMICOLON for_increment_in C_PARENT O_BRACE /*internal estructure*/ C_BRACE;
+for_estructure::= FOR O_PARENT declarated_variable_estructure SEMICOLON logical_comparation SEMICOLON for_increment_in C_PARENT O_BRACE internal_estructures C_BRACE;
 
-while_estructure::= WHILE O_PARENT logical_comparation C_PARENT O_BRACE /*internal estructure*/ C_BRACE
-                  | WHILE O_PARENT BOOLEAN C_PARENT O_BRACE /*internal estructure*/ C_BRACE
+while_estructure::= WHILE O_PARENT internal_while C_PARENT O_BRACE internal_estructures C_BRACE
+                  | WHILE O_PARENT internal_while C_PARENT O_BRACE C_BRACE
                   ;
 
-do_while_estructure::= DO O_BRACE /*internal estructure*/ C_BRACE WHILE O_PARENT logical_comparation C_PARENT SEMICOLON
-                     | DO O_BRACE /*internal estructure*/ C_BRACE WHILE O_PARENT BOOLEAN C_PARENT SEMICOLON
+internal_while::= logical_comparation 
+                | BOOLEAN
+                | ID
+                ;
+
+do_while_estructure::= DO O_BRACE internal_estructures C_BRACE WHILE O_PARENT logical_comparation C_PARENT SEMICOLON
+                     | DO O_BRACE internal_estructures C_BRACE WHILE O_PARENT BOOLEAN C_PARENT SEMICOLON
                      ;
 
-switch_estructure::= SWITCH O_PARENT types_values_switch C_PARENT O_BRACE C_BRACE;
+switch_estructure::= SWITCH O_PARENT types_values_switch C_PARENT O_BRACE internal_switch C_BRACE
+                   | SWITCH O_PARENT types_values_switch C_PARENT O_BRACE C_BRACE
+                   ;
 
-case_estructure::= CASE types_values_switch COLONS /*internal estructure*/ BREAK SEMICOLON
-                 | CASE types_values_switch COLONS /*internal estructure*/ return_estructure
-                 | DEFAULT COLONS /*internal estructure*/ BREAK SEMICOLON
-                 | DEFAULT COLONS /*internal estructure*/ return_estructure
+internal_switch::= case_estructure
+                 | case_estructure internal_switch
+                 ;                   
+
+case_estructure::= CASE types_values_switch COLONS internal_estructures BREAK SEMICOLON
+                 | CASE types_values_switch COLONS internal_estructures return_estructure
+                 | DEFAULT COLONS internal_estructures BREAK SEMICOLON
+                 | DEFAULT COLONS internal_estructures return_estructure
                  ;
 
 /*Return declaration*/
-return_estructure::= RETURN ID SEMICOLON
-                   | RETURN types_values SEMICOLON
-                   | RETURN new_estructure SEMICOLON
-                   ;
+return_estructure::= RETURN internal_return SEMICOLON;
+
+internal_return::= ID
+                 | types_values
+                 | new_estructure
+                 ;                   
+
+/*All declarations for if*/
+if_estructure::= IF O_PARENT logical_comparation C_PARENT O_BRACE internal_estructures C_BRACE
+               | IF O_PARENT BOOLEAN C_PARENT O_BRACE internal_estructures C_BRACE
+               | IF O_PARENT ID C_PARENT O_BRACE internal_estructures C_BRACE
+               ;
+
+if_else_estructure::= if_estructure ELSE if_estructure
+                    | if_estructure ELSE O_BRACE internal_estructures C_BRACE
+                    | if_estructure ELSE if_else_estructure
+                    ;
 
 /*Create new obj declaration*/
 create_obj_estructure::= OBJECT ID EQUAL NEW OBJECT O_PARENT args_estructure C_PARENT SEMICOLON
                        | ID ID EQUAL NEW ID O_PARENT args_estructure C_PARENT SEMICOLON
+                       | OBJECT ID EQUAL NEW OBJECT O_PARENT C_PARENT SEMICOLON
+                       | ID ID EQUAL NEW ID O_PARENT C_PARENT SEMICOLON
                        ;
 
 new_estructure::= NEW OBJECT O_PARENT args_estructure C_PARENT
@@ -152,22 +244,21 @@ new_estructure::= NEW OBJECT O_PARENT args_estructure C_PARENT
 /*internal arguments for call functions*/
 args_estructure::= new_estructure
                  | types_values
-                 | args_estructure COMMA args_estructure
+                 | ID
+                 | new_estructure COMMA args_estructure
+                 | types_values COMMA args_estructure
                  ;                                   
 
-/*All declarations for if*/
-if_estructure::= IF O_PARENT logical_comparation C_PARENT O_BRACE /*internal estructure*/ C_BRACE
-               | IF O_PARENT BOOLEAN C_PARENT O_BRACE /*internal estructure*/ C_BRACE
-               ;
-
-if_else_estructure::= if_estructure ELSE if_estructure
-                    | if_estructure ELSE O_BRACE /*internal estructure*/ C_BRACE
-                    ;
-
 /*All declarations for intern structure*/
-declarated_variable_estructure::= TYPE_VARIABLE ID EQUAL variable_values SEMICOLON
+declarated_variable_estructure::= TYPE_VARIABLE declarated_several_variables SEMICOLON
                                 | ID asign_values variable_values SEMICOLON
-                                ;                           
+                                | create_obj_estructure
+                                ;
+
+/*Call other functions*/
+call_function_estructure::= ID O_PARENT args_estructure C_PARENT SEMICOLON
+                          | ID O_PARENT C_PARENT SEMICOLON
+                          ;                           
 
 variable_values::= types_values_other
                  | number_operations
@@ -189,7 +280,9 @@ inc_dec_estructure::= ID increment_operators SEMICOLON;
 
 logical_comparation::= number_operations logical_operations number_operations
                      | types_values_without logical_operations types_values_without
-                     | logical_comparation logical_operations logical_comparation
+                     | number_operations logical_operations logical_comparation
+                     | types_values_without logical_operations logical_comparation
+                     | types_values_without logical_operations number_operations
                      | O_PARENT logical_comparation C_PARENT
                      ; 
 
@@ -215,11 +308,10 @@ types_values_other::= STRING
 types_values_switch::= STRING
                      | INTEGER
                      | CHAR
+                     | ID
                      ;
 
-types_values_without::= DECIMAL
-                      | INTEGER
-                      | CHAR
+types_values_without::= CHAR
                       | BOOLEAN
                       | ID
                       ;                   

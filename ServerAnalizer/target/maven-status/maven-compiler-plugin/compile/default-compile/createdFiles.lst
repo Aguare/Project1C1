@@ -1,6 +1,7 @@
-Analizers/Lexer.class
-Analizers/sym.class
 Main/Main.class
 Archives/Read.class
+Analizers/Lexer.class
+Analizers/sym.class
 Analizers/Sintactic$CUP$Sintactic$actions.class
+Analizers/ErrorLP.class
 Analizers/Sintactic.class

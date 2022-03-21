@@ -47,7 +47,7 @@ DECIMAL = (\d+(\.\d+)?)
 BOOLEAN = (true | false)
 CHAR = (\'[a-zA-ZÀ-ÿ\u00f1\u00d1]\')
 ID = ([a-zA-ZÀ-ÿ\u00f1\u00d1|\d|_|]+)
-WHITE = ([\s\t\r]+)
+WHITE = ([\s\t\r\n]+)
 //Others with expression
 OTHER = ([\|\||\|])
 %%
