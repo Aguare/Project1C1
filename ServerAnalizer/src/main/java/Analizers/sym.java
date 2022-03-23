@@ -31,6 +31,7 @@ public class sym {
   public static final int DIV = 23;
   public static final int MULTIPLY = 22;
   public static final int IF = 41;
+  public static final int THIS = 59;
   public static final int DOT = 19;
   public static final int ID = 9;
   public static final int O_SBRACKET = 12;
@@ -126,7 +127,8 @@ public class sym {
   "CLASS",
   "PACKAGE",
   "NEW",
-  "DEFAULT"
+  "DEFAULT",
+  "THIS"
   };
 }
 

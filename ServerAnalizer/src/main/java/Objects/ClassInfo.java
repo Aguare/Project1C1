@@ -21,6 +21,7 @@ public class ClassInfo {
     }
 
     public String getName() {
+        this.variables.get(1).setColumn(0);
         return name;
     }
 

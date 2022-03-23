@@ -71,7 +71,7 @@ OTHER = ([\|\||\|])
 ("-")          {return new Symbol(sym.REST, yyline+1, yycolumn+1, yytext());}
 ("*")          {return new Symbol(sym.MULTIPLY, yyline+1, yycolumn+1, yytext());}
 ("/")          {return new Symbol(sym.DIV, yyline+1, yycolumn+1, yytext());}
-("=")         {return new Symbol(sym.EQUAL, yyline+1, yycolumn+1, yytext());}
+("=")          {return new Symbol(sym.EQUAL, yyline+1, yycolumn+1, yytext());}
 ("==")         {return new Symbol(sym.D_EQUAL, yyline+1, yycolumn+1, yytext());}
 ("%")          {return new Symbol(sym.MOD, yyline+1, yycolumn+1, yytext());}
 ("!=")         {return new Symbol(sym.DIFFERENCE, yyline+1, yycolumn+1, yytext());}
@@ -110,6 +110,7 @@ OTHER = ([\|\||\|])
 (class)        {return new Symbol(sym.CLASS, yyline+1, yycolumn+1, yytext());}
 (package)      {return new Symbol(sym.PACKAGE, yyline+1, yycolumn+1, yytext());}
 (new)          {return new Symbol(sym.NEW, yyline+1, yycolumn+1, yytext());}
+(this)         {return new Symbol(sym.THIS, yyline+1, yycolumn+1, yytext());}
 //(@Override)    {return new Symbol(sym.OVERRIDE, yyline+1, yycolumn+1, yytext());}
 
 //Declarateds

@@ -15,8 +15,6 @@ import java.util.ArrayList;
  */
 public class Main {
 
-    int a = 5;
-
     public static void main(String[] args) {
         try {
             Read read = new Read();
@@ -49,6 +47,7 @@ public class Main {
         if (true) {
 
         }
+        ++b;
         do {
 
         } while (c);

@@ -44,7 +44,7 @@ parser code {:
                         if (object != null) {
                                 Symbol s = (Symbol) object;
                                 if (s.value != null) {
-                                System.out.println("L: " + s.left + " C:" + s.right + " Contenido: " + s.value);
+                                        System.out.println("L: " + s.left + " C:" + s.right + " Contenido: " + s.value);
                                 }
                         }
                 }
@@ -74,7 +74,7 @@ terminal VISIBILITY, TYPE_VARIABLE, STRING, BOOLEAN, CHAR, ID,
          D_EQUAL, APOS, MOD, DIFFERENCE, HIGHER, H_EQUAL, SMALLER, S_EQUAL,
          AND, OR, INCREMENT, DECREMENT, C_SUM, C_REST, C_MULTIPLY, C_DIV,
          IF, ELSE, FOR, WHILE, DO, SWITCH, CASE, BREAK, RETURN, IMPORT,
-         OBJECT, FINAL, STATIC, VOID, CLASS, PACKAGE, NEW, DEFAULT;       
+         OBJECT, FINAL, STATIC, VOID, CLASS, PACKAGE, NEW, DEFAULT, THIS;       
 
 /* Non terminals */
 non terminal initial, package_estructure, import_estructure, import_id_estructure, class_estructure,
@@ -86,7 +86,8 @@ non terminal initial, package_estructure, import_estructure, import_id_estructur
              inc_dec_estructure, logical_comparation, asign_values, types_values, types_values_switch,
              types_values_without, arithmetics_operations, increment_operators, logical_operations,
              all_estructures, internal_estructures, internal_return, internal_while, call_function_estructure,
-             internal_switch, properties_function, internal_function, declarated_several_variables;
+             internal_switch, properties_function, internal_function, declarated_several_variables,
+             this_estructure, call_function_this, this_internal;
 
 /* The Precedence rules*/
 precedence left SUM, REST, RETURN;
@@ -130,7 +131,7 @@ declarated_several_variables::= ID
                               | ID EQUAL variable_values
                               | ID COMMA declarated_several_variables
                               | ID EQUAL variable_values COMMA declarated_several_variables
-                              ;
+                              ; 
 
 properties_variables::= VISIBILITY STATIC FINAL
                       | VISIBILITY FINAL STATIC
@@ -174,6 +175,7 @@ all_estructures::= declarated_variable_estructure
                  | inc_dec_estructure
                  | return_estructure
                  | call_function_estructure
+                 | this_estructure
                  ;
 
 /*parameters for declarated functions*/
@@ -217,7 +219,7 @@ return_estructure::= RETURN internal_return SEMICOLON;
 internal_return::= ID
                  | types_values
                  | new_estructure
-                 ;                   
+                 ;                                  
 
 /*All declarations for if*/
 if_estructure::= IF O_PARENT logical_comparation C_PARENT O_BRACE internal_estructures C_BRACE
@@ -252,8 +254,22 @@ args_estructure::= new_estructure
 /*All declarations for intern structure*/
 declarated_variable_estructure::= TYPE_VARIABLE declarated_several_variables SEMICOLON
                                 | ID asign_values variable_values SEMICOLON
+                                | THIS DOT call_function_this asign_values variable_values SEMICOLON
                                 | create_obj_estructure
                                 ;
+
+/*This declaration*/
+this_estructure::= this_internal SEMICOLON;
+
+this_internal::= THIS DOT call_function_this;
+
+call_function_this::= ID
+                    | ID O_PARENT args_estructure C_PARENT
+                    | ID O_PARENT C_PARENT
+                    | ID DOT call_function_this
+                    | ID O_PARENT args_estructure C_PARENT DOT call_function_this
+                    | ID O_PARENT C_PARENT DOT call_function_this
+                    ;
 
 /*Call other functions*/
 call_function_estructure::= ID O_PARENT args_estructure C_PARENT SEMICOLON
@@ -263,6 +279,7 @@ call_function_estructure::= ID O_PARENT args_estructure C_PARENT SEMICOLON
 variable_values::= types_values_other
                  | number_operations
                  | ID
+                 | this_internal
                  | variable_values SUM variable_values
                  ;
 
@@ -276,7 +293,9 @@ for_increment_in::= ID increment_operators
                   | ID asign_values variable_values
                   ;
 
-inc_dec_estructure::= ID increment_operators SEMICOLON;
+inc_dec_estructure::= ID increment_operators SEMICOLON
+                    | increment_operators ID SEMICOLON
+                    ;
 
 logical_comparation::= number_operations logical_operations number_operations
                      | types_values_without logical_operations types_values_without
