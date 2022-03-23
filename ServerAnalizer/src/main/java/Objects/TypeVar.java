@@ -11,5 +11,6 @@ public enum TypeVar {
     CHAR,
     BOOLEAN,
     FLOAT,
+    OBJECT,
     UNDEFINED
 }

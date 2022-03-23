@@ -5,6 +5,8 @@ import Objects.FunctionInfo;
 import Objects.TypeVar;
 import Objects.VariableInfo;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 /**
  *
@@ -45,15 +47,19 @@ public class SaveInfo {
         this.name_function = name_function;
     }
 
-    public void addVarToClass(int line, int column, String id, TypeVar type) {
-        if (!verifyExistsVar(id, type, line)) {
-            variables.add(new VariableInfo(line, column, id, name_class, type));
+    public void addVarToClass(int line, int column, ArrayList<String> id, String type) {
+        Collections.reverse(id);
+        for (String name_var : id) {
+            if (!name_var.equalsIgnoreCase("null")) {
+                insertVar(line, column, name_var, type);
+            }
         }
     }
 
-    public void addVarToFunc(int line, int column, String id, TypeVar type) {
-        if (!verifyExistsVar(id, type, line)) {
-            variablesf.add(new VariableInfo(line, column, id, name_class, type));
+    public void addVarToFunc(int line, int column, String id, String type) {
+        TypeVar t = getType(type);
+        if (!verifyExistsVar(id, t, line)) {
+            variablesf.add(new VariableInfo(line, column, id, name_class, t));
         }
     }
 
@@ -61,17 +67,44 @@ public class SaveInfo {
         parameters.add(new VariableInfo(line, column, id, name_function, type));
     }
 
-    private boolean verifyExistsVar(String id, TypeVar type, int op) {
-        if (op == 1) {
-            return readList(variables, type);
-        } else {
-            return readList(variablesf, type);
+    private void insertVar(int line, int column, String id, String type) {
+        TypeVar t = getType(type);
+        if (!verifyExistsVar(id, t, line)) {
+            System.out.println("ID -> " + id);
+            variables.add(new VariableInfo(line, column, id, name_class, t));
         }
     }
 
-    private boolean readList(ArrayList<VariableInfo> list, TypeVar type) {
+    private TypeVar getType(String type_variable) {
+        switch (type_variable) {
+            case "int":
+                return TypeVar.INTEGER;
+            case "boolean":
+                return TypeVar.BOOLEAN;
+            case "String":
+                return TypeVar.STRING;
+            case "char":
+                return TypeVar.CHAR;
+            case "double":
+                return TypeVar.DOUBLE;
+            case "Object":
+                return TypeVar.OBJECT;
+            default:
+                return TypeVar.UNDEFINED;
+        }
+    }
+
+    private boolean verifyExistsVar(String id, TypeVar type, int op) {
+        if (op == 1) {
+            return readList(variables, type, id);
+        } else {
+            return readList(variablesf, type, id);
+        }
+    }
+
+    private boolean readList(ArrayList<VariableInfo> list, TypeVar type, String name_var) {
         for (VariableInfo v : list) {
-            if (v.getName().equalsIgnoreCase(name_function)) {
+            if (v.getName().equalsIgnoreCase(name_var)) {
                 if (v.getType() == TypeVar.UNDEFINED && type != TypeVar.UNDEFINED) {
                     v.setType(type);
                 }

@@ -5,6 +5,7 @@
 
 package Analizers;
 
+import Controller.SaveInfo;
 import java_cup.runtime.*;
 import java.util.ArrayList;
 import java_cup.runtime.XMLElement;
@@ -702,6 +703,8 @@ public class Sintactic extends java_cup.runtime.lr_parser {
 
 
         private ArrayList<ErrorLP> errors = new ArrayList<>();
+        private SaveInfo record = new SaveInfo();
+        private ArrayList<String> var_entries = new ArrayList<>();
 
         public Sintactic(Lexer lexer){
              super(lexer);
@@ -875,7 +878,10 @@ class CUP$Sintactic$actions {
           case 10: // class_estructure ::= VISIBILITY CLASS ID O_BRACE class_internal_estructure C_BRACE 
             {
               Object RESULT =null;
-
+		int name_classleft = ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-3)).left;
+		int name_classright = ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-3)).right;
+		Object name_class = (Object)((java_cup.runtime.Symbol) CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-3)).value;
+		record.setname_class(name_class.toString());
               CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("class_estructure",4, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-5)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
             }
           return CUP$Sintactic$result;
@@ -920,7 +926,13 @@ class CUP$Sintactic$actions {
           case 15: // declarated_variable_class_estructure ::= properties_variables TYPE_VARIABLE declarated_several_variables SEMICOLON 
             {
               Object RESULT =null;
-
+		int typeleft = ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-2)).left;
+		int typeright = ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-2)).right;
+		Object type = (Object)((java_cup.runtime.Symbol) CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-2)).value;
+		int idleft = ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-1)).left;
+		int idright = ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-1)).right;
+		Object id = (Object)((java_cup.runtime.Symbol) CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-1)).value;
+		record.addVarToClass(idleft, idright, var_entries, String.valueOf(type)); var_entries.clear();
               CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("declarated_variable_class_estructure",6, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-3)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
             }
           return CUP$Sintactic$result;
@@ -929,7 +941,13 @@ class CUP$Sintactic$actions {
           case 16: // declarated_variable_class_estructure ::= VISIBILITY TYPE_VARIABLE declarated_several_variables SEMICOLON 
             {
               Object RESULT =null;
-
+		int typeleft = ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-2)).left;
+		int typeright = ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-2)).right;
+		Object type = (Object)((java_cup.runtime.Symbol) CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-2)).value;
+		int idleft = ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-1)).left;
+		int idright = ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-1)).right;
+		Object id = (Object)((java_cup.runtime.Symbol) CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-1)).value;
+		record.addVarToClass(idleft, idright, var_entries, String.valueOf(type)); var_entries.clear();
               CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("declarated_variable_class_estructure",6, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-3)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
             }
           return CUP$Sintactic$result;
@@ -938,7 +956,13 @@ class CUP$Sintactic$actions {
           case 17: // declarated_variable_class_estructure ::= TYPE_VARIABLE declarated_several_variables SEMICOLON 
             {
               Object RESULT =null;
-
+		int typeleft = ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-2)).left;
+		int typeright = ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-2)).right;
+		Object type = (Object)((java_cup.runtime.Symbol) CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-2)).value;
+		int idleft = ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-1)).left;
+		int idright = ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-1)).right;
+		Object id = (Object)((java_cup.runtime.Symbol) CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-1)).value;
+		record.addVarToClass(idleft, idright, var_entries, String.valueOf(type)); var_entries.clear();
               CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("declarated_variable_class_estructure",6, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-2)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
             }
           return CUP$Sintactic$result;
@@ -947,7 +971,10 @@ class CUP$Sintactic$actions {
           case 18: // declarated_variable_class_estructure ::= ID asign_values variable_values SEMICOLON 
             {
               Object RESULT =null;
-
+		int idleft = ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-3)).left;
+		int idright = ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-3)).right;
+		Object id = (Object)((java_cup.runtime.Symbol) CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-3)).value;
+		record.addVarToClass(idleft, idright, var_entries, ""); var_entries.clear();
               CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("declarated_variable_class_estructure",6, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-3)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
             }
           return CUP$Sintactic$result;
@@ -956,7 +983,10 @@ class CUP$Sintactic$actions {
           case 19: // declarated_several_variables ::= ID 
             {
               Object RESULT =null;
-
+		int idleft = ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()).left;
+		int idright = ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()).right;
+		Object id = (Object)((java_cup.runtime.Symbol) CUP$Sintactic$stack.peek()).value;
+		var_entries.add(String.valueOf(id));
               CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("declarated_several_variables",43, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
             }
           return CUP$Sintactic$result;
@@ -965,7 +995,10 @@ class CUP$Sintactic$actions {
           case 20: // declarated_several_variables ::= ID EQUAL variable_values 
             {
               Object RESULT =null;
-
+		int idleft = ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-2)).left;
+		int idright = ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-2)).right;
+		Object id = (Object)((java_cup.runtime.Symbol) CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-2)).value;
+		var_entries.add(String.valueOf(id));
               CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("declarated_several_variables",43, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-2)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
             }
           return CUP$Sintactic$result;
@@ -974,7 +1007,13 @@ class CUP$Sintactic$actions {
           case 21: // declarated_several_variables ::= ID COMMA declarated_several_variables 
             {
               Object RESULT =null;
-
+		int idleft = ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-2)).left;
+		int idright = ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-2)).right;
+		Object id = (Object)((java_cup.runtime.Symbol) CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-2)).value;
+		int id2left = ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()).left;
+		int id2right = ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()).right;
+		Object id2 = (Object)((java_cup.runtime.Symbol) CUP$Sintactic$stack.peek()).value;
+		var_entries.add(String.valueOf(id));var_entries.add(String.valueOf(id2));
               CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("declarated_several_variables",43, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-2)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
             }
           return CUP$Sintactic$result;
@@ -983,7 +1022,13 @@ class CUP$Sintactic$actions {
           case 22: // declarated_several_variables ::= ID EQUAL variable_values COMMA declarated_several_variables 
             {
               Object RESULT =null;
-
+		int idleft = ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-4)).left;
+		int idright = ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-4)).right;
+		Object id = (Object)((java_cup.runtime.Symbol) CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-4)).value;
+		int id2left = ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()).left;
+		int id2right = ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()).right;
+		Object id2 = (Object)((java_cup.runtime.Symbol) CUP$Sintactic$stack.peek()).value;
+		var_entries.add(String.valueOf(id));var_entries.add(String.valueOf(id2));
               CUP$Sintactic$result = parser.getSymbolFactory().newSymbol("declarated_several_variables",43, ((java_cup.runtime.Symbol)CUP$Sintactic$stack.elementAt(CUP$Sintactic$top-4)), ((java_cup.runtime.Symbol)CUP$Sintactic$stack.peek()), RESULT);
             }
           return CUP$Sintactic$result;

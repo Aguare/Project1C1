@@ -1,12 +1,15 @@
 /* SECTION 1: user code */
 package Analizers;
 
+import Controller.SaveInfo;
 import java_cup.runtime.*;
 import java.util.ArrayList;
 
 parser code {:
 
         private ArrayList<ErrorLP> errors = new ArrayList<>();
+        private SaveInfo record = new SaveInfo();
+        private ArrayList<String> var_entries = new ArrayList<>();
 
         public Sintactic(Lexer lexer){
              super(lexer);
@@ -112,7 +115,7 @@ import_id_estructure::= ID
                       | ID import_id_estructure
                       ;
 
-class_estructure::= VISIBILITY CLASS ID O_BRACE class_internal_estructure C_BRACE
+class_estructure::= VISIBILITY CLASS ID:name_class O_BRACE class_internal_estructure C_BRACE       {:record.setname_class(name_class.toString());:}
                   | CLASS ID O_BRACE class_internal_estructure C_BRACE
                   ;
 
@@ -121,16 +124,16 @@ class_internal_estructure::= declarated_variable_class_estructure class_internal
                            |
                            ;
 
-declarated_variable_class_estructure::= properties_variables TYPE_VARIABLE declarated_several_variables SEMICOLON
-                                      | VISIBILITY TYPE_VARIABLE declarated_several_variables SEMICOLON
-                                      | TYPE_VARIABLE declarated_several_variables SEMICOLON
-                                      | ID asign_values variable_values SEMICOLON
+declarated_variable_class_estructure::= properties_variables TYPE_VARIABLE:type declarated_several_variables:id SEMICOLON       {:record.addVarToClass(idleft, idright, var_entries, String.valueOf(type)); var_entries.clear();:}
+                                      | VISIBILITY TYPE_VARIABLE:type declarated_several_variables:id SEMICOLON                 {:record.addVarToClass(idleft, idright, var_entries, String.valueOf(type)); var_entries.clear();:}
+                                      | TYPE_VARIABLE:type declarated_several_variables:id SEMICOLON                            {:record.addVarToClass(idleft, idright, var_entries, String.valueOf(type)); var_entries.clear();:}
+                                      | ID:id asign_values variable_values SEMICOLON                                            {:record.addVarToClass(idleft, idright, var_entries, ""); var_entries.clear();:}
                                       ;
 
-declarated_several_variables::= ID 
-                              | ID EQUAL variable_values
-                              | ID COMMA declarated_several_variables
-                              | ID EQUAL variable_values COMMA declarated_several_variables
+declarated_several_variables::= ID:id                                                                   {:var_entries.add(String.valueOf(id));:}
+                              | ID:id EQUAL variable_values                                             {:var_entries.add(String.valueOf(id));:}
+                              | ID:id COMMA declarated_several_variables:id2                            {:var_entries.add(String.valueOf(id));var_entries.add(String.valueOf(id2));:}
+                              | ID:id EQUAL variable_values COMMA declarated_several_variables:id2      {:var_entries.add(String.valueOf(id));var_entries.add(String.valueOf(id2));:}
                               ; 
 
 properties_variables::= VISIBILITY STATIC FINAL
@@ -234,7 +237,7 @@ if_else_estructure::= if_estructure ELSE if_estructure
 
 /*Create new obj declaration*/
 create_obj_estructure::= OBJECT ID EQUAL NEW OBJECT O_PARENT args_estructure C_PARENT SEMICOLON
-                       | ID ID EQUAL NEW ID O_PARENT args_estructure C_PARENT SEMICOLON
+                       | ID ID:id EQUAL NEW ID O_PARENT args_estructure C_PARENT SEMICOLON                         {:record.addVarToClass(idleft, idright, var_entries, String.valueOf(type)); var_entries.clear();:}
                        | OBJECT ID EQUAL NEW OBJECT O_PARENT C_PARENT SEMICOLON
                        | ID ID EQUAL NEW ID O_PARENT C_PARENT SEMICOLON
                        ;
@@ -252,8 +255,8 @@ args_estructure::= new_estructure
                  ;                                   
 
 /*All declarations for intern structure*/
-declarated_variable_estructure::= TYPE_VARIABLE declarated_several_variables SEMICOLON
-                                | ID asign_values variable_values SEMICOLON
+declarated_variable_estructure::= TYPE_VARIABLE:type declarated_several_variables SEMICOLON                        {:record.addVarToClass(idleft, idright, var_entries, String.valueOf(type)); var_entries.clear();:}
+                                | ID:id asign_values variable_values SEMICOLON                                     {:record.addVarToClass(idleft, idright, var_entries, ""); var_entries.clear();:}
                                 | THIS DOT call_function_this asign_values variable_values SEMICOLON
                                 | create_obj_estructure
                                 ;
