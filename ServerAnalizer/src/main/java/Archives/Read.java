@@ -1,7 +1,12 @@
 package Archives;
 
+import Analizers.Lexer;
+import Analizers.Sintactic;
+import Objects.ClassInfo;
 import java.io.File;
-import javax.swing.JFileChooser;
+import java.io.FileReader;
+import java.io.Reader;
+import java.util.ArrayList;
 
 /**
  *
@@ -9,15 +14,37 @@ import javax.swing.JFileChooser;
  */
 public class Read {
 
-    public File readFile(String path) {
-        return new File(path);
+    private ArrayList<File> archives = new ArrayList<>();
+
+    public ArrayList<ClassInfo> analizeArchives(File directory) {
+        inputDirectory(directory);
+        ArrayList<ClassInfo> result = new ArrayList<>();
+        for (File file : archives) {
+            try {
+                Reader reader = new FileReader(file);
+                Lexer lexer = new Lexer(reader);
+                Sintactic sintac = new Sintactic(lexer);
+                sintac.parse();
+                result.add(sintac.getResult(lexer.getComments()));
+            } catch (Exception e) {
+                System.out.println("ERROR EN EL ANÁLISIS DEL ARCHIVO -> " + file.getName());
+            }
+        }
+
+        return result;
     }
-    
-    public String getPath() {
-        JFileChooser fChooser = new JFileChooser();
-        fChooser.setDialogTitle("Selecciona el archivo dentro de la carpeta");
-        fChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        int tmp = fChooser.showOpenDialog(null);
-        return tmp == JFileChooser.APPROVE_OPTION ? String.format("%1$s/%2$s", fChooser.getCurrentDirectory().getAbsolutePath(), fChooser.getSelectedFile()) : null;
+
+    private void inputDirectory(File directory) {
+        for (File file : directory.listFiles()) {
+            if (!file.isDirectory()) {
+                if (file.getName().endsWith(".java")) {
+                    System.out.println("ARCHIVO -> " + file.getName());
+                    archives.add(file);
+                }
+            } else {
+                inputDirectory(file);
+            }
+        }
     }
+
 }

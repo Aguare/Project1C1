@@ -18,6 +18,7 @@ import java.util.ArrayList;
 
 %{
     private ArrayList<ErrorLP> errors = new ArrayList<>();
+    private ArrayList<String> comments = new ArrayList<>();
 
     public void viewToken(Symbol cur_token){
         System.out.println("Simbolo detectado " + sym.terminalNames[cur_token.sym]);
@@ -31,6 +32,10 @@ import java.util.ArrayList;
 
     public ArrayList<ErrorLP> getErrors(){
         return errors;
+    }
+
+    public ArrayList<String> getComments(){
+        return comments;
     }
 %}
 //Comments
@@ -123,8 +128,8 @@ OTHER = ([\|\||\|])
 {BOOLEAN}      {return new Symbol(sym.BOOLEAN, yyline+1, yycolumn+1, yytext());}
 {CHAR}         {return new Symbol(sym.CHAR, yyline+1, yycolumn+1, yytext());}
 {ID}           {return new Symbol(sym.ID, yyline+1, yycolumn+1, yytext());}
-{COM}          {/*Ignore*/}
-{COMM}         {/*Ignore*/}
+{COM}          {comments.add(yytext());}
+{COMM}         {comments.add(yytext());}
 {WHITE}        {/*Ignore*/}
 
 [^]            {addError(yytext(), yyline+1, yycolumn+1);}

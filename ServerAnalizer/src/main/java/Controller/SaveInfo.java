@@ -33,7 +33,7 @@ public class SaveInfo {
         clearLists();
     }
 
-    public void clearLists() {
+    private void clearLists() {
         variables.clear();
         variablesf.clear();
         parameters.clear();

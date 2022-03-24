@@ -8,6 +8,7 @@ package Analizers;
 import Controller.SaveInfo;
 import java_cup.runtime.*;
 import java.util.ArrayList;
+import Objects.ClassInfo;
 import java_cup.runtime.XMLElement;
 
 /** CUP v0.11b 20160615 generated parser.
@@ -782,6 +783,10 @@ public class Sintactic extends java_cup.runtime.lr_parser {
 
         public ArrayList<ErrorLP> getErrors(){
                 return errors;
+        }
+
+        public ClassInfo getResult(ArrayList<String> comments) {
+                return record.getResult(comments); 
         }
     
 

@@ -4,6 +4,7 @@ package Analizers;
 import Controller.SaveInfo;
 import java_cup.runtime.*;
 import java.util.ArrayList;
+import Objects.ClassInfo;
 
 parser code {:
 
@@ -56,6 +57,10 @@ parser code {:
 
         public ArrayList<ErrorLP> getErrors(){
                 return errors;
+        }
+
+        public ClassInfo getResult(ArrayList<String> comments) {
+                return record.getResult(comments); 
         }
     
 :};
