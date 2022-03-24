@@ -1,6 +1,11 @@
+/home/aguare/Documents/Github/Project1C1/ServerAnalizer/src/main/java/Objects/FunctionInfo.java
 /home/aguare/Documents/Github/Project1C1/ServerAnalizer/src/main/java/Analizers/ErrorLP.java
 /home/aguare/Documents/Github/Project1C1/ServerAnalizer/src/main/java/Analizers/sym.java
 /home/aguare/Documents/Github/Project1C1/ServerAnalizer/src/main/java/Main/Main.java
+/home/aguare/Documents/Github/Project1C1/ServerAnalizer/src/main/java/Objects/VariableInfo.java
 /home/aguare/Documents/Github/Project1C1/ServerAnalizer/src/main/java/Analizers/Lexer.java
 /home/aguare/Documents/Github/Project1C1/ServerAnalizer/src/main/java/Analizers/Sintactic.java
 /home/aguare/Documents/Github/Project1C1/ServerAnalizer/src/main/java/Archives/Read.java
+/home/aguare/Documents/Github/Project1C1/ServerAnalizer/src/main/java/Objects/TypeVar.java
+/home/aguare/Documents/Github/Project1C1/ServerAnalizer/src/main/java/Objects/ClassInfo.java
+/home/aguare/Documents/Github/Project1C1/ServerAnalizer/src/main/java/Controller/SaveInfo.java

@@ -127,7 +127,10 @@ class_internal_estructure::= declarated_variable_class_estructure class_internal
 declarated_variable_class_estructure::= properties_variables TYPE_VARIABLE:type declarated_several_variables:id SEMICOLON       {:record.addVarToClass(idleft, idright, var_entries, String.valueOf(type)); var_entries.clear();:}
                                       | VISIBILITY TYPE_VARIABLE:type declarated_several_variables:id SEMICOLON                 {:record.addVarToClass(idleft, idright, var_entries, String.valueOf(type)); var_entries.clear();:}
                                       | TYPE_VARIABLE:type declarated_several_variables:id SEMICOLON                            {:record.addVarToClass(idleft, idright, var_entries, String.valueOf(type)); var_entries.clear();:}
-                                      | ID:id asign_values variable_values SEMICOLON                                            {:record.addVarToClass(idleft, idright, var_entries, ""); var_entries.clear();:}
+                                      | properties_variables ID:type declarated_several_variables:id SEMICOLON                  {:record.addVarToClass(idleft, idright, var_entries, String.valueOf(type)); var_entries.clear();:}
+                                      | VISIBILITY ID:type declarated_several_variables:id SEMICOLON                            {:record.addVarToClass(idleft, idright, var_entries, String.valueOf(type)); var_entries.clear();:}
+                                      | ID:type declarated_several_variables:id SEMICOLON                                       {:record.addVarToClass(idleft, idright, var_entries, String.valueOf(type)); var_entries.clear();:}
+                                      | ID asign_values variable_values SEMICOLON                                            
                                       ;
 
 declarated_several_variables::= ID:id                                                                   {:var_entries.add(String.valueOf(id));:}
@@ -144,9 +147,11 @@ properties_variables::= VISIBILITY STATIC FINAL
                       | FINAL
                       ;
 
-function_estructure::= properties_function ID O_PARENT internal_function C_BRACE
-                     | VISIBILITY TYPE_VARIABLE ID O_PARENT internal_function C_BRACE
-                     | TYPE_VARIABLE ID O_PARENT internal_function C_BRACE
+function_estructure::= properties_function:type ID:name O_PARENT internal_function C_BRACE              {:record.setName_function(String.valueOf(name)); record.setType_return(String.valueOf(type)); record.closeDeclarationFun(typeleft, typeright);:}
+                     | VISIBILITY TYPE_VARIABLE:type ID:name O_PARENT internal_function C_BRACE         {:record.setName_function(String.valueOf(name)); record.setType_return(String.valueOf(type)); record.closeDeclarationFun(typeleft, typeright);:}
+                     | TYPE_VARIABLE:type ID:name O_PARENT internal_function C_BRACE                    {:record.setName_function(String.valueOf(name)); record.setType_return(String.valueOf(type)); record.closeDeclarationFun(typeleft, typeright);:}
+                     | VISIBILITY ID:type ID:name O_PARENT internal_function C_BRACE                    {:record.setName_function(String.valueOf(name)); record.setType_return(String.valueOf(type)); record.closeDeclarationFun(typeleft, typeright);:}
+                     | ID:type ID:name O_PARENT internal_function C_BRACE                               {:record.setName_function(String.valueOf(name)); record.setType_return(String.valueOf(type)); record.closeDeclarationFun(typeleft, typeright);:}
                      ;
 
 internal_function::= C_PARENT O_BRACE
@@ -156,9 +161,9 @@ internal_function::= C_PARENT O_BRACE
                    |
                    ; 
 
-properties_function::= VISIBILITY VOID 
-                     | VISIBILITY STATIC VOID
-                     | VISIBILITY STATIC TYPE_VARIABLE
+properties_function::= VISIBILITY VOID:type                     {:RESULT = String.valueOf(type);:}
+                     | VISIBILITY STATIC VOID:type              {:RESULT = String.valueOf(type);:}
+                     | VISIBILITY STATIC TYPE_VARIABLE:type     {:RESULT = String.valueOf(type);:}
                      ;
 
 /*All estructures for internal estructure*/
@@ -182,8 +187,9 @@ all_estructures::= declarated_variable_estructure
                  ;
 
 /*parameters for declarated functions*/
-function_args_estructure::= TYPE_VARIABLE ID
-                          | TYPE_VARIABLE ID COMMA function_args_estructure
+function_args_estructure::= TYPE_VARIABLE:type ID:id                                    {:record.addParameter(idleft, idright, String.valueOf(id), String.valueOf(type));:}
+                          | ID:type ID:id                                               {:record.addParameter(idleft, idright, String.valueOf(id), String.valueOf(type));:}
+                          | TYPE_VARIABLE:type ID:id COMMA function_args_estructure     {:record.addParameter(idleft, idright, String.valueOf(id), String.valueOf(type));:}
                           ;
 
 /*All declarations for loops*/
@@ -236,10 +242,9 @@ if_else_estructure::= if_estructure ELSE if_estructure
                     ;
 
 /*Create new obj declaration*/
-create_obj_estructure::= OBJECT ID EQUAL NEW OBJECT O_PARENT args_estructure C_PARENT SEMICOLON
-                       | ID ID:id EQUAL NEW ID O_PARENT args_estructure C_PARENT SEMICOLON                         {:record.addVarToClass(idleft, idright, var_entries, String.valueOf(type)); var_entries.clear();:}
-                       | OBJECT ID EQUAL NEW OBJECT O_PARENT C_PARENT SEMICOLON
-                       | ID ID EQUAL NEW ID O_PARENT C_PARENT SEMICOLON
+create_obj_estructure::= OBJECT:type ID:id EQUAL NEW OBJECT O_PARENT args_estructure C_PARENT SEMICOLON            {:var_entries.add(String.valueOf(id)); record.addVarToFunc(idleft, idright, var_entries, String.valueOf(type)); var_entries.clear();:}
+                       | ID:type ID:id EQUAL NEW ID O_PARENT args_estructure C_PARENT SEMICOLON                    {:var_entries.add(String.valueOf(id)); record.addVarToFunc(idleft, idright, var_entries, String.valueOf(type)); var_entries.clear();:}
+                       | OBJECT:type ID:id EQUAL NEW OBJECT O_PARENT C_PARENT SEMICOLON                            {:var_entries.add(String.valueOf(id)); record.addVarToFunc(idleft, idright, var_entries, String.valueOf(type)); var_entries.clear();:}
                        ;
 
 new_estructure::= NEW OBJECT O_PARENT args_estructure C_PARENT
@@ -255,8 +260,10 @@ args_estructure::= new_estructure
                  ;                                   
 
 /*All declarations for intern structure*/
-declarated_variable_estructure::= TYPE_VARIABLE:type declarated_several_variables SEMICOLON                        {:record.addVarToClass(idleft, idright, var_entries, String.valueOf(type)); var_entries.clear();:}
-                                | ID:id asign_values variable_values SEMICOLON                                     {:record.addVarToClass(idleft, idright, var_entries, ""); var_entries.clear();:}
+declarated_variable_estructure::= TYPE_VARIABLE:type declarated_several_variables:id SEMICOLON                        {:record.addVarToFunc(idleft, idright, var_entries, String.valueOf(type)); var_entries.clear();:}
+                                | ID:type declarated_several_variables:id SEMICOLON                                   {:record.addVarToFunc(idleft, idright, var_entries, String.valueOf(type)); var_entries.clear();:}
+                                | ID:type ID:id EQUAL NEW ID O_PARENT C_PARENT SEMICOLON                              {:var_entries.add(String.valueOf(id)); record.addVarToFunc(idleft, idright, var_entries, String.valueOf(type)); var_entries.clear();:}
+                                | ID asign_values variable_values SEMICOLON                                     
                                 | THIS DOT call_function_this asign_values variable_values SEMICOLON
                                 | create_obj_estructure
                                 ;

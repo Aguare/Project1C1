@@ -10,17 +10,27 @@ public class FunctionInfo {
     
     private int line, column;
     private String name;
+    private String type_return;
     private ArrayList<VariableInfo> variables;
     private ArrayList<VariableInfo> parameters;
 
-    public FunctionInfo(int line, int column, String name, ArrayList<VariableInfo> variables, ArrayList<VariableInfo> parameters) {
+    public FunctionInfo(int line, int column, String name, String type_return, ArrayList<VariableInfo> variables, ArrayList<VariableInfo> parameters) {
         this.line = line;
         this.column = column;
         this.name = name;
+        this.type_return = type_return;
         this.variables = variables;
         this.parameters = parameters;
     }
 
+    public String getType_return() {
+        return type_return;
+    }
+
+    public void setType_return(String type_return) {
+        this.type_return = type_return;
+    }
+    
     public int getLine() {
         return line;
     }
