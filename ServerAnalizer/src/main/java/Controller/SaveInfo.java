@@ -41,12 +41,12 @@ public class SaveInfo {
     }
 
     public void setname_class(String name_class) {
-        System.out.println("Clase -> "+name_class);
+        System.out.println("Clase -> " + name_class);
         this.name_class = name_class;
     }
 
     public void setName_function(String name_function) {
-        System.out.println("Función -> "+name_function);
+        System.out.println("Función -> " + name_function);
         this.name_function = name_function;
     }
 
@@ -58,7 +58,7 @@ public class SaveInfo {
         Collections.reverse(id);
         for (String name_var : id) {
             if (!name_var.equalsIgnoreCase("null")) {
-                insertVar(line, column, name_var, type, 1);
+                insertVar(line, column, name_var, type, 1, name_class);
             }
         }
     }
@@ -67,7 +67,7 @@ public class SaveInfo {
         Collections.reverse(id);
         for (String name_var : id) {
             if (!name_var.equalsIgnoreCase("null")) {
-                insertVar(line, column, name_var, type, 2);
+                insertVar(line, column, name_var, type, 2, name_function);
             }
         }
     }
@@ -76,12 +76,12 @@ public class SaveInfo {
         parameters.add(new VariableInfo(line, column, id, name_function, getType(type)));
     }
 
-    private void insertVar(int line, int column, String id, String type, int op) {
+    private void insertVar(int line, int column, String id, String type, int op, String father) {
         TypeVar t = getType(type);
         if (op == 1) {
-            variables.add(new VariableInfo(line, column, id, name_class, t));
+            variables.add(new VariableInfo(line, column, id, father, t));
         } else {
-            variablesf.add(new VariableInfo(line, column, id, name_class, t));
+            variablesf.add(new VariableInfo(line, column, id, father, t));
         }
         System.out.println("ID -> " + id);
 
@@ -106,27 +106,4 @@ public class SaveInfo {
         }
     }
 
-    /**
-     *
-     * @param id
-     * @param type
-     * @param op 1 insert in variables to class, 2 insert variables function
-     * @return
-     */
-    private boolean verifyExistsVar(String id, TypeVar type, int op) {
-        if (op == 1) {
-            return readList(variables, type, id);
-        } else {
-            return readList(variablesf, type, id);
-        }
-    }
-
-    private boolean readList(ArrayList<VariableInfo> list, TypeVar type, String name_var) {
-        for (VariableInfo v : list) {
-            if (v.getName().equalsIgnoreCase(name_var)) {
-                return true;
-            }
-        }
-        return false;
-    }
 }
