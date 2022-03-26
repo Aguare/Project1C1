@@ -9,15 +9,27 @@ import java.util.ArrayList;
 public class ClassInfo {
 
     private String name;
-    private ArrayList<String> comentarios;
+    private ArrayList<String> comments;
     private ArrayList<VariableInfo> variables;
     private ArrayList<FunctionInfo> functions;
 
-    public ClassInfo(String name, ArrayList<String> comentarios, ArrayList<VariableInfo> variables, ArrayList<FunctionInfo> functions) {
+    public ClassInfo(String name, ArrayList<String> comments, ArrayList<VariableInfo> variables, ArrayList<FunctionInfo> functions) {
         this.name = name;
-        this.comentarios = comentarios;
+        this.comments = comments;
         this.variables = variables;
         this.functions = functions;
+    }
+
+    public int getTotalVariables() {
+        int total = 0;
+        for (FunctionInfo f : functions) {
+            total += f.getParameters().size() + f.getVariables().size();
+        }
+        return total + variables.size();
+    }
+
+    public int getTotalComments() {
+        return comments.size();
     }
 
     public String getName() {
@@ -30,11 +42,11 @@ public class ClassInfo {
     }
 
     public ArrayList<String> getComentarios() {
-        return comentarios;
+        return comments;
     }
 
-    public void setComentarios(ArrayList<String> comentarios) {
-        this.comentarios = comentarios;
+    public void setComentarios(ArrayList<String> comments) {
+        this.comments = comments;
     }
 
     public ArrayList<VariableInfo> getVariables() {

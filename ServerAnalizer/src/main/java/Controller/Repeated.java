@@ -15,15 +15,17 @@ public class Repeated {
     private VariableInfo var1, var2;
 
     //if reapeted is a class
-    private String class1, class2;
+    private String class1;
 
     //if repeated is method or function
     private String function1, type1;
-    private String function2, type2;
-    private int param1, param2;
+    private int param1;
 
     //if repeated is a comment
     private String text;
+
+    //if for score
+    private double score;
 
     /**
      * Create for variables
@@ -39,16 +41,14 @@ public class Repeated {
     }
 
     /**
-     * Create for classes
+     * Create for classes and Comments
      *
      * @param type TypeEs.CLASS
      * @param class1
-     * @param class2
      */
-    public Repeated(TypeEs type, String class1, String class2) {
+    public Repeated(TypeEs type, String class1) {
         this.type = type;
         this.class1 = class1;
-        this.class2 = class2;
     }
 
     /**
@@ -57,30 +57,26 @@ public class Repeated {
      * @param type
      * @param function1
      * @param type1
-     * @param function2
-     * @param type2
      * @param param1
-     * @param param2
      */
-    public Repeated(TypeEs type, String function1, String type1, String function2, String type2, int param1, int param2) {
+    public Repeated(TypeEs type, String function1, String type1, int param1) {
         this.type = type;
         this.function1 = function1;
         this.type1 = type1;
-        this.function2 = function2;
-        this.type2 = type2;
         this.param1 = param1;
-        this.param2 = param2;
     }
 
-    /**
-     * Create for comments
-     *
-     * @param type
-     * @param text
-     */
-    public Repeated(TypeEs type, String text) {
+    public Repeated(TypeEs type, double score) {
         this.type = type;
-        this.text = text;
+        this.score = score;
+    }
+
+    public double getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
     }
 
     public TypeEs getType() {
@@ -115,14 +111,6 @@ public class Repeated {
         this.class1 = class1;
     }
 
-    public String getClass2() {
-        return class2;
-    }
-
-    public void setClass2(String class2) {
-        this.class2 = class2;
-    }
-
     public String getFunction1() {
         return function1;
     }
@@ -139,22 +127,6 @@ public class Repeated {
         this.type1 = type1;
     }
 
-    public String getFunction2() {
-        return function2;
-    }
-
-    public void setFunction2(String function2) {
-        this.function2 = function2;
-    }
-
-    public String getType2() {
-        return type2;
-    }
-
-    public void setType2(String type2) {
-        this.type2 = type2;
-    }
-
     public int getParam1() {
         return param1;
     }
@@ -163,19 +135,31 @@ public class Repeated {
         this.param1 = param1;
     }
 
-    public int getParam2() {
-        return param2;
-    }
-
-    public void setParam2(int param2) {
-        this.param2 = param2;
-    }
-
     public String getText() {
         return text;
     }
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    @Override
+    public String toString() {
+        switch (type) {
+            case CLASS:
+                return "{Nombre: \"" + class1 + "\"}";
+            case VAR:
+                return "{Nombre: \"" + var1.getName() + "\", Tipo:\"" + var1.getType()
+                        + "\", Funcion: \"" + var1.getName_father() + ", " + var2.getName_father()
+                        + "\"}";
+            case METHOD:
+                return "{Nombre: \"" + function1 + "\", Tipo: \"" + type1 + "\", Parametros: " + param1 + "}";
+            case COMMENT:
+                return "{Texto: " + text + "}";
+            case SCORE:
+                return "Score: \"" + score + "\"";
+            default:
+                return "UNDEFINED";
+        }
     }
 }

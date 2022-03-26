@@ -58,7 +58,7 @@ public class SaveInfo {
         Collections.reverse(id);
         for (String name_var : id) {
             if (!name_var.equalsIgnoreCase("null")) {
-                insertVar(line, column, name_var, type, 1, name_class);
+                insertVar(line, column, name_var, type, 1, "Clase " + name_class);
             }
         }
     }

@@ -8,5 +8,6 @@ public enum TypeEs {
     CLASS,
     VAR,
     METHOD,
-    COMMENT
+    COMMENT,
+    SCORE
 }
