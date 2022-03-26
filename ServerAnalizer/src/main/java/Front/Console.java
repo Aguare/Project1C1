@@ -1,8 +1,4 @@
-package Main;
-
-import Archives.Read;
-import Conecction.ServerInput;
-import java.io.File;
+package Front;
 
 /**
  *
@@ -10,25 +6,16 @@ import java.io.File;
  */
 public class Console extends javax.swing.JFrame {
 
+    private LineNumber lines;
+
     /**
      * Creates new form Console
      */
     public Console() {
         initComponents();
-        generateMain();
-    }
-
-    private void generateMain() {
-        try {
-            ServerInput server = new ServerInput();
-            server.run();
-            //Read read = new Read();
-            //File file = new File("/home/aguare/Downloads");
-            //read.analizeArchives(file);
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Error en la lectura del archivo");
-        }
+        setLocationRelativeTo(null);
+        lines = new LineNumber(outText);
+        scrollPanel.setRowHeaderView(lines);
     }
 
     /**
@@ -40,18 +27,46 @@ public class Console extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        scrollPanel = new javax.swing.JScrollPane();
+        outText = new javax.swing.JTextArea();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Consola");
+        setBackground(new java.awt.Color(53, 59, 81));
+        setResizable(false);
+
+        jLabel1.setBackground(new java.awt.Color(40, 111, 194));
+        jLabel1.setFont(new java.awt.Font("Ubuntu Mono", 1, 18)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(247, 250, 253));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("CONSOLA DE ERRORES");
+        jLabel1.setOpaque(true);
+
+        outText.setEditable(false);
+        outText.setColumns(20);
+        outText.setRows(5);
+        scrollPanel.setViewportView(outText);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 544, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 841, Short.MAX_VALUE)
+                    .addComponent(scrollPanel))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 340, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scrollPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 386, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -83,6 +98,9 @@ public class Console extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Console.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
@@ -91,5 +109,8 @@ public class Console extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JTextArea outText;
+    private javax.swing.JScrollPane scrollPanel;
     // End of variables declaration//GEN-END:variables
 }

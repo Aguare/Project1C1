@@ -1,7 +1,7 @@
-package Main;
+package Front;
 
-import Archives.Read;
-import Conecction.ServerInput;
+import Backend.Archives.Read;
+import Backend.Conecction.ServerInput;
 import java.io.File;
 
 /**

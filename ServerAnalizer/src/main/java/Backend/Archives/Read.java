@@ -1,8 +1,8 @@
-package Archives;
+package Backend.Archives;
 
-import Analizers.Lexer;
-import Analizers.Sintactic;
-import Objects.ClassInfo;
+import Backend.Analizers.Lexer;
+import Backend.Analizers.Sintactic;
+import Backend.Objects.ClassInfo;
 import java.io.File;
 import java.io.FileReader;
 import java.io.Reader;

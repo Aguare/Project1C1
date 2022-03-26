@@ -1,9 +1,9 @@
-package Controller;
+package Backend.Controller;
 
-import Objects.ClassInfo;
-import Objects.FunctionInfo;
-import Objects.TypeVar;
-import Objects.VariableInfo;
+import Backend.Objects.ClassInfo;
+import Backend.Objects.FunctionInfo;
+import Backend.Objects.TypeVar;
+import Backend.Objects.VariableInfo;
 import java.util.ArrayList;
 import java.util.Collections;
 

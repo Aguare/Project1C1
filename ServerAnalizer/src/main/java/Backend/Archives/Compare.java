@@ -1,10 +1,10 @@
-package Archives;
+package Backend.Archives;
 
-import Controller.Repeated;
-import Controller.TypeEs;
-import Objects.ClassInfo;
-import Objects.FunctionInfo;
-import Objects.VariableInfo;
+import Backend.Controller.Repeated;
+import Backend.Controller.TypeEs;
+import Backend.Objects.ClassInfo;
+import Backend.Objects.FunctionInfo;
+import Backend.Objects.VariableInfo;
 import java.util.ArrayList;
 
 /**

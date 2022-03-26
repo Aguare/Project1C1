@@ -1,6 +1,6 @@
-package Controller;
+package Backend.Controller;
 
-import Objects.VariableInfo;
+import Backend.Objects.VariableInfo;
 
 /**
  *

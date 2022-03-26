@@ -1,4 +1,4 @@
-package Analizers;
+package Backend.Analizers;
 
 /**
  *
