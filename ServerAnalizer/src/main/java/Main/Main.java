@@ -1,6 +1,7 @@
 package Main;
 
 import Archives.Read;
+import Conecction.ServerInput;
 import java.io.File;
 
 /**
@@ -11,6 +12,8 @@ public class Main {
 
     public static void main(String[] args) {
         try {
+            ServerInput server = new ServerInput();
+            server.run();
             Read read = new Read();
             File file = new File("/home/aguare/Downloads");
             read.analizeArchives(file);

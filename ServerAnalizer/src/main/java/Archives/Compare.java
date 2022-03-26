@@ -13,15 +13,13 @@ import java.util.ArrayList;
  */
 public class Compare {
 
-    private ArrayList<Repeated> repeated = new ArrayList<>();
+    private ArrayList<Repeated> class_r = new ArrayList<>();
+    private ArrayList<Repeated> var_r = new ArrayList<>();
+    private ArrayList<Repeated> function_r = new ArrayList<>();
+    private ArrayList<Repeated> comments_r = new ArrayList<>();
+
     private ArrayList<ClassInfo> c1;
     private ArrayList<ClassInfo> c2;
-
-    //amount of repetition
-    private int cooments = 0;
-    private int variables = 0;
-    private int functions = 0;
-    private int classes = 0;
 
     //for calculated score
     private double score = 0;
@@ -37,28 +35,25 @@ public class Compare {
     /**
      * Start
      *
-     * @return all matches
      */
-    public ArrayList<Repeated> runAnalysis() {
+    public void runAnalysis() {
         verifyClasses();
         verifyVarR();
         verifyFunctions();
         verifyComments();
         calculateScore();
-        return repeated;
     }
 
     private void calculateScore() {
         calculateTotals();
         //Comments
-        this.score += (this.cooments / total_comments) * 0.25;
+        this.score += (this.comments_r.size() / total_comments) * 0.25;
         //variables
-        this.score += (this.variables / total_variables) * 0.25;
+        this.score += (this.var_r.size() / total_variables) * 0.25;
         //Functions
-        this.score += (this.functions / total_functions) * 0.25;
+        this.score += (this.function_r.size() / total_functions) * 0.25;
         //classes
-        this.score += (this.classes / (c1.size() + c2.size())) * 0.25;
-        repeated.add(new Repeated(TypeEs.SCORE, score));
+        this.score += (this.class_r.size() / (c1.size() + c2.size())) * 0.25;
     }
 
     private void calculateTotals() {
@@ -124,8 +119,7 @@ public class Compare {
         for (String com1 : c1) {
             for (String com2 : c2) {
                 if (com1.equals(com2)) {
-                    repeated.add(new Repeated(TypeEs.COMMENT, com1));
-                    this.cooments++;
+                    comments_r.add(new Repeated(TypeEs.COMMENT, com1));
                 }
             }
         }
@@ -139,9 +133,8 @@ public class Compare {
                         && ff.getParameters().size() == f.getParameters().size()
                         && ff.getType_return().equals(f.getType_return())) {
                     if (compareParameters(f.getParameters(), ff.getParameters())) {
-                        repeated.add(new Repeated(TypeEs.METHOD, f.getName(),
+                        function_r.add(new Repeated(TypeEs.METHOD, f.getName(),
                                 f.getType_return(), f.getParameters().size()));
-                        this.functions++;
                     }
                 }
             }
@@ -164,8 +157,7 @@ public class Compare {
         for (ClassInfo ce : c2) {
             if (c.equals(ce.getName()) && c.getFunctions().size() == ce.getFunctions().size()) {
                 if (compareFunctionClass(c.getFunctions(), ce.getFunctions())) {
-                    repeated.add(new Repeated(TypeEs.CLASS, c.getName()));
-                    this.classes++;
+                    class_r.add(new Repeated(TypeEs.CLASS, c.getName()));
                 }
             }
         }
@@ -197,17 +189,28 @@ public class Compare {
     private void compareVarList(ArrayList<VariableInfo> var2, VariableInfo var) {
         for (VariableInfo vG : var2) {
             if (vG.getName().equals(var.getName()) && vG.getType() == var.getType()) {
-                repeated.add(new Repeated(TypeEs.VAR, var, vG));
-                this.variables++;
+                var_r.add(new Repeated(TypeEs.VAR, var, vG));
             }
         }
     }
 
-    public double getScore() {
-        return score;
+    public Repeated getScore() {
+        return new Repeated(TypeEs.SCORE, score);
     }
 
-    public void setScore(double score) {
-        this.score = score;
+    public ArrayList<Repeated> getClass_r() {
+        return class_r;
+    }
+
+    public ArrayList<Repeated> getVar_r() {
+        return var_r;
+    }
+
+    public ArrayList<Repeated> getFunction_r() {
+        return function_r;
+    }
+
+    public ArrayList<Repeated> getComments_r() {
+        return comments_r;
     }
 }

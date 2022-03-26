@@ -1,8 +1,6 @@
 package Archives;
 
 import Controller.Repeated;
-import static Controller.TypeEs.CLASS;
-import java.io.File;
 import java.util.ArrayList;
 
 /**
@@ -11,40 +9,43 @@ import java.util.ArrayList;
  */
 public class CreateJSON {
 
-    public File generateJSON(ArrayList<Repeated> repeated) {
+    /**
+     * Generate JSON estructure with String
+     *
+     * @param class_r
+     * @param var_r
+     * @param func_r
+     * @param comments_r
+     * @return
+     */
+    public String generateJSON(ArrayList<Repeated> class_r,
+            ArrayList<Repeated> var_r, ArrayList<Repeated> func_r,
+            ArrayList<Repeated> comments_r) {
         StringBuilder write = new StringBuilder();
-        StringBuilder[] s = getContent(repeated);
         write.append("}");
         write.append("Clases:[");
-        write.append(s[0]);
+        writeList(class_r, write);
         write.append("],");
+        write.append("Variables:[");
+        writeList(var_r, write);
+        write.append("],");
+        write.append("Metodos:[");
+        writeList(func_r, write);
+        write.append("],");
+        write.append("Comentarios:[");
+        writeList(comments_r, write);
+        write.append("]");
         write.append("}");
-        return null;
+        return write.toString();
     }
 
-    private StringBuilder[] getContent(ArrayList<Repeated> repeated) {
-        StringBuilder[] s = new StringBuilder[4];
-        for (Repeated r : repeated) {
-            switch (r.getType()) {
-                case CLASS:
-                    s[0].append(r.toString());
-                    break;
-                case VAR:
-                    s[1].append(r.toString());
-                    break;
-                case METHOD:
-                    s[2].append(r.toString());
-                    break;
-                case COMMENT:
-                    s[3].append(r.toString());
-                    break;
-                case SCORE:
-                    s[4].append(r.toString());
-                    break;
-                default:
-                    break;
+    private void writeList(ArrayList<Repeated> r, StringBuilder write) {
+        for (int i = 0; i < r.size(); i++) {
+            if (i < r.size() - 2) {
+                write.append(r.get(i).toString()).append(",");
+            } else {
+                write.append(r.get(i).toString());
             }
         }
-        return s;
     }
 }
