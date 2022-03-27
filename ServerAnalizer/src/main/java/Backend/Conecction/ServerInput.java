@@ -9,7 +9,7 @@ import java.net.Socket;
  *
  * @author aguare
  */
-public class ServerInput implements Runnable {
+public class ServerInput extends Thread {
 
     @Override
     public void run() {
@@ -25,7 +25,7 @@ public class ServerInput implements Runnable {
                 socket.close();
             }
         } catch (IOException ex) {
-            ex.printStackTrace();
+            System.out.println(ex.getMessage());
         }
     }
 
