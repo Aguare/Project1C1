@@ -59,10 +59,10 @@ public class Main extends javax.swing.JFrame {
         scrollConsole = new javax.swing.JScrollPane();
         consoleText = new javax.swing.JTextArea();
         jMenuBar1 = new javax.swing.JMenuBar();
-        jMenu3 = new javax.swing.JMenu();
-        jMenuItem3 = new javax.swing.JMenuItem();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        archiveMenu = new javax.swing.JMenu();
+        openProject = new javax.swing.JMenuItem();
+        newProject = new javax.swing.JMenuItem();
+        saveProject = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -71,10 +71,12 @@ public class Main extends javax.swing.JFrame {
 
         jPanel1.setToolTipText("");
 
+        jTabbedPane1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         jTabbedPane1.setOpaque(true);
 
         reportDefTab.setColumns(20);
         reportDefTab.setRows(5);
+        reportDefTab.setMinimumSize(new java.awt.Dimension(729, 203));
         scrollDef.setViewportView(reportDefTab);
 
         jTabbedPane1.addTab("reportes.def", scrollDef);
@@ -91,6 +93,7 @@ public class Main extends javax.swing.JFrame {
         jTabbedPane1.addTab("Reportes", scrollPane);
 
         executeBtn.setText("Ejecutar");
+        executeBtn.setEnabled(false);
 
         consoleLabel.setBackground(new java.awt.Color(21, 29, 69));
         consoleLabel.setFont(new java.awt.Font("Ubuntu Mono", 1, 15)); // NOI18N
@@ -102,21 +105,23 @@ public class Main extends javax.swing.JFrame {
         consoleText.setEditable(false);
         consoleText.setColumns(20);
         consoleText.setRows(5);
+        consoleText.setBorder(null);
+        consoleText.setMinimumSize(new java.awt.Dimension(729, 203));
         scrollConsole.setViewportView(consoleText);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
-            .addComponent(scrollConsole, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(executeBtn)
-                        .addGap(0, 655, Short.MAX_VALUE))
-                    .addComponent(consoleLabel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(executeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 729, Short.MAX_VALUE)
+                    .addComponent(scrollConsole, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(consoleLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -129,24 +134,30 @@ public class Main extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(consoleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollConsole, javax.swing.GroupLayout.DEFAULT_SIZE, 205, Short.MAX_VALUE))
+                .addComponent(scrollConsole, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
-        jMenu3.setText("Archivo");
+        archiveMenu.setText("Archivo");
 
-        jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        jMenuItem3.setText("Nuevo Proyecto");
-        jMenu3.add(jMenuItem3);
+        openProject.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        openProject.setText("Abrir Proyecto");
+        archiveMenu.add(openProject);
 
-        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        jMenuItem1.setText("Abrir Proyecto");
-        jMenu3.add(jMenuItem1);
+        newProject.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        newProject.setText("Nuevo Proyecto");
+        newProject.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                newProjectActionPerformed(evt);
+            }
+        });
+        archiveMenu.add(newProject);
 
-        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        jMenuItem2.setText("Guardar Proyecto");
-        jMenu3.add(jMenuItem2);
+        saveProject.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        saveProject.setText("Guardar Proyecto");
+        archiveMenu.add(saveProject);
 
-        jMenuBar1.add(jMenu3);
+        jMenuBar1.add(archiveMenu);
 
         jMenu1.setText("Acerca de");
         jMenuBar1.add(jMenu1);
@@ -166,6 +177,11 @@ public class Main extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void newProjectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newProjectActionPerformed
+        Archives arch = new Archives(this, true);
+        arch.setVisible(true);
+    }//GEN-LAST:event_newProjectActionPerformed
 
     /**
      * @param args the command line arguments
@@ -204,20 +220,20 @@ public class Main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu archiveMenu;
     private javax.swing.JLabel consoleLabel;
     private javax.swing.JTextArea consoleText;
     private javax.swing.JButton executeBtn;
     private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextArea jsonTab;
+    private javax.swing.JMenuItem newProject;
+    private javax.swing.JMenuItem openProject;
     private javax.swing.JTextArea reportDefTab;
     private javax.swing.JEditorPane reportsPane;
+    private javax.swing.JMenuItem saveProject;
     private javax.swing.JScrollPane scrollConsole;
     private javax.swing.JScrollPane scrollDef;
     private javax.swing.JScrollPane scrollJSON;
