@@ -146,7 +146,7 @@ public class Repeated {
             case COMMENT:
                 return "\t{Texto: \"" + class1 + "\"}";
             case SCORE:
-                return "\tScore: \"" + score + "\"";
+                return "Score: \"" + score + "\"";
             default:
                 return "UNDEFINED";
         }

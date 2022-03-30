@@ -1,5 +1,8 @@
 package Front;
 
+import Back.Analizers.JSON.ChargeJSON;
+import java.io.Reader;
+import java.io.StringReader;
 import javax.swing.JOptionPane;
 
 /**
@@ -9,6 +12,7 @@ import javax.swing.JOptionPane;
 public class Main extends javax.swing.JFrame {
 
     private LineNumber line1, line2, line3;
+    private ChargeJSON charge;
 
     /**
      * Creates new form Principal
@@ -47,7 +51,7 @@ public class Main extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        tabbedPaneMain = new javax.swing.JTabbedPane();
         scrollDef = new javax.swing.JScrollPane();
         reportDefTab = new javax.swing.JTextArea();
         scrollJSON = new javax.swing.JScrollPane();
@@ -71,26 +75,26 @@ public class Main extends javax.swing.JFrame {
 
         jPanel1.setToolTipText("");
 
-        jTabbedPane1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
-        jTabbedPane1.setOpaque(true);
+        tabbedPaneMain.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        tabbedPaneMain.setOpaque(true);
 
         reportDefTab.setColumns(20);
         reportDefTab.setRows(5);
         reportDefTab.setMinimumSize(new java.awt.Dimension(729, 203));
         scrollDef.setViewportView(reportDefTab);
 
-        jTabbedPane1.addTab("reportes.def", scrollDef);
+        tabbedPaneMain.addTab("reportes.def", scrollDef);
 
         jsonTab.setColumns(20);
         jsonTab.setRows(5);
         scrollJSON.setViewportView(jsonTab);
 
-        jTabbedPane1.addTab("resultado.json", scrollJSON);
+        tabbedPaneMain.addTab("resultado.json", scrollJSON);
 
         reportsPane.setEditable(false);
         scrollPane.setViewportView(reportsPane);
 
-        jTabbedPane1.addTab("Reportes", scrollPane);
+        tabbedPaneMain.addTab("Reportes", scrollPane);
 
         executeBtn.setText("Ejecutar");
         executeBtn.setEnabled(false);
@@ -119,7 +123,7 @@ public class Main extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addComponent(executeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 729, Short.MAX_VALUE)
+                    .addComponent(tabbedPaneMain, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 729, Short.MAX_VALUE)
                     .addComponent(scrollConsole, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(consoleLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -128,7 +132,7 @@ public class Main extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tabbedPaneMain, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(executeBtn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -187,6 +191,10 @@ public class Main extends javax.swing.JFrame {
             message.setVisible(true);
         } else {
             this.jsonTab.setText(arch.getJSON());
+            tabbedPaneMain.setSelectedIndex(1);
+            Reader reader = new StringReader(jsonTab.getText());
+            charge = new ChargeJSON(consoleText, reader);
+            charge.chargeJSON();
             JOptionPane message = new JOptionPane("Se analizaron los proyectos", JOptionPane.INFORMATION_MESSAGE);
             message.setVisible(true);
         }
@@ -234,7 +242,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextArea jsonTab;
     private javax.swing.JMenuItem newProject;
     private javax.swing.JMenuItem openProject;
@@ -245,5 +252,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JScrollPane scrollDef;
     private javax.swing.JScrollPane scrollJSON;
     private javax.swing.JScrollPane scrollPane;
+    private javax.swing.JTabbedPane tabbedPaneMain;
     // End of variables declaration//GEN-END:variables
 }

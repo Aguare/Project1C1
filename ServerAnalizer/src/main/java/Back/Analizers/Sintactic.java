@@ -813,7 +813,7 @@ public class Sintactic extends java_cup.runtime.lr_parser {
 
     public void addError(Symbol token) {
         try {
-            errors.add(new ErrorLP(token.left, token.right, token.value.toString(), 1, "No se esperaba Proyecto: " + name_project + name_archive));
+            errors.add(new ErrorLP(token.left, token.right, token.value.toString(), 1, "No se esperaba Proyecto: " + name_project + " Archivo: " + name_archive));
         } catch (Exception e) {
         }
     }
@@ -2607,6 +2607,7 @@ public class Sintactic extends java_cup.runtime.lr_parser {
         }
 
         /* end of method */
+
         /**
          * Method splitting the generated action code into several parts.
          */

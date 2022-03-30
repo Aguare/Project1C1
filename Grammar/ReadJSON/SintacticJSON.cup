@@ -1,0 +1,131 @@
+/* SECTION 1: user code */
+package Back.Analizers.JSON;
+
+import java_cup.runtime.*;
+import java.util.ArrayList;
+import Back.Analizers.ErrorLP;
+
+parser code {:
+
+        private ArrayList<ErrorLP> errors = new ArrayList<>();
+
+        public SintacticJSON(LexerJSON lexer) {
+                super(lexer);
+        }
+
+        public void syntax_error(Symbol cur_token) {
+                if (cur_token.sym != symJSON.EOF){
+                        addError(cur_token);
+                }
+        }
+    
+        public void unrecovered_syntax_error(Symbol cur_token) {
+                addError(cur_token);
+        }
+
+        public void addError(Symbol token) {
+                try {
+                        errors.add(new ErrorLP(token.left, token.right, token.value.toString(), 1, "No se esperaba el simbolo"));
+                } catch (Exception e) {
+                }
+                printStack();
+        }
+
+        public ArrayList<ErrorLP> getErrors(){
+                return errors;
+        }
+
+        public void printStack(){
+            for (Object o : stack) {
+                if (o instanceof Symbol) {
+                    System.out.println("L:"+((Symbol) o).left+" C:"+((Symbol) o).right+" -> "+((Symbol) o).value.toString());
+                }
+            }
+        }
+:};
+
+/* Terminals (tokens returned by the scanner). */
+terminal Integer INTEGER;
+
+terminal O_BRACE, C_BRACE, O_SBRACKET, C_SBRACKET, COLONS,
+         COMMA, CLASSES, VARIABLES, METHODS, COMMENTS, STRING,
+         NAME, TYPE, FUNCTION, PARAMETERS, TEXT, SCORE, COM;     
+
+/* Non terminals */
+non terminal initial, internal_json, all_estructures, score_estructure, classes_estructure,
+             internal_class, variables_estructure, internal_variable, variable_declaration,
+             method_estructure, internal_method, method_declaration, comments_estructure,
+             internal_comment, name_estructure, type_estructure, parameters_estructure, 
+             functions_estructure, comments_estructure_general;
+
+/* The Precedence rules*/
+
+start with initial;
+
+/* The grammar rules */
+initial::= O_BRACE internal_json C_BRACE;
+
+internal_json::= all_estructures
+               | all_estructures COMMA internal_json
+               ;
+
+all_estructures::= score_estructure
+                 | classes_estructure
+                 | variables_estructure
+                 | method_estructure
+                 | comments_estructure_general
+                 ;
+
+//SCORE
+score_estructure::= SCORE COLONS STRING;
+
+//CLASSES
+classes_estructure::= CLASSES COLONS O_SBRACKET internal_class C_SBRACKET
+                    | CLASSES COLONS O_SBRACKET C_SBRACKET
+                    ;
+
+internal_class::= O_BRACE name_estructure C_BRACE
+                | O_BRACE name_estructure C_BRACE COMMA internal_class
+                ;
+
+//VARIABLES
+variables_estructure::= VARIABLES COLONS O_SBRACKET internal_variable C_SBRACKET
+                      | VARIABLES COLONS O_SBRACKET C_SBRACKET
+                      ;
+
+internal_variable::= O_BRACE variable_declaration C_BRACE
+                   | O_BRACE variable_declaration C_BRACE COMMA internal_variable
+                   ;
+
+variable_declaration::= name_estructure COMMA type_estructure COMMA functions_estructure;
+
+//METHODS
+method_estructure::= METHODS COLONS O_SBRACKET internal_method C_SBRACKET
+                   | METHODS COLONS O_SBRACKET C_SBRACKET
+                   ;
+
+internal_method::= O_BRACE method_declaration C_BRACE
+                 | O_BRACE method_declaration C_BRACE COMMA internal_method
+                 ;
+
+method_declaration::= name_estructure COMMA type_estructure COMMA parameters_estructure;
+
+//COMMENTS
+comments_estructure_general::= COMMENTS COLONS O_SBRACKET internal_comment C_SBRACKET
+                             | COMMENTS COLONS O_SBRACKET C_SBRACKET
+                             ;
+
+internal_comment::= O_BRACE comments_estructure C_BRACE
+                  | O_BRACE comments_estructure C_BRACE COMMA internal_comment
+                  ;
+
+//GLOBAL ESTRUCTURES
+name_estructure::= NAME COLONS STRING;
+
+type_estructure::= TYPE COLONS STRING;
+
+parameters_estructure::= PARAMETERS COLONS INTEGER;
+
+functions_estructure::= FUNCTION COLONS STRING;
+
+comments_estructure::= TEXT COLONS COM;

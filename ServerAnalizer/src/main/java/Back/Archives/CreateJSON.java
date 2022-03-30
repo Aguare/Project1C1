@@ -23,7 +23,7 @@ public class CreateJSON {
             ArrayList<Repeated> var_r, ArrayList<Repeated> func_r,
             ArrayList<Repeated> comments_r, Repeated score) {
         StringBuilder write = new StringBuilder();
-        write.append("}");
+        write.append("{");
         write.append("\n").append(score.toString()).append(",");
         write.append("\nClases:[");
         writeList(class_r, write);
