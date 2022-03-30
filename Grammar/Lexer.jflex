@@ -1,8 +1,8 @@
 /* SECTION 1: user code */
-package Analizers;
+package Back.Analizers;
 
 import java_cup.runtime.Symbol;
-import Analizers.sym;
+import Back.Analizers.sym;
 import java.util.ArrayList;
 
 /* SECTION 2: config */
@@ -19,15 +19,10 @@ import java.util.ArrayList;
 %{
     private ArrayList<ErrorLP> errors = new ArrayList<>();
     private ArrayList<String> comments = new ArrayList<>();
-
-    public void viewToken(Symbol cur_token){
-        System.out.println("Simbolo detectado " + sym.terminalNames[cur_token.sym]);
-        System.out.println(String.format("En la posicion: %d, %d", cur_token.left, cur_token.right));
-    }
+    private String name_archive, name_project;
 
     public void addError(String lexema, int line, int column){
-        errors.add(new ErrorLP(line, column, lexema, 0, "El símbolo no se reconoce"));
-        System.out.println("Error -> "+lexema+" L:"+line+" C:"+column);
+        errors.add(new ErrorLP(line, column, lexema, 0, "El símbolo no se reconoce Proyecto: " + name_project + " Archivo: " + name_archive));
     }
 
     public ArrayList<ErrorLP> getErrors(){
@@ -36,6 +31,12 @@ import java.util.ArrayList;
 
     public ArrayList<String> getComments(){
         return comments;
+    }
+
+    public Lexer(java.io.Reader in, String name_archive, String name_project) {
+        this.zzReader = in;
+        this.name_archive = name_archive;
+        this.name_project = name_project;
     }
 %}
 //Comments

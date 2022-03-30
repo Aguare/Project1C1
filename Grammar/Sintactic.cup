@@ -1,33 +1,28 @@
 /* SECTION 1: user code */
-package Analizers;
+package Back.Analizers;
 
-import Controller.SaveInfo;
+import Back.Controller.SaveInfo;
 import java_cup.runtime.*;
 import java.util.ArrayList;
-import Objects.ClassInfo;
+import Back.Objects.ClassInfo;
 
 parser code {:
 
         private ArrayList<ErrorLP> errors = new ArrayList<>();
         private SaveInfo record = new SaveInfo();
         private ArrayList<String> var_entries = new ArrayList<>();
+        private String name_archive, name_project;
 
-        public Sintactic(Lexer lexer){
-             super(lexer);
-        }
-
-        public void viewToken(Symbol cur_token){
-                System.out.println("Simbolo detectado " + sym.terminalNames[cur_token.sym]);
-                System.out.println(String.format("En la posicion: %d, %d", cur_token.left, cur_token.right));
+        public Sintactic(Lexer lexer, String name_archive, String name_project) {
+                super(lexer);
+                this.name_archive = name_archive;
+                this.name_project = name_project;
         }
 
         public void syntax_error(Symbol cur_token) {
                 if (cur_token.sym != sym.EOF){
                         addError(cur_token);
-                }else{
-                        System.out.println("Fin Lectura");
                 }
-                printStack();
         }
     
         public void unrecovered_syntax_error(Symbol cur_token) {
@@ -36,23 +31,9 @@ parser code {:
 
         public void addError(Symbol token) {
                 try {
-                        errors.add(new ErrorLP(token.left, token.right, token.value.toString(), 1, "Pendiente"));
+                        errors.add(new ErrorLP(token.left, token.right, token.value.toString(), 1, "No se esperaba Proyecto: " + name_project + " Archivo: " + name_archive));
                 } catch (Exception e) {
                 }
-                printStack();
-        }
-
-        public void printStack() {
-                System.out.println("------------STACK--------------");
-                for (Object object : stack) {
-                        if (object != null) {
-                                Symbol s = (Symbol) object;
-                                if (s.value != null) {
-                                        System.out.println("L: " + s.left + " C:" + s.right + " Contenido: " + s.value);
-                                }
-                        }
-                }
-                System.out.println("________________________________");
         }
 
         public ArrayList<ErrorLP> getErrors(){
@@ -60,7 +41,7 @@ parser code {:
         }
 
         public ClassInfo getResult(ArrayList<String> comments) {
-                return record.getResult(comments); 
+                return record.getResult(comments, name_project); 
         }
     
 :};
@@ -95,10 +76,10 @@ non terminal initial, package_estructure, import_estructure, import_id_estructur
              types_values_without, arithmetics_operations, increment_operators, logical_operations,
              all_estructures, internal_estructures, internal_return, internal_while, call_function_estructure,
              internal_switch, properties_function, internal_function, declarated_several_variables,
-             this_estructure, call_function_this, this_internal;
+             this_estructure, call_function_this, this_internal, properties_var_internal;
 
 /* The Precedence rules*/
-precedence left SUM, REST, RETURN;
+precedence left SUM, REST, RETURN, STATIC;
 precedence left MULTIPLY, DIV;
 
 start with initial;
@@ -107,6 +88,7 @@ start with initial;
 initial::= package_estructure import_estructure class_estructure
          | import_estructure class_estructure
          | class_estructure
+         |
          ;
 
 package_estructure::= PACKAGE ID SEMICOLON;
@@ -121,12 +103,13 @@ import_id_estructure::= ID
                       ;
 
 class_estructure::= VISIBILITY CLASS ID:name_class O_BRACE class_internal_estructure C_BRACE       {:record.setname_class(name_class.toString());:}
-                  | CLASS ID O_BRACE class_internal_estructure C_BRACE
+                  | CLASS ID:name_class O_BRACE class_internal_estructure C_BRACE                  {:record.setname_class(name_class.toString());:}
                   ;
 
 class_internal_estructure::= declarated_variable_class_estructure class_internal_estructure
                            | function_estructure class_internal_estructure
                            |
+                           | error class_internal_estructure
                            ;
 
 declarated_variable_class_estructure::= properties_variables TYPE_VARIABLE:type declarated_several_variables:id SEMICOLON       {:record.addVarToClass(idleft, idright, var_entries, String.valueOf(type)); var_entries.clear();:}
@@ -135,7 +118,8 @@ declarated_variable_class_estructure::= properties_variables TYPE_VARIABLE:type 
                                       | properties_variables ID:type declarated_several_variables:id SEMICOLON                  {:record.addVarToClass(idleft, idright, var_entries, String.valueOf(type)); var_entries.clear();:}
                                       | VISIBILITY ID:type declarated_several_variables:id SEMICOLON                            {:record.addVarToClass(idleft, idright, var_entries, String.valueOf(type)); var_entries.clear();:}
                                       | ID:type declarated_several_variables:id SEMICOLON                                       {:record.addVarToClass(idleft, idright, var_entries, String.valueOf(type)); var_entries.clear();:}
-                                      | ID asign_values variable_values SEMICOLON                                            
+                                      | ID asign_values variable_values SEMICOLON
+                                      | error SEMICOLON                                            
                                       ;
 
 declarated_several_variables::= ID:id                                                                   {:var_entries.add(String.valueOf(id));:}
@@ -144,19 +128,21 @@ declarated_several_variables::= ID:id                                           
                               | ID:id EQUAL variable_values COMMA declarated_several_variables:id2      {:var_entries.add(String.valueOf(id));var_entries.add(String.valueOf(id2));:}
                               ; 
 
-properties_variables::= VISIBILITY STATIC FINAL
-                      | VISIBILITY FINAL STATIC
-                      | FINAL STATIC
-                      | STATIC FINAL
-                      | STATIC
-                      | FINAL
+properties_variables::= VISIBILITY properties_var_internal
+                      | properties_var_internal
                       ;
 
-function_estructure::= properties_function:type ID:name O_PARENT internal_function C_BRACE              {:record.setName_function(String.valueOf(name)); record.setType_return(String.valueOf(type)); record.closeDeclarationFun(typeleft, typeright);:}
-                     | VISIBILITY TYPE_VARIABLE:type ID:name O_PARENT internal_function C_BRACE         {:record.setName_function(String.valueOf(name)); record.setType_return(String.valueOf(type)); record.closeDeclarationFun(typeleft, typeright);:}
-                     | TYPE_VARIABLE:type ID:name O_PARENT internal_function C_BRACE                    {:record.setName_function(String.valueOf(name)); record.setType_return(String.valueOf(type)); record.closeDeclarationFun(typeleft, typeright);:}
-                     | VISIBILITY ID:type ID:name O_PARENT internal_function C_BRACE                    {:record.setName_function(String.valueOf(name)); record.setType_return(String.valueOf(type)); record.closeDeclarationFun(typeleft, typeright);:}
-                     | ID:type ID:name O_PARENT internal_function C_BRACE                               {:record.setName_function(String.valueOf(name)); record.setType_return(String.valueOf(type)); record.closeDeclarationFun(typeleft, typeright);:}
+properties_var_internal::= STATIC FINAL
+                         | FINAL STATIC
+                         | FINAL
+                         | STATIC
+                         ;
+
+function_estructure::= properties_function:type ID:name O_PARENT internal_function C_BRACE              {:record.setName_function(String.valueOf(name)); record.setType_return(String.valueOf(type)); record.closeDeclarationFun(typeleft, typeright, String.valueOf(name));:}
+                     | VISIBILITY TYPE_VARIABLE:type ID:name O_PARENT internal_function C_BRACE         {:record.setName_function(String.valueOf(name)); record.setType_return(String.valueOf(type)); record.closeDeclarationFun(typeleft, typeright, String.valueOf(name));:}
+                     | TYPE_VARIABLE:type ID:name O_PARENT internal_function C_BRACE                    {:record.setName_function(String.valueOf(name)); record.setType_return(String.valueOf(type)); record.closeDeclarationFun(typeleft, typeright, String.valueOf(name));:}
+                     | VISIBILITY ID:type ID:name O_PARENT internal_function C_BRACE                    {:record.setName_function(String.valueOf(name)); record.setType_return(String.valueOf(type)); record.closeDeclarationFun(typeleft, typeright, String.valueOf(name));:}
+                     | ID:type ID:name O_PARENT internal_function C_BRACE                               {:record.setName_function(String.valueOf(name)); record.setType_return(String.valueOf(type)); record.closeDeclarationFun(typeleft, typeright, String.valueOf(name));:}
                      ;
 
 internal_function::= C_PARENT O_BRACE
@@ -195,6 +181,7 @@ all_estructures::= declarated_variable_estructure
 function_args_estructure::= TYPE_VARIABLE:type ID:id                                    {:record.addParameter(idleft, idright, String.valueOf(id), String.valueOf(type));:}
                           | ID:type ID:id                                               {:record.addParameter(idleft, idright, String.valueOf(id), String.valueOf(type));:}
                           | TYPE_VARIABLE:type ID:id COMMA function_args_estructure     {:record.addParameter(idleft, idright, String.valueOf(id), String.valueOf(type));:}
+                          | error function_args_estructure
                           ;
 
 /*All declarations for loops*/

@@ -1,6 +1,6 @@
 package Front;
 
-import Backend.Conecction.ServerInput;
+import Back.Conecction.ServerInput;
 
 /**
  *
@@ -9,7 +9,7 @@ import Backend.Conecction.ServerInput;
 public class Console extends javax.swing.JFrame {
 
     private LineNumber lines;
-    private ServerInput server = new ServerInput();
+    private ServerInput server;
 
     /**
      * Creates new form Console
@@ -19,6 +19,7 @@ public class Console extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         lines = new LineNumber(outText);
         scrollPanel.setRowHeaderView(lines);
+        server = new ServerInput(outText);
         server.start();
     }
 
