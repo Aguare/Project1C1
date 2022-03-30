@@ -1,4 +1,4 @@
-package Backend.Analizers;
+package Back.Analizers;
 
 /**
  *
@@ -59,6 +59,23 @@ public class ErrorLP {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public String getTypeError(int type) {
+        if (type == 0) {
+            return "Error Léxico";
+        } else {
+            return "Error Sintáctico";
+        }
+    }
+
+    @Override
+    public String toString() {
+        if (line == 0 && column == 0) {
+            return message;
+        } else {
+            return getTypeError(typeError) + " -> L:" + line + "\tC:" + column + "\t { " + content + " } " + message;
+        }
     }
 
 }

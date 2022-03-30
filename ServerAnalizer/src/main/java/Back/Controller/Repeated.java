@@ -1,6 +1,6 @@
-package Backend.Controller;
+package Back.Controller;
 
-import Backend.Objects.VariableInfo;
+import Back.Objects.VariableInfo;
 
 /**
  *
@@ -20,9 +20,6 @@ public class Repeated {
     //if repeated is method or function
     private String function1, type1;
     private int param1;
-
-    //if repeated is a comment
-    private String text;
 
     //if for score
     private double score;
@@ -135,29 +132,21 @@ public class Repeated {
         this.param1 = param1;
     }
 
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
     @Override
     public String toString() {
         switch (type) {
             case CLASS:
-                return "{Nombre: \"" + class1 + "\"}";
+                return "\t{Nombre: \"" + class1 + "\"}";
             case VAR:
-                return "{Nombre: \"" + var1.getName() + "\", Tipo:\"" + var1.getType()
+                return "\t{Nombre: \"" + var1.getName() + "\", Tipo:\"" + var1.getType()
                         + "\", Funcion: \"" + var1.getName_father() + ", " + var2.getName_father()
                         + "\"}";
             case METHOD:
-                return "{Nombre: \"" + function1 + "\", Tipo: \"" + type1 + "\", Parametros: " + param1 + "}";
+                return "\t{Nombre: \"" + function1 + "\", Tipo: \"" + type1 + "\", Parametros: " + param1 + "}";
             case COMMENT:
-                return "{Texto: " + text + "}";
+                return "\t{Texto: \"" + class1 + "\"}";
             case SCORE:
-                return "Score: \"" + score + "\"";
+                return "\tScore: \"" + score + "\"";
             default:
                 return "UNDEFINED";
         }

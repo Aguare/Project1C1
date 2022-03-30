@@ -127,6 +127,9 @@
         <Property name="text" type="java.lang.String" value="Seleccionar"/>
         <Property name="horizontalTextPosition" type="int" value="0"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="p2BtnActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="analizeBtn">
       <Properties>
@@ -134,6 +137,9 @@
         <Property name="enabled" type="boolean" value="false"/>
         <Property name="horizontalTextPosition" type="int" value="0"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="analizeBtnActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

@@ -1,9 +1,9 @@
-package Backend.Controller;
+package Back.Controller;
 
-import Backend.Objects.ClassInfo;
-import Backend.Objects.FunctionInfo;
-import Backend.Objects.TypeVar;
-import Backend.Objects.VariableInfo;
+import Back.Objects.ClassInfo;
+import Back.Objects.FunctionInfo;
+import Back.Objects.TypeVar;
+import Back.Objects.VariableInfo;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -23,13 +23,17 @@ public class SaveInfo {
     private ArrayList<VariableInfo> variablesf = new ArrayList<>();
     private ArrayList<VariableInfo> parameters = new ArrayList<>();
 
-    public ClassInfo getResult(ArrayList<String> comentarios) {
-        return new ClassInfo(name_class, comentarios, variables, functions);
+    public ClassInfo getResult(ArrayList<String> comentarios, String name_project) {
+        return new ClassInfo(name_project, name_class, comentarios, variables, functions);
     }
 
-    public void closeDeclarationFun(int line, int column) {
+    public void closeDeclarationFun(int line, int column, String name) {
         Collections.reverse(parameters);
-        functions.add(new FunctionInfo(line, column, name_function, type_return, variablesf, parameters));
+        FunctionInfo newF = new FunctionInfo(line, column, name, type_return,
+                (ArrayList<VariableInfo>) variablesf.clone(),
+                (ArrayList<VariableInfo>) parameters.clone());
+        newF.changeParameters(name);
+        functions.add(newF);
         clearLists();
     }
 
@@ -37,16 +41,13 @@ public class SaveInfo {
         variables.clear();
         variablesf.clear();
         parameters.clear();
-        name_function = "UNDEFINED";
     }
 
     public void setname_class(String name_class) {
-        System.out.println("Clase -> " + name_class);
         this.name_class = name_class;
     }
 
     public void setName_function(String name_function) {
-        System.out.println("Función -> " + name_function);
         this.name_function = name_function;
     }
 
@@ -79,12 +80,10 @@ public class SaveInfo {
     private void insertVar(int line, int column, String id, String type, int op, String father) {
         TypeVar t = getType(type);
         if (op == 1) {
-            variables.add(new VariableInfo(line, column, id, father, t));
+            variables.add(new VariableInfo(line, column, id, "" + father, t));
         } else {
-            variablesf.add(new VariableInfo(line, column, id, father, t));
+            variablesf.add(new VariableInfo(line, column, id, "" + father, t));
         }
-        System.out.println("ID -> " + id);
-
     }
 
     private TypeVar getType(String type_variable) {

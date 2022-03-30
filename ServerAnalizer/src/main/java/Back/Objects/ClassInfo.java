@@ -1,4 +1,4 @@
-package Backend.Objects;
+package Back.Objects;
 
 import java.util.ArrayList;
 
@@ -8,12 +8,14 @@ import java.util.ArrayList;
  */
 public class ClassInfo {
 
+    private String name_project;
     private String name;
     private ArrayList<String> comments;
     private ArrayList<VariableInfo> variables;
     private ArrayList<FunctionInfo> functions;
 
-    public ClassInfo(String name, ArrayList<String> comments, ArrayList<VariableInfo> variables, ArrayList<FunctionInfo> functions) {
+    public ClassInfo(String name_project, String name, ArrayList<String> comments, ArrayList<VariableInfo> variables, ArrayList<FunctionInfo> functions) {
+        this.name_project = name_project;
         this.name = name;
         this.comments = comments;
         this.variables = variables;
@@ -33,7 +35,6 @@ public class ClassInfo {
     }
 
     public String getName() {
-        this.variables.get(1).setColumn(0);
         return name;
     }
 
@@ -65,4 +66,19 @@ public class ClassInfo {
         this.functions = functions;
     }
 
+    public String getName_project() {
+        return name_project;
+    }
+
+    public void setName_project(String name_project) {
+        this.name_project = name_project;
+    }
+
+    public ArrayList<String> getComments() {
+        return comments;
+    }
+
+    public void setComments(ArrayList<String> comments) {
+        this.comments = comments;
+    }
 }

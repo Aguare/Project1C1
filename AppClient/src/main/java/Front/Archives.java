@@ -1,18 +1,33 @@
 package Front;
 
+import Back.Archives.ClassCompare;
+import Back.Archives.Read;
+import Back.Conecction.SendArchives;
+import java.io.File;
+import java.util.ArrayList;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.JTextArea;
+
 /**
  *
  * @author aguare
  */
 public class Archives extends javax.swing.JDialog {
 
+    private ArrayList<File> p1, p2;
+    private Read read = new Read();
+    private SendArchives send;
+    private String JSON = "";
+
     /**
      * Creates new form Archives
      */
-    public Archives(java.awt.Frame parent, boolean modal) {
+    public Archives(java.awt.Frame parent, boolean modal, JTextArea console) {
         super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(null);
+        send = new SendArchives(console);
     }
 
     /**
@@ -61,10 +76,20 @@ public class Archives extends javax.swing.JDialog {
 
         p2Btn.setText("Seleccionar");
         p2Btn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        p2Btn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                p2BtnActionPerformed(evt);
+            }
+        });
 
         analizeBtn.setText("Analizar");
         analizeBtn.setEnabled(false);
         analizeBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        analizeBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                analizeBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -117,9 +142,59 @@ public class Archives extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void p1BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_p1BtnActionPerformed
-        
+        JFileChooser fc = new JFileChooser();
+        fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        int respuesta = fc.showOpenDialog(this);
+        if (respuesta == JFileChooser.APPROVE_OPTION) {
+            File file = fc.getSelectedFile();
+            if (file != null) {
+                this.p1 = read.inputDirectory(file);
+                pathP1.setText(file.getAbsolutePath());
+                verifyProjects();
+            } else {
+                JOptionPane.showMessageDialog(this, "Debe seleccionar una carpeta de archivos", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }//GEN-LAST:event_p1BtnActionPerformed
 
+    private void p2BtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_p2BtnActionPerformed
+        JFileChooser fc = new JFileChooser();
+        fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        int respuesta = fc.showOpenDialog(this);
+        if (respuesta == JFileChooser.APPROVE_OPTION) {
+            File file = fc.getSelectedFile();
+            if (file != null) {
+                this.p2 = read.inputDirectory(file);
+                pathP2.setText(file.getAbsolutePath());
+                verifyProjects();
+            } else {
+                JOptionPane.showMessageDialog(this, "Debe seleccionar una carpeta de archivos", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_p2BtnActionPerformed
+
+    private void analizeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_analizeBtnActionPerformed
+        this.JSON = send.createSocket(new ClassCompare(p1, p2));
+        this.setVisible(false);
+    }//GEN-LAST:event_analizeBtnActionPerformed
+
+    private void verifyProjects() {
+        if (p1 != null && p2 != null) {
+            if (!pathP1.getText().equals(pathP2.getText())) {
+                this.analizeBtn.setEnabled(true);
+            } else {
+                JOptionPane.showMessageDialog(this, "No puede comparar la misma carpeta", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    public String getJSON() {
+        return JSON;
+    }
+
+    public void setJSON(String JSON) {
+        this.JSON = JSON;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton analizeBtn;

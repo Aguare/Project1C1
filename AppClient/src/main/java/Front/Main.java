@@ -1,11 +1,13 @@
 package Front;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author aguare
  */
 public class Main extends javax.swing.JFrame {
-    
+
     private LineNumber line1, line2, line3;
 
     /**
@@ -22,10 +24,9 @@ public class Main extends javax.swing.JFrame {
         scrollConsole.setRowHeaderView(line3);
         insertHTML();
     }
-    
+
     private void insertHTML() {
         reportsPane.setContentType("text/html");
-        String url = "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pngwing.com%2Fes%2Ffree-png-vckzo&psig=AOvVaw0KBC-6sOvnDLMSWFSIvvvM&ust=1648450466287000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCIi-ydXa5fYCFQAAAAAdAAAAABAI";
         reportsPane.setText(
                 "<b>hola</b><br>"
                 + "<i>adios</i>"
@@ -33,7 +34,6 @@ public class Main extends javax.swing.JFrame {
                 + "<font face='courier'>fuente courier</font><br>"
                 + "<font size='24'>fuente grande</font><br>"
                 + "<font color='red'>color rojo</font><br>"
-                + "<img src=" + url + " width=250 height=250></img>"
         );
     }
 
@@ -179,8 +179,17 @@ public class Main extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void newProjectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newProjectActionPerformed
-        Archives arch = new Archives(this, true);
+        Archives arch = new Archives(this, true, consoleText);
         arch.setVisible(true);
+        String response = arch.getJSON();
+        if (response.equalsIgnoreCase("NO HAY RESPUESTA")) {
+            JOptionPane message = new JOptionPane("No hay respuesta del Servidor", JOptionPane.ERROR_MESSAGE);
+            message.setVisible(true);
+        } else {
+            this.jsonTab.setText(arch.getJSON());
+            JOptionPane message = new JOptionPane("Se analizaron los proyectos", JOptionPane.INFORMATION_MESSAGE);
+            message.setVisible(true);
+        }
     }//GEN-LAST:event_newProjectActionPerformed
 
     /**
@@ -212,10 +221,8 @@ public class Main extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Main().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new Main().setVisible(true);
         });
     }
 

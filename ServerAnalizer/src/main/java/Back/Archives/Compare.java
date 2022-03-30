@@ -1,10 +1,10 @@
-package Backend.Archives;
+package Back.Archives;
 
-import Backend.Controller.Repeated;
-import Backend.Controller.TypeEs;
-import Backend.Objects.ClassInfo;
-import Backend.Objects.FunctionInfo;
-import Backend.Objects.VariableInfo;
+import Back.Controller.Repeated;
+import Back.Controller.TypeEs;
+import Back.Objects.ClassInfo;
+import Back.Objects.FunctionInfo;
+import Back.Objects.VariableInfo;
 import java.util.ArrayList;
 
 /**
@@ -22,10 +22,10 @@ public class Compare {
     private ArrayList<ClassInfo> c2;
 
     //for calculated score
-    private double score = 0;
-    private int total_comments = 0;
-    private int total_variables = 0;
-    private int total_functions = 0;
+    private double score = 0.0;
+    private double total_comments = 0;
+    private double total_variables = 0;
+    private double total_functions = 0;
 
     public Compare(ArrayList<ClassInfo> c1, ArrayList<ClassInfo> c2) {
         this.c1 = c1;
@@ -47,13 +47,22 @@ public class Compare {
     private void calculateScore() {
         calculateTotals();
         //Comments
-        this.score += (this.comments_r.size() / total_comments) * 0.25;
+        if (total_comments != 0) {
+            score += ((this.comments_r.size() / total_comments) * 0.25);
+        }
         //variables
-        this.score += (this.var_r.size() / total_variables) * 0.25;
+        if (total_variables != 0) {
+            score += ((this.var_r.size() / total_variables) * 0.25);
+        }
         //Functions
-        this.score += (this.function_r.size() / total_functions) * 0.25;
+        if (total_functions != 0) {
+            score += ((this.function_r.size() / total_functions) * 0.25);
+        }
         //classes
-        this.score += (this.class_r.size() / (c1.size() + c2.size())) * 0.25;
+        int total = (c1.size() + c2.size());
+        if (total != 0) {
+            score += ((this.class_r.size() / (c1.size() + c2.size())) * 0.25);
+        }
     }
 
     private void calculateTotals() {
@@ -118,11 +127,22 @@ public class Compare {
     private void compareComments(ArrayList<String> c1, ArrayList<String> c2) {
         for (String com1 : c1) {
             for (String com2 : c2) {
-                if (com1.equals(com2)) {
+                String r1 = removeSpaces(com1);
+                String r2 = removeSpaces(com2);
+                if (r1.equals(r2)) {
                     comments_r.add(new Repeated(TypeEs.COMMENT, com1));
                 }
             }
         }
+    }
+
+    private String removeSpaces(String comment) {
+        String newS = "";
+        newS = comment.replaceAll("\n", "");
+        newS = newS.replaceAll("\t", "");
+        newS = newS.replaceAll("\r", "");
+        newS = newS.replaceAll(" ", "");
+        return newS;
     }
 
     private void compareFunctions(FunctionInfo f) {
@@ -155,7 +175,7 @@ public class Compare {
 
     private void compareNameClass(ClassInfo c) {
         for (ClassInfo ce : c2) {
-            if (c.equals(ce.getName()) && c.getFunctions().size() == ce.getFunctions().size()) {
+            if (c.getName().equals(ce.getName()) && c.getFunctions().size() == ce.getFunctions().size()) {
                 if (compareFunctionClass(c.getFunctions(), ce.getFunctions())) {
                     class_r.add(new Repeated(TypeEs.CLASS, c.getName()));
                 }
@@ -195,7 +215,7 @@ public class Compare {
     }
 
     public Repeated getScore() {
-        return new Repeated(TypeEs.SCORE, score);
+        return new Repeated(TypeEs.SCORE, Math.round(score * 100.0) / 100.0);
     }
 
     public ArrayList<Repeated> getClass_r() {
