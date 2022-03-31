@@ -19,10 +19,10 @@ import java.util.ArrayList;
 %{
     private ArrayList<ErrorLP> errors = new ArrayList<>();
     private ArrayList<String> comments = new ArrayList<>();
-    private String name_archive, name_project;
+    private String name_archive;
 
     public void addError(String lexema, int line, int column){
-        errors.add(new ErrorLP(line, column, lexema, 0, "El símbolo no se reconoce Proyecto: " + name_project + " Archivo: " + name_archive));
+        errors.add(new ErrorLP(line, column, lexema, 0, "El símbolo no se reconoce Archivo: " + name_archive));
     }
 
     public ArrayList<ErrorLP> getErrors(){
@@ -33,10 +33,9 @@ import java.util.ArrayList;
         return comments;
     }
 
-    public Lexer(java.io.Reader in, String name_archive, String name_project) {
+    public Lexer(java.io.Reader in, String name_archive) {
         this.zzReader = in;
         this.name_archive = name_archive;
-        this.name_project = name_project;
     }
 %}
 //Comments
@@ -47,7 +46,7 @@ VC = (public | private | protected)
 //Variable types
 T_VAR = (int | boolean | String | char | double)
 //Variable entrys
-STR = (\"((.)|a-zA-ZÀ-ÿ\u00f1\u00d1)+\")
+STR = ("\""[^\"\n\r]*"\"")
 INTEGER = ([0-9]+)
 DECIMAL = (\d+(\.\d+)?)
 BOOLEAN = (true | false)

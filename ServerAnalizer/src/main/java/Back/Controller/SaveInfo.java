@@ -23,8 +23,8 @@ public class SaveInfo {
     private ArrayList<VariableInfo> variablesf = new ArrayList<>();
     private ArrayList<VariableInfo> parameters = new ArrayList<>();
 
-    public ClassInfo getResult(ArrayList<String> comentarios, String name_project) {
-        return new ClassInfo(name_project, name_class, comentarios, variables, functions);
+    public ClassInfo getResult(ArrayList<String> comentarios) {
+        return new ClassInfo(name_class, comentarios, variables, functions);
     }
 
     public void closeDeclarationFun(int line, int column, String name) {

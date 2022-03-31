@@ -6,7 +6,7 @@
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="archiveMenu">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Archivo"/>
+            <Property name="text" type="java.lang.String" value="Proyecto"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="openProject">
@@ -14,7 +14,7 @@
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="Ctrl+O"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Abrir Proyecto"/>
+                <Property name="text" type="java.lang.String" value="Abrir"/>
               </Properties>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="newProject">
@@ -22,7 +22,7 @@
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="Ctrl+N"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Nuevo Proyecto"/>
+                <Property name="text" type="java.lang.String" value="Crear"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="newProjectActionPerformed"/>
@@ -33,7 +33,35 @@
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="Ctrl+S"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Guardar Proyecto"/>
+                <Property name="text" type="java.lang.String" value="Guardar"/>
+              </Properties>
+            </MenuItem>
+          </SubComponents>
+        </Menu>
+        <Menu class="javax.swing.JMenu" name="archiveMenu1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Archivos"/>
+          </Properties>
+          <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="chargerJSON">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Cargar JSON"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chargerJSONActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="newProject1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Crear"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="newProject1ActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="saveProject1">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Guardar"/>
               </Properties>
             </MenuItem>
           </SubComponents>

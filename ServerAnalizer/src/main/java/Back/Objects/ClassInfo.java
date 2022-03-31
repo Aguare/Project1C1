@@ -8,14 +8,12 @@ import java.util.ArrayList;
  */
 public class ClassInfo {
 
-    private String name_project;
     private String name;
     private ArrayList<String> comments;
     private ArrayList<VariableInfo> variables;
     private ArrayList<FunctionInfo> functions;
 
-    public ClassInfo(String name_project, String name, ArrayList<String> comments, ArrayList<VariableInfo> variables, ArrayList<FunctionInfo> functions) {
-        this.name_project = name_project;
+    public ClassInfo(String name, ArrayList<String> comments, ArrayList<VariableInfo> variables, ArrayList<FunctionInfo> functions) {
         this.name = name;
         this.comments = comments;
         this.variables = variables;
@@ -64,14 +62,6 @@ public class ClassInfo {
 
     public void setFunctions(ArrayList<FunctionInfo> functions) {
         this.functions = functions;
-    }
-
-    public String getName_project() {
-        return name_project;
-    }
-
-    public void setName_project(String name_project) {
-        this.name_project = name_project;
     }
 
     public ArrayList<String> getComments() {

@@ -11,12 +11,11 @@ parser code {:
         private ArrayList<ErrorLP> errors = new ArrayList<>();
         private SaveInfo record = new SaveInfo();
         private ArrayList<String> var_entries = new ArrayList<>();
-        private String name_archive, name_project;
+        private String name_archive;
 
-        public Sintactic(Lexer lexer, String name_archive, String name_project) {
+        public Sintactic(Lexer lexer, String name_archive) {
                 super(lexer);
                 this.name_archive = name_archive;
-                this.name_project = name_project;
         }
 
         public void syntax_error(Symbol cur_token) {
@@ -31,7 +30,7 @@ parser code {:
 
         public void addError(Symbol token) {
                 try {
-                        errors.add(new ErrorLP(token.left, token.right, token.value.toString(), 1, "No se esperaba Proyecto: " + name_project + " Archivo: " + name_archive));
+                        errors.add(new ErrorLP(token.left, token.right, token.value.toString(), 1, "No se esperaba Archivo: " + name_archive));
                 } catch (Exception e) {
                 }
         }
@@ -41,7 +40,7 @@ parser code {:
         }
 
         public ClassInfo getResult(ArrayList<String> comments) {
-                return record.getResult(comments, name_project); 
+                return record.getResult(comments); 
         }
     
 :};

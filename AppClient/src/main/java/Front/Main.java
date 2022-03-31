@@ -67,6 +67,10 @@ public class Main extends javax.swing.JFrame {
         openProject = new javax.swing.JMenuItem();
         newProject = new javax.swing.JMenuItem();
         saveProject = new javax.swing.JMenuItem();
+        archiveMenu1 = new javax.swing.JMenu();
+        chargerJSON = new javax.swing.JMenuItem();
+        newProject1 = new javax.swing.JMenuItem();
+        saveProject1 = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -142,14 +146,14 @@ public class Main extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        archiveMenu.setText("Archivo");
+        archiveMenu.setText("Proyecto");
 
         openProject.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        openProject.setText("Abrir Proyecto");
+        openProject.setText("Abrir");
         archiveMenu.add(openProject);
 
         newProject.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        newProject.setText("Nuevo Proyecto");
+        newProject.setText("Crear");
         newProject.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 newProjectActionPerformed(evt);
@@ -158,10 +162,33 @@ public class Main extends javax.swing.JFrame {
         archiveMenu.add(newProject);
 
         saveProject.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        saveProject.setText("Guardar Proyecto");
+        saveProject.setText("Guardar");
         archiveMenu.add(saveProject);
 
         jMenuBar1.add(archiveMenu);
+
+        archiveMenu1.setText("Archivos");
+
+        chargerJSON.setText("Cargar JSON");
+        chargerJSON.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chargerJSONActionPerformed(evt);
+            }
+        });
+        archiveMenu1.add(chargerJSON);
+
+        newProject1.setText("Crear");
+        newProject1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                newProject1ActionPerformed(evt);
+            }
+        });
+        archiveMenu1.add(newProject1);
+
+        saveProject1.setText("Guardar");
+        archiveMenu1.add(saveProject1);
+
+        jMenuBar1.add(archiveMenu1);
 
         jMenu1.setText("Acerca de");
         jMenuBar1.add(jMenu1);
@@ -200,6 +227,17 @@ public class Main extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_newProjectActionPerformed
 
+    private void newProject1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newProject1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_newProject1ActionPerformed
+
+    private void chargerJSONActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chargerJSONActionPerformed
+        tabbedPaneMain.setSelectedIndex(1);
+        Reader reader = new StringReader(jsonTab.getText());
+        charge = new ChargeJSON(consoleText, reader);
+        charge.chargeJSON();
+    }//GEN-LAST:event_chargerJSONActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -236,6 +274,8 @@ public class Main extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu archiveMenu;
+    private javax.swing.JMenu archiveMenu1;
+    private javax.swing.JMenuItem chargerJSON;
     private javax.swing.JLabel consoleLabel;
     private javax.swing.JTextArea consoleText;
     private javax.swing.JButton executeBtn;
@@ -244,10 +284,12 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextArea jsonTab;
     private javax.swing.JMenuItem newProject;
+    private javax.swing.JMenuItem newProject1;
     private javax.swing.JMenuItem openProject;
     private javax.swing.JTextArea reportDefTab;
     private javax.swing.JEditorPane reportsPane;
     private javax.swing.JMenuItem saveProject;
+    private javax.swing.JMenuItem saveProject1;
     private javax.swing.JScrollPane scrollConsole;
     private javax.swing.JScrollPane scrollDef;
     private javax.swing.JScrollPane scrollJSON;

@@ -31,7 +31,8 @@ import Back.Analizers.ErrorLP;
 %}
 
 //Variable entrys
-STR = (\"((.)|a-zA-ZÀ-ÿ\u00f1\u00d1)+\")
+STR = ("\""[^\"\n\r]*"\"")
+COMM2 = (\"\/\/((.)|a-zA-ZÀ-ÿ\u00f1\u00d1)+\")
 COMM = (\"\/\*([^\*]|[\r\n]|(\*+([^\*\/]|[\r\n])))*\*+\/\")
 INTEGER = ([0-9]+)
 WHITE = ([\s\t\r\n]+)
@@ -67,6 +68,7 @@ WHITE = ([\s\t\r\n]+)
 //Declarateds
 {STR}          {return new Symbol(symJSON.STRING, yyline+1, yycolumn+1, yytext());}
 {COMM}         {return new Symbol(symJSON.COM, yyline+1, yycolumn+1, yytext());}
+{COMM2}        {return new Symbol(symJSON.COM, yyline+1, yycolumn+1, yytext());}
 {INTEGER}      {return new Symbol(symJSON.INTEGER, yyline+1, yycolumn+1, yytext());}
 {WHITE}        {/*Ignore*/}
 

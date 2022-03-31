@@ -8,31 +8,30 @@ package Back.Analizers.JSON;
 /** CUP generated class containing symbol constants. */
 public class symJSON {
   /* terminals */
-  public static final int C_BRACE = 4;
-  public static final int COLONS = 7;
-  public static final int COM = 20;
-  public static final int NAME = 14;
-  public static final int SCORE = 19;
-  public static final int FUNCTION = 16;
-  public static final int COMMENTS = 12;
-  public static final int PARAMETERS = 17;
-  public static final int CLASSES = 9;
-  public static final int METHODS = 11;
-  public static final int TYPE = 15;
-  public static final int VARIABLES = 10;
-  public static final int STRING = 13;
-  public static final int C_SBRACKET = 6;
-  public static final int COMMA = 8;
+  public static final int C_BRACE = 3;
+  public static final int COLONS = 6;
+  public static final int COM = 19;
+  public static final int NAME = 13;
+  public static final int SCORE = 18;
+  public static final int FUNCTION = 15;
+  public static final int COMMENTS = 11;
+  public static final int PARAMETERS = 16;
+  public static final int CLASSES = 8;
+  public static final int METHODS = 10;
+  public static final int TYPE = 14;
+  public static final int VARIABLES = 9;
+  public static final int STRING = 12;
+  public static final int C_SBRACKET = 5;
+  public static final int COMMA = 7;
   public static final int EOF = 0;
   public static final int error = 1;
-  public static final int O_BRACE = 3;
-  public static final int INTEGER = 2;
-  public static final int TEXT = 18;
-  public static final int O_SBRACKET = 5;
+  public static final int O_BRACE = 2;
+  public static final int INTEGER = 20;
+  public static final int TEXT = 17;
+  public static final int O_SBRACKET = 4;
   public static final String[] terminalNames = new String[] {
   "EOF",
   "error",
-  "INTEGER",
   "O_BRACE",
   "C_BRACE",
   "O_SBRACKET",
@@ -50,7 +49,8 @@ public class symJSON {
   "PARAMETERS",
   "TEXT",
   "SCORE",
-  "COM"
+  "COM",
+  "INTEGER"
   };
 }
 

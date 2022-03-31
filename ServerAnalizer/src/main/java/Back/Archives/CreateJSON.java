@@ -43,7 +43,7 @@ public class CreateJSON {
 
     private void writeList(ArrayList<Repeated> r, StringBuilder write) {
         for (int i = 0; i < r.size(); i++) {
-            if (i < r.size() - 2) {
+            if (i < r.size() - 1) {
                 write.append("\n").append(r.get(i).toString()).append(",");
             } else {
                 write.append("\n").append(r.get(i).toString());

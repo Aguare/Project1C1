@@ -9,11 +9,9 @@ import Back.Archives.Read;
 import Back.Archives.ServerSend;
 import Back.Objects.ClassInfo;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.Reader;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -42,7 +40,6 @@ public class ServerInput extends Thread {
             while (true) {
                 Socket socket = in.accept();
                 ObjectInputStream entry = new ObjectInputStream(socket.getInputStream());
-                console.append("SE RECIBIERON DATOS");
                 ClassCompare classes = (ClassCompare) entry.readObject();
                 if (classes != null) {
                     read = new Read();

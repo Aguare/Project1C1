@@ -8,6 +8,7 @@ package Back.Analizers.JSON;
 import java_cup.runtime.*;
 import java.util.ArrayList;
 import Back.Analizers.ErrorLP;
+import Back.Analizers.RecordJSON;
 import java_cup.runtime.XMLElement;
 
 /** CUP v0.11b 20160615 generated parser.
@@ -33,17 +34,19 @@ public class SintacticJSON extends java_cup.runtime.lr_parser {
   /** Production table. */
   protected static final short _production_table[][] = 
     unpackFromStrings(new String[] {
-    "\000\041\000\002\002\004\000\002\002\005\000\002\003" +
-    "\003\000\002\003\005\000\002\004\003\000\002\004\003" +
+    "\000\047\000\002\002\004\000\002\002\005\000\002\003" +
+    "\003\000\002\003\005\000\002\003\004\000\002\004\003" +
     "\000\002\004\003\000\002\004\003\000\002\004\003\000" +
-    "\002\005\005\000\002\006\007\000\002\006\006\000\002" +
-    "\007\005\000\002\007\007\000\002\010\007\000\002\010" +
-    "\006\000\002\011\005\000\002\011\007\000\002\012\007" +
-    "\000\002\013\007\000\002\013\006\000\002\014\005\000" +
-    "\002\014\007\000\002\015\007\000\002\024\007\000\002" +
-    "\024\006\000\002\017\005\000\002\017\007\000\002\020" +
-    "\005\000\002\021\005\000\002\022\005\000\002\023\005" +
-    "\000\002\016\005" });
+    "\002\004\003\000\002\005\005\000\002\006\007\000\002" +
+    "\006\006\000\002\007\005\000\002\007\007\000\002\007" +
+    "\004\000\002\010\007\000\002\010\006\000\002\011\003" +
+    "\000\002\011\005\000\002\011\004\000\002\012\011\000" +
+    "\002\013\007\000\002\013\006\000\002\014\003\000\002" +
+    "\014\005\000\002\014\004\000\002\015\011\000\002\024" +
+    "\007\000\002\024\006\000\002\017\005\000\002\017\007" +
+    "\000\002\017\004\000\002\020\005\000\002\021\005\000" +
+    "\002\022\005\000\002\023\005\000\002\016\005\000\002" +
+    "\016\005" });
 
   /** Access to production table. */
   public short[][] production_table() {return _production_table;}
@@ -51,51 +54,60 @@ public class SintacticJSON extends java_cup.runtime.lr_parser {
   /** Parse-action table. */
   protected static final short[][] _action_table = 
     unpackFromStrings(new String[] {
-    "\000\126\000\004\005\005\001\002\000\004\002\130\001" +
-    "\002\000\014\013\013\014\007\015\012\016\021\025\020" +
-    "\001\002\000\006\006\ufffc\012\ufffc\001\002\000\004\011" +
-    "\106\001\002\000\006\006\ufffb\012\ufffb\001\002\000\006" +
-    "\006\ufff9\012\ufff9\001\002\000\004\011\061\001\002\000" +
-    "\004\011\044\001\002\000\006\006\ufffd\012\ufffd\001\002" +
-    "\000\004\006\043\001\002\000\006\006\ufffa\012\ufffa\001" +
-    "\002\000\006\006\uffff\012\041\001\002\000\004\011\037" +
-    "\001\002\000\004\011\022\001\002\000\004\007\023\001" +
-    "\002\000\006\005\025\010\024\001\002\000\006\006\uffe8" +
-    "\012\uffe8\001\002\000\004\024\030\001\002\000\004\010" +
-    "\027\001\002\000\006\006\uffe9\012\uffe9\001\002\000\004" +
-    "\011\035\001\002\000\004\006\032\001\002\000\006\010" +
-    "\uffe7\012\033\001\002\000\004\005\025\001\002\000\004" +
-    "\010\uffe6\001\002\000\004\026\036\001\002\000\004\006" +
-    "\uffe1\001\002\000\004\017\040\001\002\000\006\006\ufff8" +
-    "\012\ufff8\001\002\000\014\013\013\014\007\015\012\016" +
-    "\021\025\020\001\002\000\004\006\ufffe\001\002\000\004" +
-    "\002\000\001\002\000\004\007\045\001\002\000\006\005" +
-    "\050\010\047\001\002\000\004\010\060\001\002\000\006" +
-    "\006\ufff6\012\ufff6\001\002\000\004\020\052\001\002\000" +
-    "\004\006\055\001\002\000\004\011\053\001\002\000\004" +
-    "\017\054\001\002\000\006\006\uffe5\012\uffe5\001\002\000" +
-    "\006\010\ufff5\012\056\001\002\000\004\005\050\001\002" +
-    "\000\004\010\ufff4\001\002\000\006\006\ufff7\012\ufff7\001" +
-    "\002\000\004\007\062\001\002\000\006\005\065\010\064" +
-    "\001\002\000\004\010\105\001\002\000\006\006\uffed\012" +
-    "\uffed\001\002\000\004\020\052\001\002\000\004\012\073" +
-    "\001\002\000\004\006\070\001\002\000\006\010\uffec\012" +
-    "\071\001\002\000\004\005\065\001\002\000\004\010\uffeb" +
-    "\001\002\000\004\021\075\001\002\000\004\012\100\001" +
-    "\002\000\004\011\076\001\002\000\004\017\077\001\002" +
-    "\000\004\012\uffe4\001\002\000\004\023\102\001\002\000" +
-    "\004\006\uffea\001\002\000\004\011\103\001\002\000\004" +
-    "\004\104\001\002\000\004\006\uffe3\001\002\000\006\006" +
-    "\uffee\012\uffee\001\002\000\004\007\107\001\002\000\006" +
-    "\005\112\010\111\001\002\000\004\010\127\001\002\000" +
-    "\006\006\ufff2\012\ufff2\001\002\000\004\020\052\001\002" +
-    "\000\004\012\120\001\002\000\004\006\115\001\002\000" +
-    "\006\010\ufff1\012\116\001\002\000\004\005\112\001\002" +
-    "\000\004\010\ufff0\001\002\000\004\021\075\001\002\000" +
-    "\004\012\122\001\002\000\004\022\124\001\002\000\004" +
-    "\006\uffef\001\002\000\004\011\125\001\002\000\004\017" +
-    "\126\001\002\000\004\006\uffe2\001\002\000\006\006\ufff3" +
-    "\012\ufff3\001\002\000\004\002\001\001\002" });
+    "\000\141\000\004\004\005\001\002\000\004\002\143\001" +
+    "\002\000\016\003\013\012\014\013\007\014\012\015\022" +
+    "\024\021\001\002\000\006\005\ufffb\011\ufffb\001\002\000" +
+    "\004\010\117\001\002\000\006\005\ufffa\011\ufffa\001\002" +
+    "\000\006\005\ufff8\011\ufff8\001\002\000\004\010\070\001" +
+    "\002\000\014\012\014\013\007\014\012\015\022\024\021" +
+    "\001\002\000\004\010\050\001\002\000\006\005\ufffc\011" +
+    "\ufffc\001\002\000\004\005\047\001\002\000\006\005\ufff9" +
+    "\011\ufff9\001\002\000\006\005\uffff\011\045\001\002\000" +
+    "\004\010\043\001\002\000\004\010\023\001\002\000\004" +
+    "\006\024\001\002\000\010\003\025\004\027\007\026\001" +
+    "\002\000\006\003\025\004\027\001\002\000\006\005\uffe4" +
+    "\011\uffe4\001\002\000\004\023\032\001\002\000\004\007" +
+    "\031\001\002\000\006\005\uffe5\011\uffe5\001\002\000\004" +
+    "\010\037\001\002\000\004\005\034\001\002\000\006\007" +
+    "\uffe3\011\035\001\002\000\006\003\025\004\027\001\002" +
+    "\000\004\007\uffe2\001\002\000\006\016\040\025\041\001" +
+    "\002\000\004\005\uffdb\001\002\000\004\005\uffdc\001\002" +
+    "\000\004\007\uffe1\001\002\000\004\016\044\001\002\000" +
+    "\006\005\ufff7\011\ufff7\001\002\000\016\003\013\012\014" +
+    "\013\007\014\012\015\022\024\021\001\002\000\004\005" +
+    "\ufffe\001\002\000\004\002\000\001\002\000\004\006\051" +
+    "\001\002\000\010\003\053\004\055\007\054\001\002\000" +
+    "\004\007\066\001\002\000\006\003\053\004\055\001\002" +
+    "\000\006\005\ufff5\011\ufff5\001\002\000\004\017\057\001" +
+    "\002\000\004\005\062\001\002\000\004\010\060\001\002" +
+    "\000\004\016\061\001\002\000\006\005\uffe0\011\uffe0\001" +
+    "\002\000\006\007\ufff4\011\063\001\002\000\006\003\053" +
+    "\004\055\001\002\000\004\007\ufff3\001\002\000\004\007" +
+    "\ufff2\001\002\000\006\005\ufff6\011\ufff6\001\002\000\004" +
+    "\005\ufffd\001\002\000\004\006\071\001\002\000\010\003" +
+    "\073\004\075\007\074\001\002\000\004\007\116\001\002" +
+    "\000\006\003\073\004\075\001\002\000\006\005\uffea\011" +
+    "\uffea\001\002\000\004\017\057\001\002\000\006\007\uffe9" +
+    "\011\077\001\002\000\006\003\073\004\075\001\002\000" +
+    "\004\007\uffe8\001\002\000\004\011\102\001\002\000\004" +
+    "\020\104\001\002\000\004\011\107\001\002\000\004\010" +
+    "\105\001\002\000\004\016\106\001\002\000\004\011\uffdf" +
+    "\001\002\000\004\022\111\001\002\000\004\005\114\001" +
+    "\002\000\004\010\112\001\002\000\004\026\113\001\002" +
+    "\000\004\005\uffde\001\002\000\006\007\uffe6\011\uffe6\001" +
+    "\002\000\004\007\uffe7\001\002\000\006\005\uffeb\011\uffeb" +
+    "\001\002\000\004\006\120\001\002\000\010\003\122\004" +
+    "\124\007\123\001\002\000\004\007\142\001\002\000\006" +
+    "\003\122\004\124\001\002\000\006\005\ufff0\011\ufff0\001" +
+    "\002\000\004\017\057\001\002\000\006\007\uffef\011\126" +
+    "\001\002\000\006\003\122\004\124\001\002\000\004\007" +
+    "\uffee\001\002\000\004\011\131\001\002\000\004\020\104" +
+    "\001\002\000\004\011\133\001\002\000\004\021\135\001" +
+    "\002\000\004\005\140\001\002\000\004\010\136\001\002" +
+    "\000\004\016\137\001\002\000\004\005\uffdd\001\002\000" +
+    "\006\007\uffec\011\uffec\001\002\000\004\007\uffed\001\002" +
+    "\000\006\005\ufff1\011\ufff1\001\002\000\004\002\001\001" +
+    "\002" });
 
   /** Access to parse-action table. */
   public short[][] action_table() {return _action_table;}
@@ -103,38 +115,44 @@ public class SintacticJSON extends java_cup.runtime.lr_parser {
   /** <code>reduce_goto</code> table. */
   protected static final short[][] _reduce_table = 
     unpackFromStrings(new String[] {
-    "\000\126\000\004\002\003\001\001\000\002\001\001\000" +
-    "\020\003\014\004\016\005\013\006\005\010\007\013\015" +
+    "\000\141\000\004\002\003\001\001\000\002\001\001\000" +
+    "\020\003\015\004\017\005\014\006\005\010\007\013\016" +
     "\024\010\001\001\000\002\001\001\000\002\001\001\000" +
-    "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
-    "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
+    "\002\001\001\000\002\001\001\000\002\001\001\000\016" +
+    "\004\066\005\014\006\005\010\007\013\016\024\010\001" +
     "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
-    "\000\002\001\001\000\004\017\025\001\001\000\002\001" +
-    "\001\000\004\016\030\001\001\000\002\001\001\000\002" +
-    "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
-    "\001\000\004\017\033\001\001\000\002\001\001\000\002" +
-    "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
-    "\001\000\020\003\041\004\016\005\013\006\005\010\007" +
-    "\013\015\024\010\001\001\000\002\001\001\000\002\001" +
-    "\001\000\002\001\001\000\004\007\045\001\001\000\002" +
-    "\001\001\000\002\001\001\000\004\020\050\001\001\000" +
-    "\002\001\001\000\002\001\001\000\002\001\001\000\002" +
-    "\001\001\000\002\001\001\000\004\007\056\001\001\000" +
-    "\002\001\001\000\002\001\001\000\002\001\001\000\004" +
-    "\014\062\001\001\000\002\001\001\000\002\001\001\000" +
-    "\006\015\066\020\065\001\001\000\002\001\001\000\002" +
-    "\001\001\000\002\001\001\000\004\014\071\001\001\000" +
-    "\002\001\001\000\004\021\073\001\001\000\002\001\001" +
     "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
-    "\004\022\100\001\001\000\002\001\001\000\002\001\001" +
-    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
-    "\002\001\001\000\004\011\107\001\001\000\002\001\001" +
-    "\000\002\001\001\000\006\012\113\020\112\001\001\000" +
-    "\002\001\001\000\002\001\001\000\002\001\001\000\004" +
-    "\011\116\001\001\000\002\001\001\000\004\021\120\001" +
-    "\001\000\002\001\001\000\004\023\122\001\001\000\002" +
+    "\002\001\001\000\002\001\001\000\004\017\027\001\001" +
+    "\000\004\017\041\001\001\000\002\001\001\000\004\016" +
+    "\032\001\001\000\002\001\001\000\002\001\001\000\002" +
+    "\001\001\000\002\001\001\000\002\001\001\000\004\017" +
+    "\035\001\001\000\002\001\001\000\002\001\001\000\002" +
     "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
-    "\001\000\002\001\001\000\002\001\001" });
+    "\001\000\002\001\001\000\020\003\045\004\017\005\014" +
+    "\006\005\010\007\013\016\024\010\001\001\000\002\001" +
+    "\001\000\002\001\001\000\002\001\001\000\004\007\051" +
+    "\001\001\000\002\001\001\000\004\007\064\001\001\000" +
+    "\002\001\001\000\004\020\055\001\001\000\002\001\001" +
+    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
+    "\002\001\001\000\004\007\063\001\001\000\002\001\001" +
+    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
+    "\002\001\001\000\006\014\071\015\075\001\001\000\002" +
+    "\001\001\000\006\014\114\015\075\001\001\000\002\001" +
+    "\001\000\004\020\100\001\001\000\002\001\001\000\006" +
+    "\014\077\015\075\001\001\000\002\001\001\000\002\001" +
+    "\001\000\004\021\102\001\001\000\002\001\001\000\002" +
+    "\001\001\000\002\001\001\000\002\001\001\000\004\022" +
+    "\107\001\001\000\002\001\001\000\002\001\001\000\002" +
+    "\001\001\000\002\001\001\000\002\001\001\000\002\001" +
+    "\001\000\002\001\001\000\002\001\001\000\006\011\120" +
+    "\012\124\001\001\000\002\001\001\000\006\011\140\012" +
+    "\124\001\001\000\002\001\001\000\004\020\127\001\001" +
+    "\000\002\001\001\000\006\011\126\012\124\001\001\000" +
+    "\002\001\001\000\002\001\001\000\004\021\131\001\001" +
+    "\000\002\001\001\000\004\023\133\001\001\000\002\001" +
+    "\001\000\002\001\001\000\002\001\001\000\002\001\001" +
+    "\000\002\001\001\000\002\001\001\000\002\001\001\000" +
+    "\002\001\001" });
 
   /** Access to <code>reduce_goto</code> table. */
   public short[][] reduce_table() {return _reduce_table;}
@@ -175,6 +193,7 @@ public class SintacticJSON extends java_cup.runtime.lr_parser {
 
 
         private ArrayList<ErrorLP> errors = new ArrayList<>();
+        private RecordJSON record = new RecordJSON();
 
         public SintacticJSON(LexerJSON lexer) {
                 super(lexer);
@@ -195,22 +214,11 @@ public class SintacticJSON extends java_cup.runtime.lr_parser {
                         errors.add(new ErrorLP(token.left, token.right, token.value.toString(), 1, "No se esperaba el simbolo"));
                 } catch (Exception e) {
                 }
-                printStack();
         }
 
         public ArrayList<ErrorLP> getErrors(){
+                errors.addAll(record.getError());
                 return errors;
-        }
-
-        public void printStack(){
-            for (Object o : stack) {
-                if (o instanceof Symbol) {
-                    if (((Symbol) o).value != null) {
-                        System.out.println("L:"+((Symbol) o).left+" C:"+((Symbol) o).right+" -> "+((Symbol) o).value);
-                    }
-                } else {
-                }
-            }
         }
 
 
@@ -280,7 +288,16 @@ class CUP$SintacticJSON$actions {
           return CUP$SintacticJSON$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 4: // all_estructures ::= score_estructure 
+          case 4: // internal_json ::= error all_estructures 
+            {
+              Object RESULT =null;
+
+              CUP$SintacticJSON$result = parser.getSymbolFactory().newSymbol("internal_json",1, ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.elementAt(CUP$SintacticJSON$top-1)), ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.peek()), RESULT);
+            }
+          return CUP$SintacticJSON$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 5: // all_estructures ::= score_estructure 
             {
               Object RESULT =null;
 
@@ -289,7 +306,7 @@ class CUP$SintacticJSON$actions {
           return CUP$SintacticJSON$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 5: // all_estructures ::= classes_estructure 
+          case 6: // all_estructures ::= classes_estructure 
             {
               Object RESULT =null;
 
@@ -298,7 +315,7 @@ class CUP$SintacticJSON$actions {
           return CUP$SintacticJSON$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 6: // all_estructures ::= variables_estructure 
+          case 7: // all_estructures ::= variables_estructure 
             {
               Object RESULT =null;
 
@@ -307,7 +324,7 @@ class CUP$SintacticJSON$actions {
           return CUP$SintacticJSON$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 7: // all_estructures ::= method_estructure 
+          case 8: // all_estructures ::= method_estructure 
             {
               Object RESULT =null;
 
@@ -316,7 +333,7 @@ class CUP$SintacticJSON$actions {
           return CUP$SintacticJSON$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 8: // all_estructures ::= comments_estructure_general 
+          case 9: // all_estructures ::= comments_estructure_general 
             {
               Object RESULT =null;
 
@@ -325,70 +342,97 @@ class CUP$SintacticJSON$actions {
           return CUP$SintacticJSON$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 9: // score_estructure ::= SCORE COLONS STRING 
+          case 10: // score_estructure ::= SCORE COLONS STRING 
             {
               Object RESULT =null;
-
+		int scoreleft = ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.peek()).left;
+		int scoreright = ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.peek()).right;
+		Object score = (Object)((java_cup.runtime.Symbol) CUP$SintacticJSON$stack.peek()).value;
+		record.addScore(Double.parseDouble(String.valueOf(score).replaceAll("\"", "")));
               CUP$SintacticJSON$result = parser.getSymbolFactory().newSymbol("score_estructure",3, ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.elementAt(CUP$SintacticJSON$top-2)), ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.peek()), RESULT);
             }
           return CUP$SintacticJSON$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 10: // classes_estructure ::= CLASSES COLONS O_SBRACKET internal_class C_SBRACKET 
+          case 11: // classes_estructure ::= CLASSES COLONS O_SBRACKET internal_class C_SBRACKET 
             {
               Object RESULT =null;
-
+		record.countCClass();
               CUP$SintacticJSON$result = parser.getSymbolFactory().newSymbol("classes_estructure",4, ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.elementAt(CUP$SintacticJSON$top-4)), ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.peek()), RESULT);
             }
           return CUP$SintacticJSON$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 11: // classes_estructure ::= CLASSES COLONS O_SBRACKET C_SBRACKET 
+          case 12: // classes_estructure ::= CLASSES COLONS O_SBRACKET C_SBRACKET 
             {
               Object RESULT =null;
-
+		record.countCClass();
               CUP$SintacticJSON$result = parser.getSymbolFactory().newSymbol("classes_estructure",4, ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.elementAt(CUP$SintacticJSON$top-3)), ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.peek()), RESULT);
             }
           return CUP$SintacticJSON$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 12: // internal_class ::= O_BRACE name_estructure C_BRACE 
+          case 13: // internal_class ::= O_BRACE name_estructure C_BRACE 
             {
               Object RESULT =null;
-
+		int nameleft = ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.elementAt(CUP$SintacticJSON$top-1)).left;
+		int nameright = ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.elementAt(CUP$SintacticJSON$top-1)).right;
+		Object name = (Object)((java_cup.runtime.Symbol) CUP$SintacticJSON$stack.elementAt(CUP$SintacticJSON$top-1)).value;
+		record.addClass(String.valueOf(name));
               CUP$SintacticJSON$result = parser.getSymbolFactory().newSymbol("internal_class",5, ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.elementAt(CUP$SintacticJSON$top-2)), ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.peek()), RESULT);
             }
           return CUP$SintacticJSON$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 13: // internal_class ::= O_BRACE name_estructure C_BRACE COMMA internal_class 
+          case 14: // internal_class ::= O_BRACE name_estructure C_BRACE COMMA internal_class 
             {
               Object RESULT =null;
-
+		int nameleft = ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.elementAt(CUP$SintacticJSON$top-3)).left;
+		int nameright = ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.elementAt(CUP$SintacticJSON$top-3)).right;
+		Object name = (Object)((java_cup.runtime.Symbol) CUP$SintacticJSON$stack.elementAt(CUP$SintacticJSON$top-3)).value;
+		record.addClass(String.valueOf(name));
               CUP$SintacticJSON$result = parser.getSymbolFactory().newSymbol("internal_class",5, ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.elementAt(CUP$SintacticJSON$top-4)), ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.peek()), RESULT);
             }
           return CUP$SintacticJSON$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 14: // variables_estructure ::= VARIABLES COLONS O_SBRACKET internal_variable C_SBRACKET 
+          case 15: // internal_class ::= error internal_class 
             {
               Object RESULT =null;
 
+              CUP$SintacticJSON$result = parser.getSymbolFactory().newSymbol("internal_class",5, ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.elementAt(CUP$SintacticJSON$top-1)), ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.peek()), RESULT);
+            }
+          return CUP$SintacticJSON$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 16: // variables_estructure ::= VARIABLES COLONS O_SBRACKET internal_variable C_SBRACKET 
+            {
+              Object RESULT =null;
+		record.countCVar();
               CUP$SintacticJSON$result = parser.getSymbolFactory().newSymbol("variables_estructure",6, ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.elementAt(CUP$SintacticJSON$top-4)), ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.peek()), RESULT);
             }
           return CUP$SintacticJSON$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 15: // variables_estructure ::= VARIABLES COLONS O_SBRACKET C_SBRACKET 
+          case 17: // variables_estructure ::= VARIABLES COLONS O_SBRACKET C_SBRACKET 
             {
               Object RESULT =null;
-
+		record.countCVar();
               CUP$SintacticJSON$result = parser.getSymbolFactory().newSymbol("variables_estructure",6, ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.elementAt(CUP$SintacticJSON$top-3)), ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.peek()), RESULT);
             }
           return CUP$SintacticJSON$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 16: // internal_variable ::= O_BRACE variable_declaration C_BRACE 
+          case 18: // internal_variable ::= variable_declaration 
+            {
+              Object RESULT =null;
+
+              CUP$SintacticJSON$result = parser.getSymbolFactory().newSymbol("internal_variable",7, ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.peek()), ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.peek()), RESULT);
+            }
+          return CUP$SintacticJSON$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 19: // internal_variable ::= variable_declaration COMMA internal_variable 
             {
               Object RESULT =null;
 
@@ -397,43 +441,61 @@ class CUP$SintacticJSON$actions {
           return CUP$SintacticJSON$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 17: // internal_variable ::= O_BRACE variable_declaration C_BRACE COMMA internal_variable 
+          case 20: // internal_variable ::= error internal_variable 
             {
               Object RESULT =null;
 
-              CUP$SintacticJSON$result = parser.getSymbolFactory().newSymbol("internal_variable",7, ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.elementAt(CUP$SintacticJSON$top-4)), ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.peek()), RESULT);
+              CUP$SintacticJSON$result = parser.getSymbolFactory().newSymbol("internal_variable",7, ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.elementAt(CUP$SintacticJSON$top-1)), ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.peek()), RESULT);
             }
           return CUP$SintacticJSON$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 18: // variable_declaration ::= name_estructure COMMA type_estructure COMMA functions_estructure 
+          case 21: // variable_declaration ::= O_BRACE name_estructure COMMA type_estructure COMMA functions_estructure C_BRACE 
             {
               Object RESULT =null;
-
-              CUP$SintacticJSON$result = parser.getSymbolFactory().newSymbol("variable_declaration",8, ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.elementAt(CUP$SintacticJSON$top-4)), ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.peek()), RESULT);
+		int nameleft = ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.elementAt(CUP$SintacticJSON$top-5)).left;
+		int nameright = ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.elementAt(CUP$SintacticJSON$top-5)).right;
+		Object name = (Object)((java_cup.runtime.Symbol) CUP$SintacticJSON$stack.elementAt(CUP$SintacticJSON$top-5)).value;
+		int typeleft = ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.elementAt(CUP$SintacticJSON$top-3)).left;
+		int typeright = ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.elementAt(CUP$SintacticJSON$top-3)).right;
+		Object type = (Object)((java_cup.runtime.Symbol) CUP$SintacticJSON$stack.elementAt(CUP$SintacticJSON$top-3)).value;
+		int funcleft = ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.elementAt(CUP$SintacticJSON$top-1)).left;
+		int funcright = ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.elementAt(CUP$SintacticJSON$top-1)).right;
+		Object func = (Object)((java_cup.runtime.Symbol) CUP$SintacticJSON$stack.elementAt(CUP$SintacticJSON$top-1)).value;
+		record.addVar(String.valueOf(name), String.valueOf(type), String.valueOf(func));
+              CUP$SintacticJSON$result = parser.getSymbolFactory().newSymbol("variable_declaration",8, ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.elementAt(CUP$SintacticJSON$top-6)), ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.peek()), RESULT);
             }
           return CUP$SintacticJSON$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 19: // method_estructure ::= METHODS COLONS O_SBRACKET internal_method C_SBRACKET 
+          case 22: // method_estructure ::= METHODS COLONS O_SBRACKET internal_method C_SBRACKET 
             {
               Object RESULT =null;
-
+		record.countCMethod();
               CUP$SintacticJSON$result = parser.getSymbolFactory().newSymbol("method_estructure",9, ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.elementAt(CUP$SintacticJSON$top-4)), ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.peek()), RESULT);
             }
           return CUP$SintacticJSON$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 20: // method_estructure ::= METHODS COLONS O_SBRACKET C_SBRACKET 
+          case 23: // method_estructure ::= METHODS COLONS O_SBRACKET C_SBRACKET 
             {
               Object RESULT =null;
-
+		record.countCMethod();
               CUP$SintacticJSON$result = parser.getSymbolFactory().newSymbol("method_estructure",9, ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.elementAt(CUP$SintacticJSON$top-3)), ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.peek()), RESULT);
             }
           return CUP$SintacticJSON$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 21: // internal_method ::= O_BRACE method_declaration C_BRACE 
+          case 24: // internal_method ::= method_declaration 
+            {
+              Object RESULT =null;
+
+              CUP$SintacticJSON$result = parser.getSymbolFactory().newSymbol("internal_method",10, ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.peek()), ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.peek()), RESULT);
+            }
+          return CUP$SintacticJSON$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 25: // internal_method ::= method_declaration COMMA internal_method 
             {
               Object RESULT =null;
 
@@ -442,43 +504,58 @@ class CUP$SintacticJSON$actions {
           return CUP$SintacticJSON$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 22: // internal_method ::= O_BRACE method_declaration C_BRACE COMMA internal_method 
+          case 26: // internal_method ::= error internal_method 
             {
               Object RESULT =null;
 
-              CUP$SintacticJSON$result = parser.getSymbolFactory().newSymbol("internal_method",10, ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.elementAt(CUP$SintacticJSON$top-4)), ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.peek()), RESULT);
+              CUP$SintacticJSON$result = parser.getSymbolFactory().newSymbol("internal_method",10, ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.elementAt(CUP$SintacticJSON$top-1)), ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.peek()), RESULT);
             }
           return CUP$SintacticJSON$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 23: // method_declaration ::= name_estructure COMMA type_estructure COMMA parameters_estructure 
+          case 27: // method_declaration ::= O_BRACE name_estructure COMMA type_estructure COMMA parameters_estructure C_BRACE 
             {
               Object RESULT =null;
-
-              CUP$SintacticJSON$result = parser.getSymbolFactory().newSymbol("method_declaration",11, ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.elementAt(CUP$SintacticJSON$top-4)), ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.peek()), RESULT);
+		int nameleft = ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.elementAt(CUP$SintacticJSON$top-5)).left;
+		int nameright = ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.elementAt(CUP$SintacticJSON$top-5)).right;
+		Object name = (Object)((java_cup.runtime.Symbol) CUP$SintacticJSON$stack.elementAt(CUP$SintacticJSON$top-5)).value;
+		int typeleft = ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.elementAt(CUP$SintacticJSON$top-3)).left;
+		int typeright = ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.elementAt(CUP$SintacticJSON$top-3)).right;
+		Object type = (Object)((java_cup.runtime.Symbol) CUP$SintacticJSON$stack.elementAt(CUP$SintacticJSON$top-3)).value;
+		int amountleft = ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.elementAt(CUP$SintacticJSON$top-1)).left;
+		int amountright = ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.elementAt(CUP$SintacticJSON$top-1)).right;
+		Object amount = (Object)((java_cup.runtime.Symbol) CUP$SintacticJSON$stack.elementAt(CUP$SintacticJSON$top-1)).value;
+		
+                                                                                                                                if (amount != null){
+                                                                                                                                        record.addMethod(String.valueOf(name), String.valueOf(type),Integer.parseInt(amount.toString()));
+                                                                                                                                }else{
+                                                                                                                                        errors.add(new ErrorLP(cur_token.left, cur_token.right, cur_token.value.toString(), 1, "Se esperaba un número entero"));
+                                                                                                                                }
+                                                                                                                        
+              CUP$SintacticJSON$result = parser.getSymbolFactory().newSymbol("method_declaration",11, ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.elementAt(CUP$SintacticJSON$top-6)), ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.peek()), RESULT);
             }
           return CUP$SintacticJSON$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 24: // comments_estructure_general ::= COMMENTS COLONS O_SBRACKET internal_comment C_SBRACKET 
+          case 28: // comments_estructure_general ::= COMMENTS COLONS O_SBRACKET internal_comment C_SBRACKET 
             {
               Object RESULT =null;
-
+		record.countCComm();
               CUP$SintacticJSON$result = parser.getSymbolFactory().newSymbol("comments_estructure_general",18, ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.elementAt(CUP$SintacticJSON$top-4)), ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.peek()), RESULT);
             }
           return CUP$SintacticJSON$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 25: // comments_estructure_general ::= COMMENTS COLONS O_SBRACKET C_SBRACKET 
+          case 29: // comments_estructure_general ::= COMMENTS COLONS O_SBRACKET C_SBRACKET 
             {
               Object RESULT =null;
-
+		record.countCComm();
               CUP$SintacticJSON$result = parser.getSymbolFactory().newSymbol("comments_estructure_general",18, ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.elementAt(CUP$SintacticJSON$top-3)), ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.peek()), RESULT);
             }
           return CUP$SintacticJSON$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 26: // internal_comment ::= O_BRACE comments_estructure C_BRACE 
+          case 30: // internal_comment ::= O_BRACE comments_estructure C_BRACE 
             {
               Object RESULT =null;
 
@@ -487,7 +564,7 @@ class CUP$SintacticJSON$actions {
           return CUP$SintacticJSON$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 27: // internal_comment ::= O_BRACE comments_estructure C_BRACE COMMA internal_comment 
+          case 31: // internal_comment ::= O_BRACE comments_estructure C_BRACE COMMA internal_comment 
             {
               Object RESULT =null;
 
@@ -496,46 +573,82 @@ class CUP$SintacticJSON$actions {
           return CUP$SintacticJSON$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 28: // name_estructure ::= NAME COLONS STRING 
+          case 32: // internal_comment ::= error internal_comment 
             {
               Object RESULT =null;
 
+              CUP$SintacticJSON$result = parser.getSymbolFactory().newSymbol("internal_comment",13, ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.elementAt(CUP$SintacticJSON$top-1)), ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.peek()), RESULT);
+            }
+          return CUP$SintacticJSON$result;
+
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 33: // name_estructure ::= NAME COLONS STRING 
+            {
+              Object RESULT =null;
+		int nameleft = ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.peek()).left;
+		int nameright = ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.peek()).right;
+		Object name = (Object)((java_cup.runtime.Symbol) CUP$SintacticJSON$stack.peek()).value;
+		RESULT = String.valueOf(name);
               CUP$SintacticJSON$result = parser.getSymbolFactory().newSymbol("name_estructure",14, ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.elementAt(CUP$SintacticJSON$top-2)), ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.peek()), RESULT);
             }
           return CUP$SintacticJSON$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 29: // type_estructure ::= TYPE COLONS STRING 
+          case 34: // type_estructure ::= TYPE COLONS STRING 
             {
               Object RESULT =null;
-
+		int typeleft = ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.peek()).left;
+		int typeright = ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.peek()).right;
+		Object type = (Object)((java_cup.runtime.Symbol) CUP$SintacticJSON$stack.peek()).value;
+		RESULT = String.valueOf(type);
               CUP$SintacticJSON$result = parser.getSymbolFactory().newSymbol("type_estructure",15, ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.elementAt(CUP$SintacticJSON$top-2)), ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.peek()), RESULT);
             }
           return CUP$SintacticJSON$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 30: // parameters_estructure ::= PARAMETERS COLONS INTEGER 
+          case 35: // parameters_estructure ::= PARAMETERS COLONS INTEGER 
             {
               Object RESULT =null;
-
+		int cleft = ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.peek()).left;
+		int cright = ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.peek()).right;
+		Object c = (Object)((java_cup.runtime.Symbol) CUP$SintacticJSON$stack.peek()).value;
+		RESULT = Integer.valueOf(String.valueOf(c));
               CUP$SintacticJSON$result = parser.getSymbolFactory().newSymbol("parameters_estructure",16, ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.elementAt(CUP$SintacticJSON$top-2)), ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.peek()), RESULT);
             }
           return CUP$SintacticJSON$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 31: // functions_estructure ::= FUNCTION COLONS STRING 
+          case 36: // functions_estructure ::= FUNCTION COLONS STRING 
             {
               Object RESULT =null;
-
+		int functionleft = ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.peek()).left;
+		int functionright = ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.peek()).right;
+		Object function = (Object)((java_cup.runtime.Symbol) CUP$SintacticJSON$stack.peek()).value;
+		RESULT = String.valueOf(function);
               CUP$SintacticJSON$result = parser.getSymbolFactory().newSymbol("functions_estructure",17, ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.elementAt(CUP$SintacticJSON$top-2)), ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.peek()), RESULT);
             }
           return CUP$SintacticJSON$result;
 
           /*. . . . . . . . . . . . . . . . . . . .*/
-          case 32: // comments_estructure ::= TEXT COLONS COM 
+          case 37: // comments_estructure ::= TEXT COLONS COM 
             {
               Object RESULT =null;
+		int comleft = ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.peek()).left;
+		int comright = ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.peek()).right;
+		Object com = (Object)((java_cup.runtime.Symbol) CUP$SintacticJSON$stack.peek()).value;
+		record.addComment(String.valueOf(com));
+              CUP$SintacticJSON$result = parser.getSymbolFactory().newSymbol("comments_estructure",12, ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.elementAt(CUP$SintacticJSON$top-2)), ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.peek()), RESULT);
+            }
+          return CUP$SintacticJSON$result;
 
+          /*. . . . . . . . . . . . . . . . . . . .*/
+          case 38: // comments_estructure ::= TEXT COLONS STRING 
+            {
+              Object RESULT =null;
+		int comleft = ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.peek()).left;
+		int comright = ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.peek()).right;
+		Object com = (Object)((java_cup.runtime.Symbol) CUP$SintacticJSON$stack.peek()).value;
+		record.addComment(String.valueOf(com));
               CUP$SintacticJSON$result = parser.getSymbolFactory().newSymbol("comments_estructure",12, ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.elementAt(CUP$SintacticJSON$top-2)), ((java_cup.runtime.Symbol)CUP$SintacticJSON$stack.peek()), RESULT);
             }
           return CUP$SintacticJSON$result;
