@@ -1,6 +1,7 @@
 package Back.Analizers.JSON;
 
 import Back.Analizers.ErrorLP;
+import Back.Analizers.RecordJSON;
 import java.io.Reader;
 import java.util.ArrayList;
 import javax.swing.JTextArea;
@@ -20,18 +21,20 @@ public class ChargeJSON {
         this.reader = reader;
     }
     
-    public void chargeJSON() {
+    public RecordJSON chargeJSON() {
         try {
             LexerJSON lexer = new LexerJSON(reader);
             SintacticJSON sintac = new SintacticJSON(lexer);
             sintac.parse();
             errors.addAll(lexer.getErrors());
             errors.addAll(sintac.getErrors());
+            writeConsole();
+            return sintac.getRecord();
         } catch (Exception e) {
             errors.add(new ErrorLP(0, 0, "No se analizó", 3, "No se pudo leer el JSON"));
             e.printStackTrace();
         }
-        writeConsole();
+        return null;
     }
     
     private void writeConsole() {

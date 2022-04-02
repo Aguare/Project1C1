@@ -36,6 +36,10 @@ parser code {:
                 errors.addAll(record.getError());
                 return errors;
         }
+
+        public RecordJSON getRecord(){
+                return record;
+        }
 :};
 
 /* Terminals (tokens returned by the scanner). */

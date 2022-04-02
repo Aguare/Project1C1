@@ -50,19 +50,19 @@ public class RecordJSON {
 
     public void addClass(String name) {
         if (c_class <= 1) {
-            classes.add(name);
+            classes.add(name.replaceAll("\"", ""));
         }
     }
 
     public void addVar(String name, String type, String function) {
         if (c_var <= 1) {
-            variables.add(new VarInfo(name, type, function));
+            variables.add(new VarInfo(name.replaceAll("\"", ""), type.replaceAll("\"", ""), function.replaceAll("\"", "")));
         }
     }
 
     public void addMethod(String name, String type, int parameter) {
         if (c_method <= 1) {
-            method.add(new MethodInfo(name, type, parameter));
+            method.add(new MethodInfo(name.replaceAll("\"", ""), type.replaceAll("\"", ""), parameter));
         }
     }
 

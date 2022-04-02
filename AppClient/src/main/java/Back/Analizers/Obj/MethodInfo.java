@@ -39,4 +39,9 @@ public class MethodInfo {
     public void setParameters(int parameters) {
         this.parameters = parameters;
     }
+
+    @Override
+    public String toString() {
+        return "Metodo -> Nombre: " + name + " Tipo: " + type + " Parametros: " + parameters;
+    }
 }

@@ -1,0 +1,219 @@
+/* SECTION 1: user code */
+package Back.Analizers.DEF;
+
+import java_cup.runtime.*;
+import java.util.ArrayList;
+import Back.Analizers.ErrorLP;
+
+parser code {:
+
+        private ArrayList<ErrorLP> errors = new ArrayList<>();
+
+        public SintacticDEF(LexerDEF lexer) {
+                super(lexer);
+        }
+
+        public void syntax_error(Symbol cur_token) {
+                if (cur_token.sym != symDEF.EOF){
+                        addError(cur_token);
+                }
+        }
+    
+        public void unrecovered_syntax_error(Symbol cur_token) {
+                addError(cur_token);
+        }
+
+        public void addError(Symbol token) {
+                try {
+                        errors.add(new ErrorLP(token.left, token.right, token.value.toString(), 1, "No se esperaba el simbolo"));
+                } catch (Exception e) {
+                }
+        }
+
+        public ArrayList<ErrorLP> getErrors(){
+                return errors;
+        }
+:};
+
+/* Terminals (tokens returned by the scanner). */
+terminal Integer INTEGER;
+
+terminal O_PARENT, C_PARENT, O_SBRACKET, C_SBRACKET, COLONS, DOT,
+         SEMICOLON, SUM, REST, MULTIPLY, DIV, EQUAL, SMALLER, HIGHER,
+         D_DOLLAR, SCORE, CLASSES, VARIABLES, METHODS, COMMENTS, NAME,
+         TYPE, FUNCTION, PARAMETERS, TEXT, T_INT, T_STRING, O_HTML, C_HTML,
+         O_H1, C_H1, O_H2, C_H2, O_TABLE, C_TABLE, O_TR, C_TR, O_TD, C_TD, O_TH, C_TH,
+         BR, FOR, UNTIL, ID, STRING, T_RESULT, COMMA, ITERATOR;     
+
+/* Non terminals */
+non terminal initial, var_decla_estructure, types_var, result_estructure,
+             all_result_estructure, score_estructure, classes_estructure, variables_estructure,
+             var_option_string, methods_estructure, method_option_var, comments_estructure,
+             declaration_var, multiple_statements_var, var_values, number_operations, 
+             arithmetics_operations, for_estructure, for_open, internal_for, for_close, 
+             initial_html, all_estructures, all_html_structure, call_internal_var, 
+             table_estructure, internal_table, h1_estructure, h2_estructure, 
+             tr_estructure, internal_tr, th_estructure, td_estructure, internal_content ;
+
+/* The Precedence rules*/
+precedence left SUM, REST, SMALLER;
+precedence left MULTIPLY, DIV;
+
+start with initial;
+
+/* The grammar rules */
+initial::=  var_decla_estructure initial_html;
+
+var_decla_estructure::= declaration_var
+                      | declaration_var var_decla_estructure
+                      ;
+
+result_estructure::= T_RESULT DOT all_result_estructure;
+
+all_result_estructure::= score_estructure
+                       | classes_estructure
+                       | variables_estructure
+                       | methods_estructure
+                       | comments_estructure
+                       ;
+
+score_estructure::= SCORE;
+
+//CLASSES
+classes_estructure::= CLASSES
+                    | CLASSES O_SBRACKET INTEGER C_SBRACKET
+                    | CLASSES O_SBRACKET INTEGER C_SBRACKET DOT NAME
+                    ;
+
+//VARIABLES
+variables_estructure::= VARIABLES
+                      | VARIABLES O_SBRACKET INTEGER C_SBRACKET
+                      | VARIABLES O_SBRACKET INTEGER C_SBRACKET DOT var_option_string
+                      ;
+
+var_option_string::= NAME
+                   | TYPE
+                   | FUNCTION
+                   ;
+
+//METHODS
+methods_estructure::= METHODS
+                    | METHODS O_SBRACKET INTEGER C_SBRACKET
+                    | METHODS O_SBRACKET INTEGER C_SBRACKET DOT method_option_var
+                    ;
+
+method_option_var::= NAME
+                   | TYPE
+                   | PARAMETERS
+                   ;
+
+//COMMENTS
+comments_estructure::= COMMENTS
+                     | COMMENTS O_SBRACKET INTEGER C_SBRACKET
+                     | COMMENTS O_SBRACKET INTEGER C_SBRACKET DOT TEXT
+                     ;
+
+//DECLARATIONS LANGUAGE
+//DECLARATIONS INTEGERS
+declaration_var::= types_var multiple_statements_var SEMICOLON
+                 | ID EQUAL var_values SEMICOLON
+                 ;
+
+multiple_statements_var::= ID
+                         | ID EQUAL var_values
+                         | ID COMMA multiple_statements_var
+                         | ID EQUAL var_values COMMA multiple_statements_var      
+                         ;
+
+var_values::= ID
+            | number_operations
+            | STRING
+            | result_estructure
+            | var_values SUM var_values
+            ;
+
+number_operations::= INTEGER
+                   | O_PARENT number_operations C_PARENT
+                   | number_operations arithmetics_operations number_operations
+                   ;
+
+//GENERAL DECLARATIONS
+arithmetics_operations::= SUM
+                        | REST
+                        | MULTIPLY
+                        | DIV
+                        ;
+
+types_var::= T_INT
+           | T_STRING
+           ;
+//GRAMMAR RULES 'FOR'
+for_estructure::= for_open internal_for for_close;
+
+for_open::= SMALLER FOR ITERATOR COLONS ID UNTIL COLONS INTEGER SEMICOLON HIGHER;
+
+internal_for::= all_estructures;
+
+for_close::= SMALLER DIV FOR HIGHER;
+
+//ALL DECLARATIONS HTML
+initial_html::= O_HTML all_estructures C_HTML;
+
+all_estructures::= all_html_structure
+                 | all_html_structure all_estructures
+                 ;
+
+all_html_structure::= table_estructure
+                    | h1_estructure
+                    | h2_estructure
+                    | for_estructure
+                    | BR
+                    ;
+
+call_internal_var::= D_DOLLAR O_PARENT ID C_PARENT D_DOLLAR
+                   | D_DOLLAR O_PARENT result_estructure C_PARENT D_DOLLAR
+                   ;
+
+table_estructure::= O_TABLE internal_table C_TABLE
+                  | O_TABLE C_TABLE
+                  ;
+
+internal_table::= tr_estructure
+                | tr_estructure internal_table
+                ;
+
+h1_estructure::= O_H1 internal_content C_H1
+               | O_H1 C_H1
+               ;
+
+h2_estructure::= O_H2 internal_content C_H2
+               | O_H2 C_H2
+               ;        
+
+tr_estructure::= O_TR internal_tr C_TR
+               | O_TR C_TR
+               ;
+
+internal_tr::= td_estructure
+             | th_estructure
+             | td_estructure internal_tr
+             | th_estructure internal_tr
+             ;
+
+th_estructure::= O_TH internal_content C_TH
+               | O_TH C_TH
+               ;
+
+td_estructure::= O_TD internal_content C_TD
+               | O_TD C_TD
+               ;
+
+internal_content::= call_internal_var
+                  | BR
+                  | h1_estructure
+                  | h2_estructure      
+                  | BR internal_content
+                  | h1_estructure internal_content
+                  | h2_estructure internal_content
+                  | call_internal_var internal_content
+                  ;

@@ -1,6 +1,12 @@
 package Front;
 
+import Back.Analizers.DEF.LexerDEF;
+import Back.Analizers.DEF.SintacticDEF;
+import Back.Analizers.ErrorLP;
 import Back.Analizers.JSON.ChargeJSON;
+import Back.Analizers.Obj.MethodInfo;
+import Back.Analizers.Obj.VarInfo;
+import Back.Analizers.RecordJSON;
 import java.io.Reader;
 import java.io.StringReader;
 import javax.swing.JOptionPane;
@@ -39,6 +45,32 @@ public class Main extends javax.swing.JFrame {
                 + "<font size='24'>fuente grande</font><br>"
                 + "<font color='red'>color rojo</font><br>"
         );
+        this.reportDefTab.setText("</ iniciare a definir  de alguna manera />\n"
+                + "Integer Max, i;\n"
+                + "Max=4;\n"
+                + "i=0;\n"
+                + "String texto=\"Su score fue de: \"+RESULT.Score;\n"
+                + "\n"
+                + "</ Aqui defino el html />\n"
+                + "<html>\n"
+                + "    <h1>$$( texto )$$<h1>\n"
+                + "<table>\n"
+                + "<tr>\n"
+                + "    <th>Numero<th>\n"
+                + "    <th>Variable <th>\n"
+                + "    <th>Tipo <th>\n"
+                + "    <th>Función <th>\n"
+                + " </tr>\n"
+                + "<for iterador:i hasta:Max;>\n"
+                + "<tr> \n"
+                + "<td> $$( i )$$<td>\n"
+                + "<td> $$( RESULT.Variables[i].Nombre )$$<td>\n"
+                + "<td> $$( RESULT.Variables[i].Tipo )$$ <td>\n"
+                + "<td> $$( RESULT.Variables[i].Funcion )$$ <td>\n"
+                + "</tr>\n"
+                + " </for>\n"
+                + "</table>\n"
+                + "</html>");
     }
 
     /**
@@ -69,8 +101,8 @@ public class Main extends javax.swing.JFrame {
         saveProject = new javax.swing.JMenuItem();
         archiveMenu1 = new javax.swing.JMenu();
         chargerJSON = new javax.swing.JMenuItem();
-        newProject1 = new javax.swing.JMenuItem();
-        saveProject1 = new javax.swing.JMenuItem();
+        chargeDEF = new javax.swing.JMenuItem();
+        showHTML = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -177,16 +209,16 @@ public class Main extends javax.swing.JFrame {
         });
         archiveMenu1.add(chargerJSON);
 
-        newProject1.setText("Crear");
-        newProject1.addActionListener(new java.awt.event.ActionListener() {
+        chargeDEF.setText("Ejecutar DEF");
+        chargeDEF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                newProject1ActionPerformed(evt);
+                chargeDEFActionPerformed(evt);
             }
         });
-        archiveMenu1.add(newProject1);
+        archiveMenu1.add(chargeDEF);
 
-        saveProject1.setText("Guardar");
-        archiveMenu1.add(saveProject1);
+        showHTML.setText("Mostrar HTML");
+        archiveMenu1.add(showHTML);
 
         jMenuBar1.add(archiveMenu1);
 
@@ -227,15 +259,39 @@ public class Main extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_newProjectActionPerformed
 
-    private void newProject1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newProject1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_newProject1ActionPerformed
+    private void chargeDEFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chargeDEFActionPerformed
+        try {
+            LexerDEF lexer = new LexerDEF(new StringReader(reportDefTab.getText()));
+            SintacticDEF sintac = new SintacticDEF(lexer);
+            sintac.parse();
+            for (ErrorLP error : sintac.getErrors()) {
+                consoleText.append(error.toString() + "\n");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }//GEN-LAST:event_chargeDEFActionPerformed
 
     private void chargerJSONActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chargerJSONActionPerformed
         tabbedPaneMain.setSelectedIndex(1);
         Reader reader = new StringReader(jsonTab.getText());
         charge = new ChargeJSON(consoleText, reader);
-        charge.chargeJSON();
+        RecordJSON record = charge.chargeJSON();
+        if (record != null) {
+            for (String classe : record.getClasses()) {
+                consoleText.append("Clase -> " + classe + "\n");
+            }
+            for (MethodInfo methodInfo : record.getMethod()) {
+                consoleText.append(methodInfo.toString() + "\n");
+            }
+            for (VarInfo variable : record.getVariables()) {
+                consoleText.append(variable.toString() + "\n");
+            }
+            for (String comment : record.getComments()) {
+                consoleText.append("Comentario -> " + comment + "\n");
+
+            }
+        }
     }//GEN-LAST:event_chargerJSONActionPerformed
 
     /**
@@ -275,6 +331,7 @@ public class Main extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu archiveMenu;
     private javax.swing.JMenu archiveMenu1;
+    private javax.swing.JMenuItem chargeDEF;
     private javax.swing.JMenuItem chargerJSON;
     private javax.swing.JLabel consoleLabel;
     private javax.swing.JTextArea consoleText;
@@ -284,16 +341,15 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextArea jsonTab;
     private javax.swing.JMenuItem newProject;
-    private javax.swing.JMenuItem newProject1;
     private javax.swing.JMenuItem openProject;
     private javax.swing.JTextArea reportDefTab;
     private javax.swing.JEditorPane reportsPane;
     private javax.swing.JMenuItem saveProject;
-    private javax.swing.JMenuItem saveProject1;
     private javax.swing.JScrollPane scrollConsole;
     private javax.swing.JScrollPane scrollDef;
     private javax.swing.JScrollPane scrollJSON;
     private javax.swing.JScrollPane scrollPane;
+    private javax.swing.JMenuItem showHTML;
     private javax.swing.JTabbedPane tabbedPaneMain;
     // End of variables declaration//GEN-END:variables
 }
