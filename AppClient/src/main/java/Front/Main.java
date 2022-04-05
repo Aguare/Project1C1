@@ -4,8 +4,6 @@ import Back.Analizers.DEF.LexerDEF;
 import Back.Analizers.DEF.SintacticDEF;
 import Back.Analizers.ErrorLP;
 import Back.Analizers.JSON.ChargeJSON;
-import Back.Analizers.Obj.MethodInfo;
-import Back.Analizers.Obj.VarInfo;
 import Back.Analizers.RecordJSON;
 import java.io.Reader;
 import java.io.StringReader;
@@ -19,6 +17,7 @@ public class Main extends javax.swing.JFrame {
 
     private LineNumber line1, line2, line3;
     private ChargeJSON charge;
+    private RecordJSON recordJSON = null;
 
     /**
      * Creates new form Principal
@@ -45,32 +44,65 @@ public class Main extends javax.swing.JFrame {
                 + "<font size='24'>fuente grande</font><br>"
                 + "<font color='red'>color rojo</font><br>"
         );
-        this.reportDefTab.setText("</ iniciare a definir  de alguna manera />\n"
-                + "Integer Max, i;\n"
-                + "Max=4;\n"
+        this.reportDefTab.setText("</iniciare a definir de alguna manera/>\n"
+                + "Integer max, i, Max;\n"
+                + "Max = 4;\n"
                 + "i=0;\n"
-                + "String texto=\"Su score fue de: \"+RESULT.Score;\n"
-                + "\n"
-                + "</ Aqui defino el html />\n"
+                + "String texto = \"Su score fue de: \"+RESULT.Score;\n"
+                + "String n1 = RESULT.Variables[i].Nombre;\n"
+                + "String n2 = RESULT.Variables[Max].Nombre;\n"
+                + "String n3 = RESULT.Variables[70].Nombre;\n"
+                + "</aqui defino el HTML/>\n"
                 + "<html>\n"
-                + "    <h1>$$( texto )$$<h1>\n"
-                + "<table>\n"
-                + "<tr>\n"
-                + "    <th>Numero<th>\n"
-                + "    <th>Variable <th>\n"
-                + "    <th>Tipo <th>\n"
-                + "    <th>Función <th>\n"
-                + " </tr>\n"
-                + "<for iterador:i hasta:Max;>\n"
-                + "<tr> \n"
-                + "<td> $$( i )$$<td>\n"
-                + "<td> $$( RESULT.Variables[i].Nombre )$$<td>\n"
-                + "<td> $$( RESULT.Variables[i].Tipo )$$ <td>\n"
-                + "<td> $$( RESULT.Variables[i].Funcion )$$ <td>\n"
-                + "</tr>\n"
-                + " </for>\n"
-                + "</table>\n"
+                + "    <h1>$$(texto)$$</h1>\n"
+                + "    <table>\n"
+                + "        <tr>\n"
+                + "            <th>Numero</th>\n"
+                + "            <th>Variable</th>\n"
+                + "            <th>Tipo</th>\n"
+                + "            <th>Función</th>\n"
+                + "        </tr>\n"
+                + "        <for iterador:i hasta:Max;>\n"
+                + "            <tr>\n"
+                + "                <td>$$(i)$$</td>\n"
+                + "                <td>$$(RESULT.Variables[i].Nombre)$$</td>\n"
+                + "                <td>$$(RESULT.Variables[i].Tipo)$$</td>\n"
+                + "                <td>$$(RESULT.Variables[i].Funcion)$$</td>\n"
+                + "            </tr>\n"
+                + "        </for>\n"
+                + "    </table>\n"
                 + "</html>");
+        this.jsonTab.setText("{\n"
+                + "Score: \"0.26\",\n"
+                + "Clases:[\n"
+                + "],\n"
+                + "Variables:[\n"
+                + "	{Nombre: \"args\", Tipo:\"STRING\", Funcion: \"main, main\"},\n"
+                + "	{Nombre: \"variable1\", Tipo:\"STRING\", Funcion: \"metodo1, metodo11\"},\n"
+                + "	{Nombre: \"cadena1\", Tipo:\"STRING\", Funcion: \"main, metodo3\"},\n"
+                + "	{Nombre: \"objeto\", Tipo:\"OBJECT\", Funcion: \"main, metodo11\"},\n"
+                + "	{Nombre: \"entero2\", Tipo:\"INTEGER\", Funcion: \"metodo2, metodo22\"},\n"
+                + "	{Nombre: \"objeto\", Tipo:\"OBJECT\", Funcion: \"metodo1, metodo11\"},\n"
+                + "	{Nombre: \"objeto\", Tipo:\"OBJECT\", Funcion: \"metodo1, metodo11\"},\n"
+                + "	{Nombre: \"cadena1\", Tipo:\"STRING\", Funcion: \"metodo3, metodo3\"},\n"
+                + "	{Nombre: \"cadena2\", Tipo:\"STRING\", Funcion: \"metodo3, metodo3\"},\n"
+                + "	{Nombre: \"c\", Tipo:\"STRING\", Funcion: \"metodo3, metodo3\"}\n"
+                + "],\n"
+                + "Metodos:[\n"
+                + "	{Nombre: \"main\", Tipo: \"void\", Parametros: 1},\n"
+                + "	{Nombre: \"metodo3\", Tipo: \"void\", Parametros: 3}\n"
+                + "],\n"
+                + "Comentarios:[\n"
+                + "	{Texto: \"// metodo3(\"Cadena\");\"},\n"
+                + "	{Texto: \"/*\n"
+                + "        	comentario1\n"
+                + "        	asdf\n"
+                + "        */\"},\n"
+                + "	{Texto: \"/* este es el primer comentario */\"},\n"
+                + "	{Texto: \"// Este es el segundo comentario\"},\n"
+                + "	{Texto: \"// Este es el tercer comentario\"}\n"
+                + "]\n"
+                + "}");
     }
 
     /**
@@ -103,6 +135,7 @@ public class Main extends javax.swing.JFrame {
         chargerJSON = new javax.swing.JMenuItem();
         chargeDEF = new javax.swing.JMenuItem();
         showHTML = new javax.swing.JMenuItem();
+        clearConsole = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -201,6 +234,7 @@ public class Main extends javax.swing.JFrame {
 
         archiveMenu1.setText("Archivos");
 
+        chargerJSON.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_J, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         chargerJSON.setText("Cargar JSON");
         chargerJSON.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -209,6 +243,7 @@ public class Main extends javax.swing.JFrame {
         });
         archiveMenu1.add(chargerJSON);
 
+        chargeDEF.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         chargeDEF.setText("Ejecutar DEF");
         chargeDEF.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -219,6 +254,15 @@ public class Main extends javax.swing.JFrame {
 
         showHTML.setText("Mostrar HTML");
         archiveMenu1.add(showHTML);
+
+        clearConsole.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        clearConsole.setText("Limpiar Consola");
+        clearConsole.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clearConsoleActionPerformed(evt);
+            }
+        });
+        archiveMenu1.add(clearConsole);
 
         jMenuBar1.add(archiveMenu1);
 
@@ -246,26 +290,30 @@ public class Main extends javax.swing.JFrame {
         arch.setVisible(true);
         String response = arch.getJSON();
         if (response.equalsIgnoreCase("NO HAY RESPUESTA")) {
-            JOptionPane message = new JOptionPane("No hay respuesta del Servidor", JOptionPane.ERROR_MESSAGE);
-            message.setVisible(true);
+            JOptionPane.showMessageDialog(this, "No hay respuesta del Servidor", "ERROR", JOptionPane.ERROR_MESSAGE);
         } else {
             this.jsonTab.setText(arch.getJSON());
             tabbedPaneMain.setSelectedIndex(1);
             Reader reader = new StringReader(jsonTab.getText());
             charge = new ChargeJSON(consoleText, reader);
             charge.chargeJSON();
-            JOptionPane message = new JOptionPane("Se analizaron los proyectos", JOptionPane.INFORMATION_MESSAGE);
-            message.setVisible(true);
+            JOptionPane.showMessageDialog(this, "Se analizaron los proyectos", "EXITO", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_newProjectActionPerformed
 
     private void chargeDEFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chargeDEFActionPerformed
         try {
-            LexerDEF lexer = new LexerDEF(new StringReader(reportDefTab.getText()));
-            SintacticDEF sintac = new SintacticDEF(lexer);
-            sintac.parse();
-            for (ErrorLP error : sintac.getErrors()) {
-                consoleText.append(error.toString() + "\n");
+            if (recordJSON != null) {
+                tabbedPaneMain.setSelectedIndex(0);
+                LexerDEF lexer = new LexerDEF(new StringReader(reportDefTab.getText()));
+                SintacticDEF sintac = new SintacticDEF(lexer, recordJSON);
+                sintac.parse();
+                for (ErrorLP error : sintac.getErrors()) {
+                    consoleText.append(error.toString() + "\n");
+                }
+                this.reportsPane.setText(reportDefTab.getText());
+            } else {
+                JOptionPane.showMessageDialog(this, "Debe cargar el archivo JSON", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -274,25 +322,19 @@ public class Main extends javax.swing.JFrame {
 
     private void chargerJSONActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chargerJSONActionPerformed
         tabbedPaneMain.setSelectedIndex(1);
-        Reader reader = new StringReader(jsonTab.getText());
-        charge = new ChargeJSON(consoleText, reader);
-        RecordJSON record = charge.chargeJSON();
-        if (record != null) {
-            for (String classe : record.getClasses()) {
-                consoleText.append("Clase -> " + classe + "\n");
-            }
-            for (MethodInfo methodInfo : record.getMethod()) {
-                consoleText.append(methodInfo.toString() + "\n");
-            }
-            for (VarInfo variable : record.getVariables()) {
-                consoleText.append(variable.toString() + "\n");
-            }
-            for (String comment : record.getComments()) {
-                consoleText.append("Comentario -> " + comment + "\n");
-
-            }
+        if (!jsonTab.getText().isBlank()) {
+            Reader reader = new StringReader(jsonTab.getText());
+            charge = new ChargeJSON(consoleText, reader);
+            recordJSON = charge.chargeJSON();
+        } else {
+            JOptionPane.showMessageDialog(this, "Está vacío", "Error", JOptionPane.ERROR_MESSAGE);
         }
+
     }//GEN-LAST:event_chargerJSONActionPerformed
+
+    private void clearConsoleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearConsoleActionPerformed
+        consoleText.setText("");
+    }//GEN-LAST:event_clearConsoleActionPerformed
 
     /**
      * @param args the command line arguments
@@ -333,6 +375,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JMenu archiveMenu1;
     private javax.swing.JMenuItem chargeDEF;
     private javax.swing.JMenuItem chargerJSON;
+    private javax.swing.JMenuItem clearConsole;
     private javax.swing.JLabel consoleLabel;
     private javax.swing.JTextArea consoleText;
     private javax.swing.JButton executeBtn;

@@ -4,13 +4,20 @@ package Back.Analizers.DEF;
 import java_cup.runtime.*;
 import java.util.ArrayList;
 import Back.Analizers.ErrorLP;
+import Back.Analizers.RecordJSON;
+import Back.Sintactic.SymbolTable;
+import Back.Sintactic.Variable;
+import Back.Sintactic.TypeVar;
 
 parser code {:
 
         private ArrayList<ErrorLP> errors = new ArrayList<>();
+        private SymbolTable table;
+        private ArrayList<Variable> vars = new ArrayList<>();
 
-        public SintacticDEF(LexerDEF lexer) {
+        public SintacticDEF(LexerDEF lexer, RecordJSON json) {
                 super(lexer);
+                table = new SymbolTable(json);
         }
 
         public void syntax_error(Symbol cur_token) {
@@ -26,34 +33,55 @@ parser code {:
         public void addError(Symbol token) {
                 try {
                         errors.add(new ErrorLP(token.left, token.right, token.value.toString(), 1, "No se esperaba el simbolo"));
+                        for (Integer i : expected_token_ids()) {
+                                System.out.println("Se esperaba -> "+symDEF.terminalNames[i]);
+                        }
+                printStack();
                 } catch (Exception e) {
                 }
         }
 
         public ArrayList<ErrorLP> getErrors(){
+                errors.addAll(table.getErrors());
                 return errors;
+        }
+
+        public void registerVars(String type, int line, int column) {
+                for (Variable v : vars) {
+                        table.declaratedVar(v.getId(), v.getValue(), type, line, column);
+                }
+                vars.clear();
+        }
+
+        public void printStack(){
+            for (Object o : stack) {
+                if (o instanceof Symbol) {
+                    if (((Symbol) o).value != null) {
+                        System.out.println("L: " + ((Symbol) o).left + " C: " + ((Symbol) o).right + " Tipo:" + symDEF.terminalNames[((Symbol) o).sym] + "\t Content: " + ((Symbol) o).value.toString());
+                    }
+                }
+            }
         }
 :};
 
 /* Terminals (tokens returned by the scanner). */
-terminal Integer INTEGER;
-
-terminal O_PARENT, C_PARENT, O_SBRACKET, C_SBRACKET, COLONS, DOT,
+terminal O_PARENT, C_PARENT, O_SBRACKET, C_SBRACKET, COLONS, DOT, INTEGER,
          SEMICOLON, SUM, REST, MULTIPLY, DIV, EQUAL, SMALLER, HIGHER,
          D_DOLLAR, SCORE, CLASSES, VARIABLES, METHODS, COMMENTS, NAME,
          TYPE, FUNCTION, PARAMETERS, TEXT, T_INT, T_STRING, O_HTML, C_HTML,
          O_H1, C_H1, O_H2, C_H2, O_TABLE, C_TABLE, O_TR, C_TR, O_TD, C_TD, O_TH, C_TH,
-         BR, FOR, UNTIL, ID, STRING, T_RESULT, COMMA, ITERATOR;     
+         BR, FOR,FOR_C, UNTIL, ID, STRING, T_RESULT, COMMA, ITERATOR, UNDEFINED;     
 
 /* Non terminals */
 non terminal initial, var_decla_estructure, types_var, result_estructure,
              all_result_estructure, score_estructure, classes_estructure, variables_estructure,
              var_option_string, methods_estructure, method_option_var, comments_estructure,
              declaration_var, multiple_statements_var, var_values, number_operations, 
-             arithmetics_operations, for_estructure, for_open, internal_for, for_close, 
+             arithmetics_operations, for_estructure, for_open, internal_for,
              initial_html, all_estructures, all_html_structure, call_internal_var, 
              table_estructure, internal_table, h1_estructure, h2_estructure, 
-             tr_estructure, internal_tr, th_estructure, td_estructure, internal_content ;
+             tr_estructure, internal_tr, th_estructure, td_estructure, internal_content,
+             internal_tag, internal_string, integer_or_id, internal_for_es;
 
 /* The Precedence rules*/
 precedence left SUM, REST, SMALLER;
@@ -62,105 +90,142 @@ precedence left MULTIPLY, DIV;
 start with initial;
 
 /* The grammar rules */
-initial::=  var_decla_estructure initial_html;
+initial::= var_decla_estructure initial_html;
 
 var_decla_estructure::= declaration_var
                       | declaration_var var_decla_estructure
+                      | error declaration_var
                       ;
 
-result_estructure::= T_RESULT DOT all_result_estructure;
+result_estructure::= T_RESULT DOT all_result_estructure:end         {:RESULT = String.valueOf(end);:}
+                   ;
 
-all_result_estructure::= score_estructure
-                       | classes_estructure
-                       | variables_estructure
-                       | methods_estructure
-                       | comments_estructure
+all_result_estructure::= score_estructure:score               {:RESULT=score.toString();:}
+                       | classes_estructure:name              {:RESULT=name.toString();:}
+                       | variables_estructure:var             {:RESULT=var.toString();:}
+                       | methods_estructure:me                {:RESULT=me.toString();:}
+                       | comments_estructure:com              {:RESULT=com.toString();:}
                        ;
 
-score_estructure::= SCORE;
+score_estructure::= SCORE:score         {:RESULT = table.getScore();:}
+                  ;
 
 //CLASSES
 classes_estructure::= CLASSES
-                    | CLASSES O_SBRACKET INTEGER C_SBRACKET
-                    | CLASSES O_SBRACKET INTEGER C_SBRACKET DOT NAME
+                    | CLASSES O_SBRACKET integer_or_id:n C_SBRACKET                             
+                    | CLASSES O_SBRACKET integer_or_id:n C_SBRACKET NAME                        {:RESULT = table.getClass(n.toString(), nleft, nright);:}  
                     ;
 
 //VARIABLES
 variables_estructure::= VARIABLES
-                      | VARIABLES O_SBRACKET INTEGER C_SBRACKET
-                      | VARIABLES O_SBRACKET INTEGER C_SBRACKET DOT var_option_string
+                      | VARIABLES O_SBRACKET integer_or_id C_SBRACKET
+                      | VARIABLES O_SBRACKET integer_or_id:n C_SBRACKET var_option_string:op      {:RESULT = table.getVar(n.toString(), nleft, nright).getAttibute(op.toString());:}
                       ;
 
-var_option_string::= NAME
-                   | TYPE
-                   | FUNCTION
+var_option_string::= NAME:name          {:RESULT = String.valueOf(name);:}
+                   | TYPE:type          {:RESULT = String.valueOf(type);:}
+                   | FUNCTION:function  {:RESULT = String.valueOf(function);:}
                    ;
 
 //METHODS
 methods_estructure::= METHODS
-                    | METHODS O_SBRACKET INTEGER C_SBRACKET
-                    | METHODS O_SBRACKET INTEGER C_SBRACKET DOT method_option_var
+                    | METHODS O_SBRACKET integer_or_id C_SBRACKET
+                    | METHODS O_SBRACKET integer_or_id:n C_SBRACKET method_option_var:op          {:RESULT = table.getMethod(n.toString(), nleft, nright).getAttibute(op.toString());:}
                     ;
 
-method_option_var::= NAME
-                   | TYPE
-                   | PARAMETERS
+method_option_var::= NAME:name          {:RESULT = String.valueOf(name);:}
+                   | TYPE:type          {:RESULT = String.valueOf(type);:}        
+                   | PARAMETERS:param   {:RESULT = String.valueOf(param);:}
                    ;
 
 //COMMENTS
 comments_estructure::= COMMENTS
-                     | COMMENTS O_SBRACKET INTEGER C_SBRACKET
-                     | COMMENTS O_SBRACKET INTEGER C_SBRACKET DOT TEXT
+                     | COMMENTS O_SBRACKET integer_or_id C_SBRACKET
+                     | COMMENTS O_SBRACKET integer_or_id:n C_SBRACKET TEXT                        {:RESULT = table.getComment(n.toString(), nleft, nright);:}
                      ;
 
 //DECLARATIONS LANGUAGE
 //DECLARATIONS INTEGERS
-declaration_var::= types_var multiple_statements_var SEMICOLON
-                 | ID EQUAL var_values SEMICOLON
+declaration_var::= types_var:type multiple_statements_var SEMICOLON                             {:registerVars(String.valueOf(type), typeleft, typeright);:}
+                 | ID:id EQUAL var_values:value SEMICOLON                                       {:table.asignValue(String.valueOf(id), String.valueOf(value), idleft, idright);:}
                  ;
 
-multiple_statements_var::= ID
-                         | ID EQUAL var_values
-                         | ID COMMA multiple_statements_var
-                         | ID EQUAL var_values COMMA multiple_statements_var      
+multiple_statements_var::= ID:id                                                                {:vars.add(new Variable(TypeVar.UNDEFINED, "", String.valueOf(id)));:}
+                         | ID:id EQUAL var_values:value                                         {:vars.add(new Variable(TypeVar.UNDEFINED, String.valueOf(value), String.valueOf(id)));:}
+                         | ID:id COMMA multiple_statements_var                                  {:vars.add(new Variable(TypeVar.UNDEFINED, "", String.valueOf(id)));:}
+                         | ID:id EQUAL var_values:value COMMA multiple_statements_var           {:vars.add(new Variable(TypeVar.UNDEFINED, String.valueOf(value), String.valueOf(id)));:}
                          ;
 
-var_values::= ID
-            | number_operations
-            | STRING
-            | result_estructure
-            | var_values SUM var_values
+var_values::= ID:id                                       {:RESULT=table.getValueVar(String.valueOf(id), idleft, idright);:}
+            | number_operations:number                    {:RESULT=String.valueOf(number);:}
+            | STRING:string                               {:RESULT=String.valueOf(string);:}
+            | result_estructure:result                    {:RESULT=String.valueOf(result);:}
+            | var_values:v1 SUM var_values:v2             {:RESULT=String.valueOf(v1)+String.valueOf(v2);:}
             ;
 
-number_operations::= INTEGER
-                   | O_PARENT number_operations C_PARENT
-                   | number_operations arithmetics_operations number_operations
+number_operations::= INTEGER:number                                                        {:RESULT=Integer.valueOf(number.toString());:}
+                   | O_PARENT number_operations:number C_PARENT                            {:RESULT=Integer.valueOf(number.toString());:}
+                   | number_operations:n1 arithmetics_operations:op number_operations:n2   {:
+                                                                                                String opera = String.valueOf(op);
+                                                                                                int n11 = Integer.valueOf(n1.toString());
+                                                                                                int n22 = Integer.valueOf(n2.toString());
+                                                                                                switch(opera){
+                                                                                                        case "SUM":
+                                                                                                                RESULT = n11 + n22;
+                                                                                                                break;
+                                                                                                        case "REST":
+                                                                                                                RESULT = n11 - n22;
+                                                                                                                break;
+                                                                                                        case "MULTIPLY":
+                                                                                                                RESULT = n11 * n22;
+                                                                                                                break;
+                                                                                                        case "DIV":
+                                                                                                                RESULT = (int)(n11 / n22);
+                                                                                                                break;
+                                                                                                        default:
+                                                                                                                errors.add(new ErrorLP(n1left, n1right, "", 3, "Operador no soportado"));
+                                                                                                                break;
+                                                                                                }
+                                                                                           :}         
                    ;
 
 //GENERAL DECLARATIONS
-arithmetics_operations::= SUM
-                        | REST
-                        | MULTIPLY
-                        | DIV
+arithmetics_operations::= SUM           {:RESULT="SUM";:}
+                        | REST          {:RESULT="REST";:}
+                        | MULTIPLY      {:RESULT="MULTIPLY";:}
+                        | DIV           {:RESULT="DIV";:}
                         ;
 
-types_var::= T_INT
-           | T_STRING
+types_var::= T_INT:type         {:RESULT = String.valueOf(type);:}
+           | T_STRING:type      {:RESULT = String.valueOf(type);:}
            ;
 //GRAMMAR RULES 'FOR'
-for_estructure::= for_open internal_for for_close;
+for_estructure::= for_open internal_for FOR_C;
 
-for_open::= SMALLER FOR ITERATOR COLONS ID UNTIL COLONS INTEGER SEMICOLON HIGHER;
+for_open::= SMALLER FOR ITERATOR COLONS ID UNTIL COLONS integer_or_id SEMICOLON HIGHER;
 
-internal_for::= all_estructures;
+internal_for::= internal_for_es
+              | internal_for_es internal_for
+              ;
 
-for_close::= SMALLER DIV FOR HIGHER;
+internal_for_es::= table_estructure
+                 | h1_estructure
+                 | h2_estructure
+                 | for_estructure
+                 | BR
+                 | tr_estructure
+                 ;              
+
+integer_or_id::= INTEGER:n              {:RESULT=Integer.valueOf(n.toString());:}
+               | ID:id                  {:RESULT=table.getValueVar(String.valueOf(id), idleft, idright);:}
+               ;
 
 //ALL DECLARATIONS HTML
 initial_html::= O_HTML all_estructures C_HTML;
 
 all_estructures::= all_html_structure
                  | all_html_structure all_estructures
+                 | error all_html_structure
                  ;
 
 all_html_structure::= table_estructure
@@ -179,6 +244,8 @@ table_estructure::= O_TABLE internal_table C_TABLE
                   ;
 
 internal_table::= tr_estructure
+                | for_estructure
+                | for_estructure internal_table
                 | tr_estructure internal_table
                 ;
 
@@ -211,9 +278,22 @@ td_estructure::= O_TD internal_content C_TD
 internal_content::= call_internal_var
                   | BR
                   | h1_estructure
-                  | h2_estructure      
+                  | h2_estructure
+                  | internal_tag      
                   | BR internal_content
                   | h1_estructure internal_content
                   | h2_estructure internal_content
                   | call_internal_var internal_content
                   ;
+
+internal_tag::= internal_string
+              | internal_string internal_tag
+              ;
+
+internal_string::= ID
+                 | SEMICOLON
+                 | STRING
+                 | EQUAL
+                 | COMMA
+                 | INTEGER
+                 ;

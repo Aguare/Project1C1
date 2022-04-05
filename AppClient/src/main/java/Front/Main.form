@@ -45,6 +45,9 @@
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="chargerJSON">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+J"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Cargar JSON"/>
               </Properties>
               <Events>
@@ -53,6 +56,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="chargeDEF">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+D"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="Ejecutar DEF"/>
               </Properties>
               <Events>
@@ -63,6 +69,17 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Mostrar HTML"/>
               </Properties>
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="clearConsole">
+              <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+L"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Limpiar Consola"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="clearConsoleActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>

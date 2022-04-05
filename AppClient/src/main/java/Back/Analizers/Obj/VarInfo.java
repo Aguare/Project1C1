@@ -40,6 +40,19 @@ public class VarInfo {
         this.function = function;
     }
 
+    public String getAttibute(String op) {
+        switch (op) {
+            case ".Nombre":
+                return name;
+            case ".Tipo":
+                return type;
+            case ".Funcion":
+                return function;
+            default:
+                return "Error";
+        }
+    }
+
     @Override
     public String toString() {
         return "Variable -> Nombre: " + name + " Tipo: " + type + " Funcion: " + function;

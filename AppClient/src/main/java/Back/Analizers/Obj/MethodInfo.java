@@ -40,6 +40,19 @@ public class MethodInfo {
         this.parameters = parameters;
     }
 
+    public String getAttibute(String op) {
+        switch (op) {
+            case ".Nombre":
+                return name;
+            case ".Tipo":
+                return type;
+            case ".Parametros":
+                return "" + parameters;
+            default:
+                return "Error";
+        }
+    }
+
     @Override
     public String toString() {
         return "Metodo -> Nombre: " + name + " Tipo: " + type + " Parametros: " + parameters;
