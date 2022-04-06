@@ -1,5 +1,7 @@
 package Back.Sintactic;
 
+import Back.ObjDEF.TypeVar;
+import Back.ObjDEF.Variable;
 import Back.Analizers.ErrorLP;
 import Back.Analizers.Obj.MethodInfo;
 import Back.Analizers.Obj.VarInfo;
@@ -32,7 +34,6 @@ public class SymbolTable {
                 declaratedInt(id, value, TypeVar.INTEGER, line, column);
             } else {
                 table.put(id, new Variable(getType(type), value, id));
-                System.out.println("ID:" + id + " Tipo:" + getType(type) + "\tV:" + value);
             }
         }
     }
@@ -40,12 +41,10 @@ public class SymbolTable {
     private void declaratedInt(String id, String value, TypeVar type, int line, int column) {
         if (value.equals("")) {
             table.put(id, new Variable(type, "" + 0, id));
-            System.out.println("ID:" + id + " Tipo:" + type + "\tV:" + 0);
         } else {
             Object o = castStringToInt(value);
             if (o != null) {
                 table.put(id, new Variable(type, "" + (int) o, id));
-                System.out.println("ID:" + id + " Tipo:" + type + "\tV:" + value);
             } else {
                 errors.add(new ErrorLP(line, column, id, 3, "Imposible asignar letras a un Entero"));
             }
@@ -61,9 +60,7 @@ public class SymbolTable {
             } else {
                 var.setValue(value);
                 table.put(id, var);
-                System.out.println("ID:" + id + " Tipo:" + var.getType() + "\tV:" + value);
             }
-
         } else {
             errors.add(new ErrorLP(line, column, id, 3, "La variable aún no está definida"));
         }
@@ -74,7 +71,6 @@ public class SymbolTable {
         if (o != null) {
             var.setValue("" + (int) o);
             table.put(var.getId(), var);
-            System.out.println("ID:" + var.getId() + " Tipo:" + var.getType() + "\tV:" + value);
         } else {
             errors.add(new ErrorLP(line, column, var.getId(), 3, "Imposible asignar letras a un Entero"));
         }
@@ -103,7 +99,7 @@ public class SymbolTable {
             return "";
         }
     }
-    
+
     public String getComment(String n, int line, int column) {
         Object o = getIndex(n, json.getComments().size() - 1);
         if (o != null) {
@@ -128,13 +124,13 @@ public class SymbolTable {
         Object o = getIndex(n, json.getMethod().size() - 1);
         if (o != null) {
             return json.getMethod().get((int) o);
-        }else{
+        } else {
             errors.add(new ErrorLP(line, column, "Metodos[" + n + "]", 3, "El valor no existe"));
             return new MethodInfo("", "", 0);
         }
     }
 
-    private Object getIndex(String n, int max) {
+    public Object getIndex(String n, int max) {
         Object o = castStringToInt(n);
         if (o != null) {
             if ((int) o <= max) {
@@ -180,5 +176,9 @@ public class SymbolTable {
 
     public ArrayList<ErrorLP> getErrors() {
         return errors;
+    }
+
+    public void addError(ErrorLP error) {
+        errors.add(error);
     }
 }

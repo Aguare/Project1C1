@@ -6,18 +6,21 @@ import java.util.ArrayList;
 import Back.Analizers.ErrorLP;
 import Back.Analizers.RecordJSON;
 import Back.Sintactic.SymbolTable;
-import Back.Sintactic.Variable;
-import Back.Sintactic.TypeVar;
+import Back.ObjDEF.TypeVar;
+import Back.ObjDEF.Variable;
+import Back.Sintactic.RecordHTML;
 
 parser code {:
 
         private ArrayList<ErrorLP> errors = new ArrayList<>();
         private SymbolTable table;
         private ArrayList<Variable> vars = new ArrayList<>();
+        private RecordHTML record;
 
         public SintacticDEF(LexerDEF lexer, RecordJSON json) {
                 super(lexer);
                 table = new SymbolTable(json);
+                record = new RecordHTML(table);
         }
 
         public void syntax_error(Symbol cur_token) {
@@ -53,6 +56,10 @@ parser code {:
                 vars.clear();
         }
 
+        public RecordHTML getRecord(){
+                return record;
+        }
+
         public void printStack(){
             for (Object o : stack) {
                 if (o instanceof Symbol) {
@@ -81,7 +88,7 @@ non terminal initial, var_decla_estructure, types_var, result_estructure,
              initial_html, all_estructures, all_html_structure, call_internal_var, 
              table_estructure, internal_table, h1_estructure, h2_estructure, 
              tr_estructure, internal_tr, th_estructure, td_estructure, internal_content,
-             internal_tag, internal_string, integer_or_id, internal_for_es;
+             internal_string, integer_or_id, internal_for_es;
 
 /* The Precedence rules*/
 precedence left SUM, REST, SMALLER;
@@ -94,32 +101,33 @@ initial::= var_decla_estructure initial_html;
 
 var_decla_estructure::= declaration_var
                       | declaration_var var_decla_estructure
+                      | error SEMICOLON
                       | error declaration_var
                       ;
 
-result_estructure::= T_RESULT DOT all_result_estructure:end         {:RESULT = String.valueOf(end);:}
+result_estructure::= T_RESULT DOT all_result_estructure
                    ;
 
-all_result_estructure::= score_estructure:score               {:RESULT=score.toString();:}
-                       | classes_estructure:name              {:RESULT=name.toString();:}
-                       | variables_estructure:var             {:RESULT=var.toString();:}
-                       | methods_estructure:me                {:RESULT=me.toString();:}
-                       | comments_estructure:com              {:RESULT=com.toString();:}
+all_result_estructure::= score_estructure              
+                       | classes_estructure              
+                       | variables_estructure
+                       | methods_estructure
+                       | comments_estructure
                        ;
 
-score_estructure::= SCORE:score         {:RESULT = table.getScore();:}
+score_estructure::= SCORE:score         {:record.addInternal(table.getScore());:}
                   ;
 
 //CLASSES
 classes_estructure::= CLASSES
                     | CLASSES O_SBRACKET integer_or_id:n C_SBRACKET                             
-                    | CLASSES O_SBRACKET integer_or_id:n C_SBRACKET NAME                        {:RESULT = table.getClass(n.toString(), nleft, nright);:}  
+                    | CLASSES O_SBRACKET integer_or_id:n C_SBRACKET NAME                          {:record.addIns(TypeVar.CLASS, n.toString(), nleft, nright, "");:}  
                     ;
 
 //VARIABLES
 variables_estructure::= VARIABLES
                       | VARIABLES O_SBRACKET integer_or_id C_SBRACKET
-                      | VARIABLES O_SBRACKET integer_or_id:n C_SBRACKET var_option_string:op      {:RESULT = table.getVar(n.toString(), nleft, nright).getAttibute(op.toString());:}
+                      | VARIABLES O_SBRACKET integer_or_id:n C_SBRACKET var_option_string:op      {:record.addIns(TypeVar.GETVAR, n.toString(), nleft, nright, op.toString());:}
                       ;
 
 var_option_string::= NAME:name          {:RESULT = String.valueOf(name);:}
@@ -130,7 +138,7 @@ var_option_string::= NAME:name          {:RESULT = String.valueOf(name);:}
 //METHODS
 methods_estructure::= METHODS
                     | METHODS O_SBRACKET integer_or_id C_SBRACKET
-                    | METHODS O_SBRACKET integer_or_id:n C_SBRACKET method_option_var:op          {:RESULT = table.getMethod(n.toString(), nleft, nright).getAttibute(op.toString());:}
+                    | METHODS O_SBRACKET integer_or_id:n C_SBRACKET method_option_var:op          {:record.addIns(TypeVar.GETMETHOD, n.toString(), nleft, nright, op.toString());:}
                     ;
 
 method_option_var::= NAME:name          {:RESULT = String.valueOf(name);:}
@@ -141,7 +149,7 @@ method_option_var::= NAME:name          {:RESULT = String.valueOf(name);:}
 //COMMENTS
 comments_estructure::= COMMENTS
                      | COMMENTS O_SBRACKET integer_or_id C_SBRACKET
-                     | COMMENTS O_SBRACKET integer_or_id:n C_SBRACKET TEXT                        {:RESULT = table.getComment(n.toString(), nleft, nright);:}
+                     | COMMENTS O_SBRACKET integer_or_id:n C_SBRACKET TEXT                        {:record.addIns(TypeVar.COMMENT, n.toString(), nleft, nright, "");:}
                      ;
 
 //DECLARATIONS LANGUAGE
@@ -159,7 +167,7 @@ multiple_statements_var::= ID:id                                                
 var_values::= ID:id                                       {:RESULT=table.getValueVar(String.valueOf(id), idleft, idright);:}
             | number_operations:number                    {:RESULT=String.valueOf(number);:}
             | STRING:string                               {:RESULT=String.valueOf(string);:}
-            | result_estructure:result                    {:RESULT=String.valueOf(result);:}
+            | result_estructure                           {:RESULT=record.getUltimate();:}
             | var_values:v1 SUM var_values:v2             {:RESULT=String.valueOf(v1)+String.valueOf(v2);:}
             ;
 
@@ -189,6 +197,10 @@ number_operations::= INTEGER:number                                             
                                                                                            :}         
                    ;
 
+integer_or_id::= INTEGER:n              {:RESULT=Integer.valueOf(n.toString());:}
+               | ID:id                  {:RESULT=String.valueOf(id);:}
+               ;
+
 //GENERAL DECLARATIONS
 arithmetics_operations::= SUM           {:RESULT="SUM";:}
                         | REST          {:RESULT="REST";:}
@@ -200,100 +212,95 @@ types_var::= T_INT:type         {:RESULT = String.valueOf(type);:}
            | T_STRING:type      {:RESULT = String.valueOf(type);:}
            ;
 //GRAMMAR RULES 'FOR'
-for_estructure::= for_open internal_for FOR_C;
+for_estructure::= for_open internal_for FOR_C             {:record.closeFor();:}      
+                ;
 
-for_open::= SMALLER FOR ITERATOR COLONS ID UNTIL COLONS integer_or_id SEMICOLON HIGHER;
+for_open::= SMALLER FOR ITERATOR COLONS integer_or_id:init UNTIL COLONS integer_or_id:max SEMICOLON HIGHER    {:record.setCountFor(init.toString(), max.toString(), initleft, initright);:}    
+          ;
 
 internal_for::= internal_for_es
               | internal_for_es internal_for
               ;
 
-internal_for_es::= table_estructure
-                 | h1_estructure
-                 | h2_estructure
-                 | for_estructure
-                 | BR
-                 | tr_estructure
-                 ;              
-
-integer_or_id::= INTEGER:n              {:RESULT=Integer.valueOf(n.toString());:}
-               | ID:id                  {:RESULT=table.getValueVar(String.valueOf(id), idleft, idright);:}
-               ;
+internal_for_es::= table_estructure                 {:record.amountFor();:}    
+                 | h1_estructure                    {:record.amountFor();:}    
+                 | h2_estructure                    {:record.amountFor();:}    
+                 | BR:br                            {:record.addInternal(br.toString());:}
+                 | tr_estructure                    {:record.amountFor();:}    
+                 ;             
 
 //ALL DECLARATIONS HTML
-initial_html::= O_HTML all_estructures C_HTML;
+initial_html::= O_HTML all_estructures C_HTML              {:record.closeHTML();:}
+               ;
 
-all_estructures::= all_html_structure
-                 | all_html_structure all_estructures
+all_estructures::= all_html_structure                      
+                 | all_html_structure all_estructures 
                  | error all_html_structure
                  ;
 
-all_html_structure::= table_estructure
-                    | h1_estructure
-                    | h2_estructure
-                    | for_estructure
-                    | BR
+all_html_structure::= table_estructure                 
+                    | h1_estructure                    
+                    | h2_estructure:h2                 
+                    | for_estructure                   
+                    | BR:br                            {:record.addInternal(br.toString());:}
                     ;
 
-call_internal_var::= D_DOLLAR O_PARENT ID C_PARENT D_DOLLAR
-                   | D_DOLLAR O_PARENT result_estructure C_PARENT D_DOLLAR
+call_internal_var::= D_DOLLAR O_PARENT integer_or_id:id C_PARENT D_DOLLAR                       {:record.addIns(TypeVar.VARIABLE, id.toString(), idleft, idright, "");:}
+                   | D_DOLLAR O_PARENT result_estructure C_PARENT D_DOLLAR                      
                    ;
 
-table_estructure::= O_TABLE internal_table C_TABLE
-                  | O_TABLE C_TABLE
+table_estructure::= O_TABLE:t1 internal_table C_TABLE:t2                      {:record.closeTag("<table border=\"1\">", "</table>");:}
+                  | O_TABLE:t1 C_TABLE:t2                                
                   ;
 
-internal_table::= tr_estructure
-                | for_estructure
-                | for_estructure internal_table
-                | tr_estructure internal_table
+internal_table::= tr_estructure                                               {:record.amountTable();:}}
+                | for_estructure                                              {:record.amountTable();:}}
+                | for_estructure internal_table                               {:record.amountTable();:}}
+                | tr_estructure internal_table                                {:record.amountTable();:}}
                 ;
 
-h1_estructure::= O_H1 internal_content C_H1
-               | O_H1 C_H1
+h1_estructure::= O_H1:t1 internal_content C_H1:t2                             {:record.closeTag("<h1>", "</h1>");:} 
+               | O_H1:t1 C_H1:t2                                              
                ;
 
-h2_estructure::= O_H2 internal_content C_H2
-               | O_H2 C_H2
+h2_estructure::= O_H2:t1 internal_content C_H2:t2                             {:record.closeTag("<h2>", "</h2>");:}
+               | O_H2:t1 C_H2:t2                                              {:record.closeTag(t1.toString(), t2.toString());:}
                ;        
 
-tr_estructure::= O_TR internal_tr C_TR
-               | O_TR C_TR
+tr_estructure::= O_TR:t1 internal_tr C_TR:t2                                  {:record.closeTag("<tr>", "</tr>");:}
+               | O_TR:t1 C_TR:t2                                              
                ;
 
-internal_tr::= td_estructure
-             | th_estructure
-             | td_estructure internal_tr
-             | th_estructure internal_tr
+internal_tr::= td_estructure                                                   {:record.amountInternal();:}}                                                  
+             | th_estructure                                                   {:record.amountInternal();:}}
+             | td_estructure internal_tr                                       {:record.amountInternal();:}}
+             | th_estructure internal_tr                                       {:record.amountInternal();:}}
              ;
 
-th_estructure::= O_TH internal_content C_TH
-               | O_TH C_TH
+th_estructure::= O_TH:t1 internal_content C_TH:t2                             {:record.closeTag("<th>", "</th>");:}
+               | O_TH:t1 C_TH:t2                                              
                ;
 
-td_estructure::= O_TD internal_content C_TD
-               | O_TD C_TD
+td_estructure::= O_TD:t1 internal_content C_TD:t2                             {:record.closeTag("<td>", "</td>");:}
+               | O_TD:t1 C_TD:t2                                              
                ;
 
 internal_content::= call_internal_var
-                  | BR
-                  | h1_estructure
-                  | h2_estructure
-                  | internal_tag      
-                  | BR internal_content
-                  | h1_estructure internal_content
-                  | h2_estructure internal_content
-                  | call_internal_var internal_content
+                  | BR:br                                                     {:record.addInternal(br.toString());:}
+                  | h1_estructure                                             
+                  | h2_estructure                                             
+                  | internal_string                                           
+                  | BR:br internal_content                                    {:record.addInternal(br.toString());:}
+                  | h1_estructure internal_content                            
+                  | h2_estructure internal_content                            
+                  | call_internal_var internal_content                  
+                  | internal_string internal_content                          
                   ;
 
-internal_tag::= internal_string
-              | internal_string internal_tag
-              ;
-
-internal_string::= ID
-                 | SEMICOLON
-                 | STRING
-                 | EQUAL
-                 | COMMA
-                 | INTEGER
+internal_string::= ID:val                         {:record.addInternal(val.toString());:}
+                 | SEMICOLON:val                  {:record.addInternal(val.toString());:}
+                 | STRING:val                     {:record.addInternal(val.toString());:}
+                 | EQUAL:val                      {:record.addInternal(val.toString());:}
+                 | COMMA:val                      {:record.addInternal(val.toString());:}
+                 | INTEGER:val                    {:record.addInternal(val.toString());:}
                  ;

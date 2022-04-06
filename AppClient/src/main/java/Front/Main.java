@@ -36,22 +36,15 @@ public class Main extends javax.swing.JFrame {
 
     private void insertHTML() {
         reportsPane.setContentType("text/html");
-        reportsPane.setText(
-                "<b>hola</b><br>"
-                + "<i>adios</i>"
-                + "<font face='arial'>fuente arial</font><br>"
-                + "<font face='courier'>fuente courier</font><br>"
-                + "<font size='24'>fuente grande</font><br>"
-                + "<font color='red'>color rojo</font><br>"
-        );
         this.reportDefTab.setText("</iniciare a definir de alguna manera/>\n"
                 + "Integer max, i, Max;\n"
-                + "Max = 4;\n"
+                + "Max = 2;\n"
                 + "i=0;\n"
+                + "max = 0;\n"
                 + "String texto = \"Su score fue de: \"+RESULT.Score;\n"
                 + "String n1 = RESULT.Variables[i].Nombre;\n"
                 + "String n2 = RESULT.Variables[Max].Nombre;\n"
-                + "String n3 = RESULT.Variables[70].Nombre;\n"
+                + "\n"
                 + "</aqui defino el HTML/>\n"
                 + "<html>\n"
                 + "    <h1>$$(texto)$$</h1>\n"
@@ -71,6 +64,10 @@ public class Main extends javax.swing.JFrame {
                 + "            </tr>\n"
                 + "        </for>\n"
                 + "    </table>\n"
+                + "	<h1>\"Segundo for\"</h1>\n"
+                + "	<for iterador:max hasta:2;>\n"
+                + "		<h1>Hola$$(max)$$</h1>\n"
+                + "	</for>\n"
                 + "</html>");
         this.jsonTab.setText("{\n"
                 + "Score: \"0.26\",\n"
@@ -311,7 +308,8 @@ public class Main extends javax.swing.JFrame {
                 for (ErrorLP error : sintac.getErrors()) {
                     consoleText.append(error.toString() + "\n");
                 }
-                this.reportsPane.setText(reportDefTab.getText());
+                String html = sintac.getRecord().getHTML();
+                reportsPane.setText(html);
             } else {
                 JOptionPane.showMessageDialog(this, "Debe cargar el archivo JSON", "Error", JOptionPane.ERROR_MESSAGE);
             }
