@@ -253,36 +253,37 @@ table_estructure::= O_TABLE:t1 internal_table C_TABLE:t2                      {:
                   | O_TABLE:t1 C_TABLE:t2                                
                   ;
 
-internal_table::= tr_estructure                                               {:record.amountTable();:}}
-                | for_estructure                                              {:record.amountTable();:}}
-                | for_estructure internal_table                               {:record.amountTable();:}}
-                | tr_estructure internal_table                                {:record.amountTable();:}}
+internal_table::= tr_estructure                                               {:record.amountTable();:}
+                | for_estructure                                              {:record.amountTable();:}
+                | for_estructure internal_table                               {:record.amountTable();:}
+                | tr_estructure internal_table                                {:record.amountTable();:}
+                | BR:br                                                       {:record.addInternal(br.toString());:}
                 ;
 
-h1_estructure::= O_H1:t1 internal_content C_H1:t2                             {:record.closeTag("<h1>", "</h1>");:} 
-               | O_H1:t1 C_H1:t2                                              
+h1_estructure::= O_H1:t1 internal_content C_H1:t2                             {:record.closeTag(t1.toString(), t2.toString());:} 
+               | O_H1:t1 C_H1:t2                                              {:record.closeTag(t1.toString(), t2.toString());:} 
                ;
 
-h2_estructure::= O_H2:t1 internal_content C_H2:t2                             {:record.closeTag("<h2>", "</h2>");:}
+h2_estructure::= O_H2:t1 internal_content C_H2:t2                             {:record.closeTag(t1.toString(), t2.toString());:} 
                | O_H2:t1 C_H2:t2                                              {:record.closeTag(t1.toString(), t2.toString());:}
                ;        
 
-tr_estructure::= O_TR:t1 internal_tr C_TR:t2                                  {:record.closeTag("<tr>", "</tr>");:}
-               | O_TR:t1 C_TR:t2                                              
+tr_estructure::= O_TR:t1 internal_tr C_TR:t2                                  {:record.closeTag(t1.toString(), t2.toString());:} 
+               | O_TR:t1 C_TR:t2                                              {:record.closeTag(t1.toString(), t2.toString());:} 
                ;
 
-internal_tr::= td_estructure                                                   {:record.amountInternal();:}}                                                  
-             | th_estructure                                                   {:record.amountInternal();:}}
-             | td_estructure internal_tr                                       {:record.amountInternal();:}}
-             | th_estructure internal_tr                                       {:record.amountInternal();:}}
+internal_tr::= td_estructure                                                   {:record.amountInternal();:}                                                  
+             | th_estructure                                                   {:record.amountInternal();:}
+             | td_estructure internal_tr                                       {:record.amountInternal();:}
+             | th_estructure internal_tr                                       {:record.amountInternal();:}
              ;
 
-th_estructure::= O_TH:t1 internal_content C_TH:t2                             {:record.closeTag("<th>", "</th>");:}
-               | O_TH:t1 C_TH:t2                                              
+th_estructure::= O_TH:t1 internal_content C_TH:t2                             {:record.closeTag(t1.toString(), t2.toString());:} 
+               | O_TH:t1 C_TH:t2                                              {:record.closeTag(t1.toString(), t2.toString());:} 
                ;
 
-td_estructure::= O_TD:t1 internal_content C_TD:t2                             {:record.closeTag("<td>", "</td>");:}
-               | O_TD:t1 C_TD:t2                                              
+td_estructure::= O_TD:t1 internal_content C_TD:t2                             {:record.closeTag(t1.toString(), t2.toString());:} 
+               | O_TD:t1 C_TD:t2                                              {:record.closeTag(t1.toString(), t2.toString());:} 
                ;
 
 internal_content::= call_internal_var
