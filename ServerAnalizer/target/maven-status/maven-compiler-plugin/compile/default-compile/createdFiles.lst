@@ -2,6 +2,7 @@ Back/Objects/VariableInfo.class
 Back/Analizers/sym.class
 Front/Console.class
 Back/Analizers/ErrorLP.class
+Back/Archives/ControlServer.class
 Back/Controller/Repeated.class
 Back/Objects/FunctionInfo.class
 Front/LineNumber.class
@@ -12,6 +13,7 @@ Back/Analizers/Sintactic.class
 Back/Analizers/Sintactic$CUP$Sintactic$actions.class
 Back/Objects/ClassInfo.class
 Back/Archives/ClassCompare.class
+Back/Archives/ServerSend.class
 Back/Objects/TypeVar.class
 Back/Analizers/Lexer.class
 Back/Controller/Repeated$1.class

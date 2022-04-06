@@ -1,6 +1,18 @@
 package Front;
 
+import Back.Analizers.DEF.LexerDEF;
+import Back.Analizers.DEF.SintacticDEF;
+import Back.Analizers.ErrorLP;
+import Back.Analizers.JSON.ChargeJSON;
+import Back.Analizers.RecordJSON;
+import Back.Archives.ProjectArchive;
+import java.io.File;
+import java.io.Reader;
+import java.io.StringReader;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  *
@@ -9,6 +21,9 @@ import javax.swing.JOptionPane;
 public class Main extends javax.swing.JFrame {
 
     private LineNumber line1, line2, line3;
+    private ChargeJSON charge;
+    private RecordJSON recordJSON = null;
+    private String path = "", name_project = "";
 
     /**
      * Creates new form Principal
@@ -27,14 +42,70 @@ public class Main extends javax.swing.JFrame {
 
     private void insertHTML() {
         reportsPane.setContentType("text/html");
-        reportsPane.setText(
-                "<b>hola</b><br>"
-                + "<i>adios</i>"
-                + "<font face='arial'>fuente arial</font><br>"
-                + "<font face='courier'>fuente courier</font><br>"
-                + "<font size='24'>fuente grande</font><br>"
-                + "<font color='red'>color rojo</font><br>"
-        );
+        this.reportDefTab.setText("</iniciare a definir de alguna manera/>\n"
+                + "Integer max, i, Max;\n"
+                + "Max = 2;\n"
+                + "i=0;\n"
+                + "max = 0;\n"
+                + "String texto = \"Su score fue de: \"+RESULT.Score;\n"
+                + "String n1 = RESULT.Variables[i].Nombre;\n"
+                + "String n2 = RESULT.Variables[Max].Nombre;\n"
+                + "\n"
+                + "</aqui defino el HTML/>\n"
+                + "<html>\n"
+                + "    <h1>$$(texto)$$</h1>\n"
+                + "    <table>\n"
+                + "        <tr>\n"
+                + "            <th>Numero</th>\n"
+                + "            <th>Variable</th>\n"
+                + "            <th>Tipo</th>\n"
+                + "            <th>Función</th>\n"
+                + "        </tr>\n"
+                + "        <for iterador:i hasta:Max;>\n"
+                + "            <tr>\n"
+                + "                <td>$$(i)$$</td>\n"
+                + "                <td>$$(RESULT.Variables[i].Nombre)$$</td>\n"
+                + "                <td>$$(RESULT.Variables[i].Tipo)$$</td>\n"
+                + "                <td>$$(RESULT.Variables[i].Funcion)$$</td>\n"
+                + "            </tr>\n"
+                + "        </for>\n"
+                + "    </table>\n"
+                + "	<h1>\"Segundo for\"</h1>\n"
+                + "	<for iterador:max hasta:2;>\n"
+                + "		<h1>Hola$$(max)$$</h1>\n"
+                + "	</for>\n"
+                + "</html>");
+        this.jsonTab.setText("{\n"
+                + "Score: \"0.26\",\n"
+                + "Clases:[\n"
+                + "],\n"
+                + "Variables:[\n"
+                + "	{Nombre: \"args\", Tipo:\"STRING\", Funcion: \"main, main\"},\n"
+                + "	{Nombre: \"variable1\", Tipo:\"STRING\", Funcion: \"metodo1, metodo11\"},\n"
+                + "	{Nombre: \"cadena1\", Tipo:\"STRING\", Funcion: \"main, metodo3\"},\n"
+                + "	{Nombre: \"objeto\", Tipo:\"OBJECT\", Funcion: \"main, metodo11\"},\n"
+                + "	{Nombre: \"entero2\", Tipo:\"INTEGER\", Funcion: \"metodo2, metodo22\"},\n"
+                + "	{Nombre: \"objeto\", Tipo:\"OBJECT\", Funcion: \"metodo1, metodo11\"},\n"
+                + "	{Nombre: \"objeto\", Tipo:\"OBJECT\", Funcion: \"metodo1, metodo11\"},\n"
+                + "	{Nombre: \"cadena1\", Tipo:\"STRING\", Funcion: \"metodo3, metodo3\"},\n"
+                + "	{Nombre: \"cadena2\", Tipo:\"STRING\", Funcion: \"metodo3, metodo3\"},\n"
+                + "	{Nombre: \"c\", Tipo:\"STRING\", Funcion: \"metodo3, metodo3\"}\n"
+                + "],\n"
+                + "Metodos:[\n"
+                + "	{Nombre: \"main\", Tipo: \"void\", Parametros: 1},\n"
+                + "	{Nombre: \"metodo3\", Tipo: \"void\", Parametros: 3}\n"
+                + "],\n"
+                + "Comentarios:[\n"
+                + "	{Texto: \"// metodo3(\"Cadena\");\"},\n"
+                + "	{Texto: \"/*\n"
+                + "        	comentario1\n"
+                + "        	asdf\n"
+                + "        */\"},\n"
+                + "	{Texto: \"/* este es el primer comentario */\"},\n"
+                + "	{Texto: \"// Este es el segundo comentario\"},\n"
+                + "	{Texto: \"// Este es el tercer comentario\"}\n"
+                + "]\n"
+                + "}");
     }
 
     /**
@@ -47,7 +118,7 @@ public class Main extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jTabbedPane1 = new javax.swing.JTabbedPane();
+        tabbedPaneMain = new javax.swing.JTabbedPane();
         scrollDef = new javax.swing.JScrollPane();
         reportDefTab = new javax.swing.JTextArea();
         scrollJSON = new javax.swing.JScrollPane();
@@ -63,6 +134,12 @@ public class Main extends javax.swing.JFrame {
         openProject = new javax.swing.JMenuItem();
         newProject = new javax.swing.JMenuItem();
         saveProject = new javax.swing.JMenuItem();
+        newProject1 = new javax.swing.JMenuItem();
+        archiveMenu1 = new javax.swing.JMenu();
+        chargerJSON = new javax.swing.JMenuItem();
+        chargeDEF = new javax.swing.JMenuItem();
+        showHTML = new javax.swing.JMenuItem();
+        clearConsole = new javax.swing.JMenuItem();
         jMenu1 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -71,29 +148,33 @@ public class Main extends javax.swing.JFrame {
 
         jPanel1.setToolTipText("");
 
-        jTabbedPane1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
-        jTabbedPane1.setOpaque(true);
+        tabbedPaneMain.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        tabbedPaneMain.setOpaque(true);
 
         reportDefTab.setColumns(20);
         reportDefTab.setRows(5);
         reportDefTab.setMinimumSize(new java.awt.Dimension(729, 203));
         scrollDef.setViewportView(reportDefTab);
 
-        jTabbedPane1.addTab("reportes.def", scrollDef);
+        tabbedPaneMain.addTab("reportes.def", scrollDef);
 
         jsonTab.setColumns(20);
         jsonTab.setRows(5);
         scrollJSON.setViewportView(jsonTab);
 
-        jTabbedPane1.addTab("resultado.json", scrollJSON);
+        tabbedPaneMain.addTab("resultado.json", scrollJSON);
 
         reportsPane.setEditable(false);
         scrollPane.setViewportView(reportsPane);
 
-        jTabbedPane1.addTab("Reportes", scrollPane);
+        tabbedPaneMain.addTab("Reportes", scrollPane);
 
         executeBtn.setText("Ejecutar");
-        executeBtn.setEnabled(false);
+        executeBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                executeBtnActionPerformed(evt);
+            }
+        });
 
         consoleLabel.setBackground(new java.awt.Color(21, 29, 69));
         consoleLabel.setFont(new java.awt.Font("Ubuntu Mono", 1, 15)); // NOI18N
@@ -119,7 +200,7 @@ public class Main extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                         .addComponent(executeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 729, Short.MAX_VALUE)
+                    .addComponent(tabbedPaneMain, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 768, Short.MAX_VALUE)
                     .addComponent(scrollConsole, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(consoleLabel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
@@ -128,24 +209,29 @@ public class Main extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 407, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tabbedPaneMain, javax.swing.GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(executeBtn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(consoleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(scrollConsole, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
+                .addComponent(scrollConsole, javax.swing.GroupLayout.PREFERRED_SIZE, 269, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
-        archiveMenu.setText("Archivo");
+        archiveMenu.setText("Proyecto");
 
         openProject.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        openProject.setText("Abrir Proyecto");
+        openProject.setText("Abrir");
+        openProject.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                openProjectActionPerformed(evt);
+            }
+        });
         archiveMenu.add(openProject);
 
         newProject.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        newProject.setText("Nuevo Proyecto");
+        newProject.setText("Crear");
         newProject.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 newProjectActionPerformed(evt);
@@ -154,10 +240,63 @@ public class Main extends javax.swing.JFrame {
         archiveMenu.add(newProject);
 
         saveProject.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        saveProject.setText("Guardar Proyecto");
+        saveProject.setText("Guardar");
+        saveProject.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveProjectActionPerformed(evt);
+            }
+        });
         archiveMenu.add(saveProject);
 
+        newProject1.setText("Cerrar Proyecto");
+        newProject1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                newProject1ActionPerformed(evt);
+            }
+        });
+        archiveMenu.add(newProject1);
+
         jMenuBar1.add(archiveMenu);
+
+        archiveMenu1.setText("Archivos");
+
+        chargerJSON.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_J, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        chargerJSON.setText("Cargar JSON");
+        chargerJSON.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chargerJSONActionPerformed(evt);
+            }
+        });
+        archiveMenu1.add(chargerJSON);
+
+        chargeDEF.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_D, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        chargeDEF.setText("Ejecutar DEF");
+        chargeDEF.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chargeDEFActionPerformed(evt);
+            }
+        });
+        archiveMenu1.add(chargeDEF);
+
+        showHTML.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_H, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        showHTML.setText("Mostrar HTML");
+        showHTML.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showHTMLActionPerformed(evt);
+            }
+        });
+        archiveMenu1.add(showHTML);
+
+        clearConsole.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_L, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        clearConsole.setText("Limpiar Consola");
+        clearConsole.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clearConsoleActionPerformed(evt);
+            }
+        });
+        archiveMenu1.add(clearConsole);
+
+        jMenuBar1.add(archiveMenu1);
 
         jMenu1.setText("Acerca de");
         jMenuBar1.add(jMenu1);
@@ -182,15 +321,136 @@ public class Main extends javax.swing.JFrame {
         Archives arch = new Archives(this, true, consoleText);
         arch.setVisible(true);
         String response = arch.getJSON();
-        if (response.equalsIgnoreCase("NO HAY RESPUESTA")) {
-            JOptionPane message = new JOptionPane("No hay respuesta del Servidor", JOptionPane.ERROR_MESSAGE);
-            message.setVisible(true);
-        } else {
+        if (!response.equalsIgnoreCase("NO HAY RESPUESTA") || !response.isEmpty()) {
             this.jsonTab.setText(arch.getJSON());
-            JOptionPane message = new JOptionPane("Se analizaron los proyectos", JOptionPane.INFORMATION_MESSAGE);
-            message.setVisible(true);
+            tabbedPaneMain.setSelectedIndex(1);
+            Reader reader = new StringReader(jsonTab.getText());
+            charge = new ChargeJSON(consoleText, reader);
+            charge.chargeJSON();
+            JOptionPane.showMessageDialog(this, "Se analizaron los proyectos", "EXITO", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_newProjectActionPerformed
+
+    private void chargeDEFActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chargeDEFActionPerformed
+        if (recordJSON != null) {
+            runProject();
+        } else {
+            JOptionPane.showMessageDialog(this, "Debe cargar el archivo JSON", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_chargeDEFActionPerformed
+
+    private void chargerJSONActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chargerJSONActionPerformed
+        tabbedPaneMain.setSelectedIndex(1);
+        if (!jsonTab.getText().isBlank()) {
+            Reader reader = new StringReader(jsonTab.getText());
+            charge = new ChargeJSON(consoleText, reader);
+            recordJSON = charge.chargeJSON();
+        } else {
+            JOptionPane.showMessageDialog(this, "Está vacío", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }//GEN-LAST:event_chargerJSONActionPerformed
+
+    private void clearConsoleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearConsoleActionPerformed
+        consoleText.setText("");
+    }//GEN-LAST:event_clearConsoleActionPerformed
+
+    private void executeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_executeBtnActionPerformed
+        if (!jsonTab.getText().isBlank() && !reportDefTab.getText().isBlank()) {
+            runProject();
+        }
+    }//GEN-LAST:event_executeBtnActionPerformed
+
+    private void newProject1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newProject1ActionPerformed
+        reportDefTab.setText("");
+        jsonTab.setText("");
+        reportsPane.setText("");
+        charge = null;
+        recordJSON = null;
+        name_project = "";
+        this.setTitle("Detector de Plagio");
+        path = "";
+    }//GEN-LAST:event_newProject1ActionPerformed
+
+    private void saveProjectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveProjectActionPerformed
+        if (!path.equals("") && !name_project.equals("")) {
+            ProjectArchive save = new ProjectArchive();
+            save.saveProject(reportDefTab.getText(), jsonTab.getText(), reportsPane.getText(), path, name_project);
+        } else {
+            save();
+        }
+
+    }//GEN-LAST:event_saveProjectActionPerformed
+
+    private void openProjectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openProjectActionPerformed
+        JFileChooser fc = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivo COPY", "copy");
+
+        fc.setFileFilter(filter);
+        int respuesta = fc.showOpenDialog(this);
+        if (respuesta == JFileChooser.APPROVE_OPTION) {
+            File file = fc.getSelectedFile();
+            if (file != null) {
+                ProjectArchive get = new ProjectArchive();
+                String[] files = get.openProject(file.getAbsolutePath());
+                if (files.length == 4) {
+                    this.name_project = files[3];
+                    this.path = file.getAbsolutePath();
+                    jsonTab.setText(files[0]);
+                    reportDefTab.setText(files[1]);
+                    reportsPane.setText(files[2]);
+                    this.setTitle(name_project);
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se puede cargar el Proyecto", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Debe seleccionar una carpeta de guardado", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_openProjectActionPerformed
+
+    private void showHTMLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showHTMLActionPerformed
+        tabbedPaneMain.setSelectedIndex(2);
+    }//GEN-LAST:event_showHTMLActionPerformed
+
+    private void save() {
+        JFileChooser fc = new JFileChooser();
+        fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        int respuesta = fc.showOpenDialog(this);
+        if (respuesta == JFileChooser.APPROVE_OPTION) {
+            File file = fc.getSelectedFile();
+            if (file != null) {
+                String name = JOptionPane.showInputDialog(this, "Ingrese el nombre del Proyecto", "Guardar Proyecto", JOptionPane.QUESTION_MESSAGE);
+                if (name != null | !name.equalsIgnoreCase("")) {
+                    name = name.replaceAll(" ", "");
+                    ProjectArchive save = new ProjectArchive();
+                    save.saveProject(reportDefTab.getText(), jsonTab.getText(), reportsPane.getText(), file.getAbsolutePath(), name);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Debe asignar un nombre al proyecto", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "Debe seleccionar una carpeta de guardado", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    private void runProject() {
+        try {
+            Reader reader = new StringReader(jsonTab.getText());
+            charge = new ChargeJSON(consoleText, reader);
+            recordJSON = charge.chargeJSON();
+            LexerDEF lexer = new LexerDEF(new StringReader(reportDefTab.getText()));
+            SintacticDEF sintac = new SintacticDEF(lexer, recordJSON);
+            sintac.parse();
+            for (ErrorLP error : sintac.getErrors()) {
+                consoleText.append(error.toString() + "\n");
+            }
+            reportsPane.setText(sintac.getRecord().getHTML());
+            tabbedPaneMain.setSelectedIndex(2);
+        } catch (Exception e) {
+        }
+
+    }
 
     /**
      * @param args the command line arguments
@@ -228,15 +488,19 @@ public class Main extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu archiveMenu;
+    private javax.swing.JMenu archiveMenu1;
+    private javax.swing.JMenuItem chargeDEF;
+    private javax.swing.JMenuItem chargerJSON;
+    private javax.swing.JMenuItem clearConsole;
     private javax.swing.JLabel consoleLabel;
     private javax.swing.JTextArea consoleText;
     private javax.swing.JButton executeBtn;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTextArea jsonTab;
     private javax.swing.JMenuItem newProject;
+    private javax.swing.JMenuItem newProject1;
     private javax.swing.JMenuItem openProject;
     private javax.swing.JTextArea reportDefTab;
     private javax.swing.JEditorPane reportsPane;
@@ -245,5 +509,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JScrollPane scrollDef;
     private javax.swing.JScrollPane scrollJSON;
     private javax.swing.JScrollPane scrollPane;
+    private javax.swing.JMenuItem showHTML;
+    private javax.swing.JTabbedPane tabbedPaneMain;
     // End of variables declaration//GEN-END:variables
 }

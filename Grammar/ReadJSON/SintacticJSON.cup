@@ -1,0 +1,147 @@
+/* SECTION 1: user code */
+package Back.Analizers.JSON;
+
+import java_cup.runtime.*;
+import java.util.ArrayList;
+import Back.Analizers.ErrorLP;
+import Back.Analizers.RecordJSON;
+
+parser code {:
+
+        private ArrayList<ErrorLP> errors = new ArrayList<>();
+        private RecordJSON record = new RecordJSON();
+
+        public SintacticJSON(LexerJSON lexer) {
+                super(lexer);
+        }
+
+        public void syntax_error(Symbol cur_token) {
+                if (cur_token.sym != symJSON.EOF){
+                        addError(cur_token);
+                }
+        }
+    
+        public void unrecovered_syntax_error(Symbol cur_token) {
+                addError(cur_token);
+        }
+
+        public void addError(Symbol token) {
+                try {
+                        errors.add(new ErrorLP(token.left, token.right, token.value.toString(), 1, "No se esperaba el simbolo"));
+                } catch (Exception e) {
+                }
+        }
+
+        public ArrayList<ErrorLP> getErrors(){
+                errors.addAll(record.getError());
+                return errors;
+        }
+
+        public RecordJSON getRecord(){
+                return record;
+        }
+:};
+
+/* Terminals (tokens returned by the scanner). */
+terminal O_BRACE, C_BRACE, O_SBRACKET, C_SBRACKET, COLONS,
+         COMMA, CLASSES, VARIABLES, METHODS, COMMENTS, STRING,
+         NAME, TYPE, FUNCTION, PARAMETERS, TEXT, SCORE, COM, INTEGER;     
+
+/* Non terminals */
+non terminal initial, internal_json, all_estructures, score_estructure, classes_estructure,
+             internal_class, variables_estructure, internal_variable, variable_declaration,
+             method_estructure, internal_method, method_declaration, comments_estructure,
+             internal_comment, name_estructure, type_estructure, parameters_estructure, 
+             functions_estructure, comments_estructure_general;
+
+/* The Precedence rules*/
+
+start with initial;
+
+/* The grammar rules */
+initial::= O_BRACE internal_json C_BRACE;
+
+internal_json::= all_estructures
+               | all_estructures COMMA internal_json
+               | error all_estructures
+               ;
+
+all_estructures::= score_estructure
+                 | classes_estructure
+                 | variables_estructure
+                 | method_estructure
+                 | comments_estructure_general
+                 ;
+
+//SCORE
+score_estructure::= SCORE COLONS STRING:score                                  {:record.addScore(Double.parseDouble(String.valueOf(score).replaceAll("\"", "")));:}
+                  ; 
+
+//CLASSES
+classes_estructure::= CLASSES COLONS O_SBRACKET internal_class C_SBRACKET       {:record.countCClass();:}
+                    | CLASSES COLONS O_SBRACKET C_SBRACKET                      {:record.countCClass();:}
+                    ;
+
+internal_class::= O_BRACE name_estructure:name C_BRACE                          {:record.addClass(String.valueOf(name));:}
+                | O_BRACE name_estructure:name C_BRACE COMMA internal_class     {:record.addClass(String.valueOf(name));:}
+                | error internal_class
+                ;
+
+//VARIABLES
+variables_estructure::= VARIABLES COLONS O_SBRACKET internal_variable C_SBRACKET        {:record.countCVar();:}
+                      | VARIABLES COLONS O_SBRACKET C_SBRACKET                          {:record.countCVar();:}
+                      ;
+
+internal_variable::= variable_declaration
+                   | variable_declaration COMMA internal_variable
+                   | error internal_variable
+                   ;
+
+variable_declaration::= O_BRACE name_estructure:name COMMA type_estructure:type COMMA functions_estructure:func C_BRACE {:record.addVar(String.valueOf(name), String.valueOf(type), String.valueOf(func));:}
+                      ;
+
+//METHODS
+method_estructure::= METHODS COLONS O_SBRACKET internal_method C_SBRACKET               {:record.countCMethod();:}
+                   | METHODS COLONS O_SBRACKET C_SBRACKET                               {:record.countCMethod();:}
+                   ;
+
+internal_method::= method_declaration
+                 | method_declaration COMMA internal_method
+                 | error internal_method
+                 ;
+
+method_declaration::= O_BRACE name_estructure:name COMMA type_estructure:type COMMA parameters_estructure:amount C_BRACE {:
+                                                                                                                                if (amount != null){
+                                                                                                                                        record.addMethod(String.valueOf(name), String.valueOf(type),Integer.parseInt(amount.toString()));
+                                                                                                                                }else{
+                                                                                                                                        errors.add(new ErrorLP(cur_token.left, cur_token.right, cur_token.value.toString(), 1, "Se esperaba un número entero"));
+                                                                                                                                }
+                                                                                                                        :}
+                    ;
+
+//COMMENTS
+comments_estructure_general::= COMMENTS COLONS O_SBRACKET internal_comment C_SBRACKET   {:record.countCComm();:}
+                             | COMMENTS COLONS O_SBRACKET C_SBRACKET                    {:record.countCComm();:}
+                             ;
+
+internal_comment::= O_BRACE comments_estructure C_BRACE
+                  | O_BRACE comments_estructure C_BRACE COMMA internal_comment
+                  | error internal_comment
+                  ;
+
+//GLOBAL ESTRUCTURES
+name_estructure::= NAME COLONS STRING:name              {:RESULT = String.valueOf(name);:}
+                 ;
+
+type_estructure::= TYPE COLONS STRING:type              {:RESULT = String.valueOf(type);:}
+                 ;
+
+parameters_estructure::= PARAMETERS COLONS INTEGER:c    {:RESULT = Integer.valueOf(String.valueOf(c));:}
+                       ;
+
+functions_estructure::= FUNCTION COLONS STRING:function {:RESULT = String.valueOf(function);:}
+                      ;
+
+comments_estructure::= TEXT COLONS COM:com              {:record.addComment(String.valueOf(com));:}
+                     | TEXT COLONS STRING:com           {:record.addComment(String.valueOf(com));:}
+                     ;

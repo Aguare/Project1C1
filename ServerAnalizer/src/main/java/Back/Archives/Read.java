@@ -7,6 +7,7 @@ import Back.Objects.ClassInfo;
 import java.io.File;
 import java.io.FileReader;
 import java.io.Reader;
+import java.net.Socket;
 import java.util.ArrayList;
 
 /**
@@ -28,8 +29,8 @@ public class Read {
         for (File file : archives) {
             try {
                 Reader reader = new FileReader(file);
-                Lexer lexer = new Lexer(reader, file.getName(), file.getParent());
-                Sintactic sintac = new Sintactic(lexer, file.getName(), file.getParent());
+                Lexer lexer = new Lexer(reader, file.getName());
+                Sintactic sintac = new Sintactic(lexer, file.getName());
                 sintac.parse();
                 errors.addAll(lexer.getErrors());
                 errors.addAll(sintac.getErrors());

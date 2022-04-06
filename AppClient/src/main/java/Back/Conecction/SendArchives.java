@@ -1,6 +1,8 @@
 package Back.Conecction;
 
 import Back.Archives.ClassCompare;
+import Back.Archives.ServerSend;
+import java.io.File;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
@@ -22,8 +24,15 @@ public class SendArchives {
         String response = "NO HAY RESPUESTA";
         try {
             Socket socket = new Socket("127.0.0.1", 9999);
+            ServerSend send = new ServerSend(socket.getInputStream(), socket.getOutputStream());
             ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
             out.writeObject(archives);
+            for (File file : archives.getC1()) {
+                send.sendFile(file);
+            }
+            for (File file : archives.getC2()) {
+                send.sendFile(file);
+            }
             ObjectInputStream in = new ObjectInputStream(socket.getInputStream());
             response = in.readUTF();
             out.close();

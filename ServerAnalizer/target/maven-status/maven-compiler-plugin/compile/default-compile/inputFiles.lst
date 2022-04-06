@@ -1,5 +1,6 @@
 /home/aguare/Documents/Github/Project1C1/ServerAnalizer/src/main/java/Back/Archives/Read.java
 /home/aguare/Documents/Github/Project1C1/ServerAnalizer/src/main/java/Front/LineNumber.java
+/home/aguare/Documents/Github/Project1C1/ServerAnalizer/src/main/java/Back/Archives/ServerSend.java
 /home/aguare/Documents/Github/Project1C1/ServerAnalizer/src/main/java/Front/Console.java
 /home/aguare/Documents/Github/Project1C1/ServerAnalizer/src/main/java/Back/Analizers/Lexer.java
 /home/aguare/Documents/Github/Project1C1/ServerAnalizer/src/main/java/Back/Controller/SaveInfo.java
@@ -16,3 +17,4 @@
 /home/aguare/Documents/Github/Project1C1/ServerAnalizer/src/main/java/Back/Analizers/ErrorLP.java
 /home/aguare/Documents/Github/Project1C1/ServerAnalizer/src/main/java/Back/Analizers/sym.java
 /home/aguare/Documents/Github/Project1C1/ServerAnalizer/src/main/java/Back/Objects/TypeVar.java
+/home/aguare/Documents/Github/Project1C1/ServerAnalizer/src/main/java/Back/Archives/ControlServer.java
