@@ -7,7 +7,6 @@ import Back.Objects.ClassInfo;
 import java.io.File;
 import java.io.FileReader;
 import java.io.Reader;
-import java.net.Socket;
 import java.util.ArrayList;
 
 /**
@@ -36,7 +35,7 @@ public class Read {
                 errors.addAll(sintac.getErrors());
                 result.add(sintac.getResult(lexer.getComments()));
             } catch (Exception e) {
-                errors.add(new ErrorLP(0, 0, "", 1, "ERROR EN EL ANÁLISIS DEL ARCHIVO -> " + file.getName()));
+                errors.add(new ErrorLP(0, 0, "", 1, "ERROR EN EL ANÁLISIS DEL ARCHIVO -> " + file.getName(), null));
             }
         }
         return result;

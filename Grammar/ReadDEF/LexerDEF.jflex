@@ -24,7 +24,7 @@ import Back.Analizers.ErrorLP;
     }
 
     public void addError(String lexema, int line, int column){
-        errors.add(new ErrorLP(line, column, lexema, 0, "El símbolo no se reconoce "));
+        errors.add(new ErrorLP(line, column, lexema, 0, "El símbolo no se reconoce", null));
     }
 
     public ArrayList<ErrorLP> getErrors(){
@@ -62,7 +62,7 @@ import Back.Analizers.ErrorLP;
                 type = isClose ? symDEF.FOR_C : symDEF.FOR;
                 return new Symbol(type, yyline+1, yycolumn+1, yytext());
             default:
-                errors.add(new ErrorLP(line, column, text, 0, "No corresponde a una etiqueta HTML"));
+                errors.add(new ErrorLP(line, column, text, 0, "No corresponde a una etiqueta HTML", null));
                 return new Symbol(symDEF.UNDEFINED, yyline+1, yycolumn+1, yytext());
         }
     }

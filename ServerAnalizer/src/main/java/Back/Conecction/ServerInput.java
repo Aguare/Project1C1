@@ -38,27 +38,29 @@ public class ServerInput extends Thread {
         try {
             ServerSocket in = new ServerSocket(9999);
             while (true) {
-                Socket socket = in.accept();
-                ObjectInputStream entry = new ObjectInputStream(socket.getInputStream());
-                ClassCompare classes = (ClassCompare) entry.readObject();
-                if (classes != null) {
-                    read = new Read();
-                    ArrayList<ClassInfo> c1 = read.analizeArchives(receivedArchives(socket, 1, classes.getC1()));
-                    writeConsole(read.getErrors());
-                    read = new Read();
-                    ArrayList<ClassInfo> c2 = read.analizeArchives(receivedArchives(socket, 2, classes.getC1()));
-                    writeConsole(read.getErrors());
-                    c = new Compare(c1, c2);
-                    c.runAnalysis();
-                    //Reponse
-                    ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream());
-                    out.writeUTF(create.generateJSON(c.getClass_r(), c.getVar_r(), c.getFunction_r(), c.getComments_r(), c.getScore()));
-                    writeConsole("Se han analizado los proyectos");
-                    new ControlServer().setup();
-                    out.close();
+                try (Socket socket = in.accept()) {
+                    ObjectInputStream entry = new ObjectInputStream(socket.getInputStream());
+                    ClassCompare classes = (ClassCompare) entry.readObject();
+                    ArrayList<File> files1 = receivedArchives(socket, 1, classes.getC1());
+                    ArrayList<File> files2 = receivedArchives(socket, 1, classes.getC2());
+                    if (classes != null) {
+                        read = new Read();
+                        ArrayList<ClassInfo> c1 = read.analizeArchives(files1);
+                        writeConsole(read.getErrors());
+                        read = new Read();
+                        ArrayList<ClassInfo> c2 = read.analizeArchives(files2);
+                        writeConsole(read.getErrors());
+                        c = new Compare(c1, c2);
+                        c.runAnalysis();
+                        try ( //Reponse
+                                ObjectOutputStream out = new ObjectOutputStream(socket.getOutputStream())) {
+                            out.writeUTF(create.generateJSON(c.getClass_r(), c.getVar_r(), c.getFunction_r(), c.getComments_r(), c.getScore()));
+                            writeConsole("Se han analizado los proyectos");
+                            new ControlServer().setup();
+                        }
+                    }
+                    entry.close();
                 }
-                entry.close();
-                socket.close();
             }
         } catch (IOException | ClassNotFoundException ex) {
             writeConsole(ex.getMessage());
@@ -78,8 +80,10 @@ public class ServerInput extends Thread {
                 }
                 reader = new File("tmp/JAVA/P" + p + "/" + file.getName());
                 c1.add(reader);
+                writeConsole(send.getErrors());
             }
-        } catch (Exception e) {
+        } catch (IOException e) {
+            writeConsole(e.getMessage());
         }
         return c1;
     }

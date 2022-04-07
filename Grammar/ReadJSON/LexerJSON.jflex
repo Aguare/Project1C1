@@ -22,7 +22,7 @@ import Back.Analizers.ErrorLP;
     private ArrayList<ErrorLP> errors = new ArrayList<>();
 
     public void addError(String lexema, int line, int column){
-        errors.add(new ErrorLP(line, column, lexema, 0, "El símbolo no se reconoce "));
+        errors.add(new ErrorLP(line, column, lexema, 0, "El símbolo no se reconoce ", null));
     }
 
     public ArrayList<ErrorLP> getErrors(){

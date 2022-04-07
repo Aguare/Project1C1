@@ -59,9 +59,9 @@ public class Compare {
             score += ((this.function_r.size() / total_functions) * 0.25);
         }
         //classes
-        int total = (c1.size() + c2.size());
+        double total = (c1.size() + c2.size());
         if (total != 0) {
-            score += ((this.class_r.size() / (c1.size() + c2.size())) * 0.25);
+            score += ((this.class_r.size() / total) * 0.25);
         }
     }
 
@@ -178,6 +178,7 @@ public class Compare {
             if (c.getName().equals(ce.getName()) && c.getFunctions().size() == ce.getFunctions().size()) {
                 if (compareFunctionClass(c.getFunctions(), ce.getFunctions())) {
                     class_r.add(new Repeated(TypeEs.CLASS, c.getName()));
+                    break;
                 }
             }
         }

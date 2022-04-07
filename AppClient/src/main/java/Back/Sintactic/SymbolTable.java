@@ -28,7 +28,7 @@ public class SymbolTable {
     public void declaratedVar(String id, String value, String type, int line, int column) {
         value = value.replaceAll("\"", "");
         if (existsVar(id)) {
-            errors.add(new ErrorLP(line, column, id, 3, "La variable ya está definida"));
+            errors.add(new ErrorLP(line, column, id, 3, "La variable ya está definida", null));
         } else {
             if (getType(type) == TypeVar.INTEGER) {
                 declaratedInt(id, value, TypeVar.INTEGER, line, column);
@@ -46,7 +46,7 @@ public class SymbolTable {
             if (o != null) {
                 table.put(id, new Variable(type, "" + (int) o, id));
             } else {
-                errors.add(new ErrorLP(line, column, id, 3, "Imposible asignar letras a un Entero"));
+                errors.add(new ErrorLP(line, column, id, 3, "Imposible asignar letras a un Entero", null));
             }
         }
     }
@@ -62,7 +62,7 @@ public class SymbolTable {
                 table.put(id, var);
             }
         } else {
-            errors.add(new ErrorLP(line, column, id, 3, "La variable aún no está definida"));
+            errors.add(new ErrorLP(line, column, id, 3, "La variable aún no está definida", null));
         }
     }
 
@@ -72,7 +72,7 @@ public class SymbolTable {
             var.setValue("" + (int) o);
             table.put(var.getId(), var);
         } else {
-            errors.add(new ErrorLP(line, column, var.getId(), 3, "Imposible asignar letras a un Entero"));
+            errors.add(new ErrorLP(line, column, var.getId(), 3, "Imposible asignar letras a un Entero", null));
         }
     }
 
@@ -81,7 +81,7 @@ public class SymbolTable {
             Variable var = (Variable) table.get(id);
             return var.getValue();
         } else {
-            errors.add(new ErrorLP(line, column, id, 3, "La variable aún no está definida"));
+            errors.add(new ErrorLP(line, column, id, 3, "La variable aún no está definida", null));
             return "";
         }
     }
@@ -95,7 +95,7 @@ public class SymbolTable {
         if (o != null) {
             return json.getClasses().get((int) o);
         } else {
-            errors.add(new ErrorLP(line, column, "Clases[" + n + "]", 3, "El valor no existe"));
+            errors.add(new ErrorLP(line, column, "Clases[" + n + "]", 3, "El valor no existe", null));
             return "";
         }
     }
@@ -105,7 +105,7 @@ public class SymbolTable {
         if (o != null) {
             return json.getComments().get((int) o);
         } else {
-            errors.add(new ErrorLP(line, column, "Comentarios[" + n + "]", 3, "El valor no existe"));
+            errors.add(new ErrorLP(line, column, "Comentarios[" + n + "]", 3, "El valor no existe", null));
             return "";
         }
     }
@@ -115,7 +115,7 @@ public class SymbolTable {
         if (o != null) {
             return json.getVariables().get((int) o);
         } else {
-            errors.add(new ErrorLP(line, column, "Variables[" + n + "]", 3, "El valor no existe"));
+            errors.add(new ErrorLP(line, column, "Variables[" + n + "]", 3, "El valor no existe", null));
             return new VarInfo("", "", "");
         }
     }
@@ -125,7 +125,7 @@ public class SymbolTable {
         if (o != null) {
             return json.getMethod().get((int) o);
         } else {
-            errors.add(new ErrorLP(line, column, "Metodos[" + n + "]", 3, "El valor no existe"));
+            errors.add(new ErrorLP(line, column, "Metodos[" + n + "]", 3, "El valor no existe", null));
             return new MethodInfo("", "", 0);
         }
     }

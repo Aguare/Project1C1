@@ -27,7 +27,11 @@ parser code {:
 
         public void addError(Symbol token) {
                 try {
-                        errors.add(new ErrorLP(token.left, token.right, token.value.toString(), 1, "No se esperaba el simbolo"));
+                        ArrayList<String> list = new ArrayList<>();
+                        for (Integer ex : expected_token_ids()) {
+                                list.add(symJSON.terminalNames[ex]);
+                        }
+                        errors.add(new ErrorLP(token.left, token.right, token.value.toString(), 1, "No se esperaba el simbolo", list));
                 } catch (Exception e) {
                 }
         }
@@ -114,7 +118,7 @@ method_declaration::= O_BRACE name_estructure:name COMMA type_estructure:type CO
                                                                                                                                 if (amount != null){
                                                                                                                                         record.addMethod(String.valueOf(name), String.valueOf(type),Integer.parseInt(amount.toString()));
                                                                                                                                 }else{
-                                                                                                                                        errors.add(new ErrorLP(cur_token.left, cur_token.right, cur_token.value.toString(), 1, "Se esperaba un número entero"));
+                                                                                                                                        errors.add(new ErrorLP(cur_token.left, cur_token.right, cur_token.value.toString(), 1, "Se esperaba un número entero",null));
                                                                                                                                 }
                                                                                                                         :}
                     ;

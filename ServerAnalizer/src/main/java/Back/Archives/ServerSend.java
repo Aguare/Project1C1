@@ -1,5 +1,6 @@
 package Back.Archives;
 
+import Back.Analizers.ErrorLP;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
@@ -7,6 +8,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 
 /**
  *
@@ -16,6 +18,7 @@ public class ServerSend {
 
     DataInputStream inputStream;
     DataOutputStream outputStream;
+    ArrayList<ErrorLP> errors = new ArrayList<>();
 
     public ServerSend(InputStream inputStream, OutputStream outputStream) {
         this.inputStream = new DataInputStream(inputStream);
@@ -32,7 +35,7 @@ public class ServerSend {
                 this.outputStream.flush();
             }
         } catch (Exception ex) {
-            System.out.println("ERROR SENDING FILE " + ex.getMessage());
+            errors.add(new ErrorLP(0, 0, "", 1, "Error en el envío del archivo -> " + file.getName() + "\n" + ex.getMessage(), null));
         }
     }
 
@@ -47,10 +50,14 @@ public class ServerSend {
             byte[] buffer = new byte[4 * 1024];
             while (size > 0 && (bytes = this.inputStream.read(buffer, 0, (int) Math.min(buffer.length, size))) != -1) {
                 fileOutputStream.write(buffer, 0, bytes);
-                size -= bytes;// read up to file size
+                size -= bytes;
             }
         } catch (Exception e) {
-            System.out.println("ERROR RECEIVING FILE: " + e.getMessage());
+            errors.add(new ErrorLP(0, 0, "", 1, "Error al recibir el archivo -> " + file.getName() + "\n" + e.getMessage(), null));
         }
+    }
+
+    public ArrayList<ErrorLP> getErrors() {
+        return errors;
     }
 }

@@ -38,12 +38,12 @@ public class RecordJSON {
     private void verifyAmount(int amount, String type) {
         switch (amount) {
             case 0:
-                error.add(new ErrorLP(0, 0, "", 0, "Se esperaba una declaración de " + type));
+                error.add(new ErrorLP(0, 0, "", 0, "Se esperaba una declaración de " + type, null));
                 break;
             case 1:
                 break;
             default:
-                error.add(new ErrorLP(0, 0, "", 0, amount + " declaraciones de " + type + ", solo se tomará en cuenta la primera"));
+                error.add(new ErrorLP(0, 0, "", 0, amount + " declaraciones de " + type + ", solo se tomará en cuenta la primera", null));
                 break;
         }
     }

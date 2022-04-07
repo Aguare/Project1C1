@@ -22,7 +22,7 @@ public class Read {
                     archives.add(file);
                 }
             } else {
-                inputDirectory(file);
+                archives.addAll(inputDirectory(file));
             }
         }
         return archives;
