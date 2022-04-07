@@ -328,6 +328,8 @@ public class Main extends javax.swing.JFrame {
             charge = new ChargeJSON(consoleText, reader);
             charge.chargeJSON();
             JOptionPane.showMessageDialog(this, "Se analizaron los proyectos", "EXITO", JOptionPane.INFORMATION_MESSAGE);
+        }else{
+            JOptionPane.showMessageDialog(this, "Error al analizar los proyectos", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_newProjectActionPerformed
 

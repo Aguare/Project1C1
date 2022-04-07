@@ -397,11 +397,11 @@ public class SintacticDEF extends java_cup.runtime.lr_parser {
 
         public void addError(Symbol token) {
                 try {
-                        errors.add(new ErrorLP(token.left, token.right, token.value.toString(), 1, "No se esperaba el simbolo"));
-                        for (Integer i : expected_token_ids()) {
-                                System.out.println("Se esperaba -> "+symDEF.terminalNames[i]);
+                        ArrayList<String> list = new ArrayList<>();
+                        for (Integer ex : expected_token_ids()) {
+                                list.add(symDEF.terminalNames[ex]);
                         }
-                printStack();
+                        errors.add(new ErrorLP(token.left, token.right, token.value.toString(), 1, "No se esperaba el simbolo", list));
                 } catch (Exception e) {
                 }
         }
@@ -420,16 +420,6 @@ public class SintacticDEF extends java_cup.runtime.lr_parser {
 
         public RecordHTML getRecord(){
                 return record;
-        }
-
-        public void printStack(){
-            for (Object o : stack) {
-                if (o instanceof Symbol) {
-                    if (((Symbol) o).value != null) {
-                        System.out.println("L: " + ((Symbol) o).left + " C: " + ((Symbol) o).right + " Tipo:" + symDEF.terminalNames[((Symbol) o).sym] + "\t Content: " + ((Symbol) o).value.toString());
-                    }
-                }
-            }
         }
 
 
@@ -979,7 +969,7 @@ class CUP$SintacticDEF$actions {
                                                                                                                 RESULT = (int)(n11 / n22);
                                                                                                                 break;
                                                                                                         default:
-                                                                                                                errors.add(new ErrorLP(n1left, n1right, "", 3, "Operador no soportado"));
+                                                                                                                errors.add(new ErrorLP(n1left, n1right, "", 3, "Operador no soportado",null));
                                                                                                                 break;
                                                                                                 }
                                                                                            

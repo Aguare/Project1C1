@@ -30,7 +30,11 @@ parser code {:
 
         public void addError(Symbol token) {
                 try {
-                        errors.add(new ErrorLP(token.left, token.right, token.value.toString(), 1, "No se esperaba Archivo: " + name_archive));
+                        ArrayList<String> list = new ArrayList<>();
+                        for (Integer ex : expected_token_ids()) {
+                                list.add(sym.terminalNames[ex]);
+                        }
+                        errors.add(new ErrorLP(token.left, token.right, token.value.toString(), 1, "No se esperaba Archivo: " + name_archive, list));
                 } catch (Exception e) {
                 }
         }
@@ -219,6 +223,7 @@ return_estructure::= RETURN internal_return SEMICOLON;
 internal_return::= ID
                  | types_values
                  | new_estructure
+                 | logical_comparation
                  ;                                  
 
 /*All declarations for if*/

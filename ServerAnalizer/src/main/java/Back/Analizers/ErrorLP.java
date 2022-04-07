@@ -1,5 +1,7 @@
 package Back.Analizers;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author aguare
@@ -12,13 +14,15 @@ public class ErrorLP {
     // 0 Lexer, 1 Sintactic 
     private int typeError;
     private String message;
+    private ArrayList<String> expected;
 
-    public ErrorLP(int line, int column, String content, int typeError, String message) {
+    public ErrorLP(int line, int column, String content, int typeError, String message, ArrayList<String> expected) {
         this.line = line;
         this.column = column;
         this.content = content;
         this.typeError = typeError;
         this.message = message;
+        this.expected = expected;
     }
 
     public int getLine() {
@@ -62,19 +66,37 @@ public class ErrorLP {
     }
 
     public String getTypeError(int type) {
-        if (type == 0) {
-            return "Error Léxico";
-        } else {
-            return "Error Sintáctico";
+        switch (type) {
+            case 0:
+                return "Error Léxico";
+            case 1:
+                return "Error Sintáctico";
+            default:
+                return "Error ";
         }
+    }
+
+    private String getExpected() {
+        String num = "";
+        for (int i = 0; i < expected.size(); i++) {
+            if (i != expected.size() - 1) {
+                num = num + expected.get(i) + ",";
+            } else {
+                num = num + expected.get(i);
+            }
+        }
+        return num;
     }
 
     @Override
     public String toString() {
         if (line == 0 && column == 0) {
             return message;
+        }
+        if (expected != null & !expected.isEmpty()) {
+            return getTypeError(typeError) + " -> L:" + line + "\tC:" + column + "\t ' " + content + " ' " + message + " Se esperaba -> " + getExpected();
         } else {
-            return getTypeError(typeError) + " -> L:" + line + "\tC:" + column + "\t { " + content + " } " + message;
+            return getTypeError(typeError) + " -> L:" + line + "\tC:" + column + "\t ' " + content + " ' " + message;
         }
     }
 

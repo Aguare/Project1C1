@@ -40,7 +40,7 @@ public class RecordHTML {
             this.max = (int) b;
             iterator = init;
         } else {
-            table.addError(new ErrorLP(line, column, "iterador:" + init + " hasta:" + max, 3, "Valores inválidos"));
+            table.addError(new ErrorLP(line, column, "iterador:" + init + " hasta:" + max, 3, "Valores inválidos", null));
         }
 
     }
@@ -140,8 +140,10 @@ public class RecordHTML {
                 return table.getVar(ins.getN(), ins.getLine(), ins.getColumn()).getAttibute(ins.getOp());
             case GETMETHOD:
                 return table.getMethod(ins.getN(), ins.getLine(), ins.getColumn()).getAttibute(ins.getOp());
+            case CLASS:
+                return table.getClass(ins.getN(), ins.getLine(), ins.getColumn());
             default:
-                return "ERROR RECORD HTML";
+                return "";
         }
     }
 

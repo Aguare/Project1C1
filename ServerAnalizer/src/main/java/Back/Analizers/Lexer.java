@@ -526,7 +526,7 @@ public class Lexer implements java_cup.runtime.Scanner {
     private String name_archive;
 
     public void addError(String lexema, int line, int column){
-        errors.add(new ErrorLP(line, column, lexema, 0, "El símbolo no se reconoce Archivo: " + name_archive));
+        errors.add(new ErrorLP(line, column, lexema, 0, "El símbolo no se reconoce Archivo: " + name_archive, null));
     }
 
     public ArrayList<ErrorLP> getErrors(){
